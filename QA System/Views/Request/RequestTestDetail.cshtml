@@ -1,0 +1,64 @@
+﻿@model QA_System.Models.RequestTestModels
+@using QA_System.Models
+@{
+    ViewBag.Title = "Request Test Detail";
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title. </h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                
+            </p>
+        </div>
+    </section>
+}
+
+@Html.Action("RequestView", "PartialView", new { requestModel= Model})  
+ 
+<div class="fieldLine">
+    <h1>Test Information</h1>
+</div>
+<div class="fieldLine">
+    <hr />
+</div>
+<div class="fieldShow">
+    @Html.Label("Test Status")  @QA_System.Classes.Utils.DisplayName(Model.TestModel.Status)
+</div>
+<div class="fieldShow">
+    @Html.Label("Test Result") @QA_System.Classes.Utils.DisplayName(Model.TestModel.Result)
+</div>
+<div class="fieldShow">
+    @Html.Label("Code Evaluate")  @QA_System.Classes.Utils.DisplayName(Model.TestModel.CodeEvaluate)
+</div>
+<div class="fieldShow">
+    @Html.Label("Tester")  @Model.TestModel.TesterName
+</div>
+<div class="fieldLine">
+    <label>Comments</label>
+    <div class="commentsDiv">
+    @{
+        if (Model.TestModel.Comments.Count > 0)    
+        {
+            foreach(var comment in Model.TestModel.Comments)
+            {
+                <span>
+                @comment.AddUser  added a comment -  @comment.AddDate.ToString("MM/dd/yyyy h:mm tt") <br />@comment.Comments  <br /><br />
+                </span>
+            }
+        }
+    }
+    </div>
+</div>
+
+@Html.Action("TestIssueView", "PartialView", new { requestModel= Model})
+
+<br />
+<a href="javascript:void(0)" class="easyui-linkbutton" onclick="window.history.go(-1)">Back</a> 
+
+
+

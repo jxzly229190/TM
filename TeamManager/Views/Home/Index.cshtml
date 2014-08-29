@@ -1,0 +1,330 @@
+﻿@model IEnumerable<Tuple<string, string, string>>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $('input[name="check"]').each(function () {
+            var status = $(this).parent().parent().next().children().first().text();
+            if (status == "Reported") {
+                $(this).attr("disabled", true);
+            }
+        });
+
+        $("#sendEmail").click(function () {
+            var chk_value = new Array();
+            $('input[name="check"]:checked').each(function () {
+                chk_value.push($(this).val());
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/UserAlert/SendEmail",
+                data: { "names": chk_value },
+                dataType: "html",
+                traditional: true,
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                }
+            });
+        });
+    });
+    //$(document).ready(function(){
+
+    //    $('input[name="check"]').each(function () {
+    //        var status = $(this).parent().parent().next().children().first().text();
+    //        if (status == "Reported") {
+    //            $(this).attr("disabled", true);
+    //        }
+    //    });
+
+    //    $("#sendEmail").click(function () {
+    //        var chk_value = new Array();
+    //        $('input[name="check"]:checked').each(function () {
+    //            chk_value.push($(this).val());
+    //        });
+
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/UserAlert/SendEmail",
+    //            data: { "names": chk_value },
+    //            dataType: "html",
+    //            traditional: true,
+    //            success: function (result) {
+    //                alert(result);
+    //                location.reload();
+    //            }
+    //        });
+    //    });
+    //});
+</script>
+
+@if (User.Identity.Name.Split(',')[1] != "Trainee")
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My Today's Report</h3>
+                </div>
+                <div id="report" class="panel-body">
+                    @if (ViewData["MyTodayReport"] == "")
+                    {
+                        <em><b>input your today's daily report&nbsp @Html.ActionLink("Go", "Create", "Reports")</b></em>                                               
+                    }
+                    else
+                    {
+                        @Html.Raw(ViewData["MyTodayReport"])
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Daily Report Status</h3>
+                </div>
+                <div id="reportStatus" class="panel-body">
+                    <p>
+                        <button class="btn btn-default" id="sendEmail">SendEmail</button>
+                    </p>
+                    <table class="table table-condensed table-hover">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><span class="checkbox">
+                                    <input type="checkbox" name="check" value="@item.Item1">@item.Item2</span></td>
+                                <td><span class="checkbox">@item.Item3</span></td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">This Week's Break Off</h3>
+                </div>
+                @*<div class="panel-body">*@
+                <div id="thisweekbreakoff" class="table-responsive">
+                    <table id="weekbreakoff" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>UserName</th>
+                                <th>DateFrom</th>
+                                <th>DateTo</th>
+                                <th>CutFrom</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in (IEnumerable<TeamManager.Models.BreakOffTable>)ViewData["WeekBreakOff"])
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.user.UserName)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:yyyy/MM/dd HH:mm:ss}", item.breakoff.BreakOffFrom)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:yyyy/MM/dd HH:mm:ss}", item.breakoff.BreakOffTo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.breakoff.CutFrom)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.time)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.breakoff.Status)
+                                    </td>
+                                </tr>
+                            }
+                            @if (((IEnumerable<TeamManager.Models.BreakOffTable>)ViewData["WeekBreakOff"]).Count() == 0)
+                            {
+                                <tr>
+                                    <td><em>There is no record.</em></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @* </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">This Week's Trainee Attendance</h3>
+            </div>
+            @* <div class="panel-body">*@
+            <div id="traineeMan" class="table-responsive">
+                <table id="traineeManager" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>UserName</th>
+                            <th>Date</th>
+                            <th>Count</th>
+                            <th>Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in (IEnumerable<TeamManager.Models.TraineeTable>)ViewData["traineeAttendance"])
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.user.UserName)
+                                </td>
+                                <td>
+                                    @string.Format("{0:yyyy/MM/dd}", item.trainee.AttendanceFrom)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.time)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.trainee.Comments)
+                                </td>
+                            </tr>
+                        }
+                        @if (((IEnumerable<TeamManager.Models.TraineeTable>)ViewData["traineeAttendance"]).Count() == 0)
+                        {
+                            <tr>
+                                <td><em>There is no record.</em></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @*</div>*@
+            </div>
+        </div>
+    </div>
+</div>
+@if (User.Identity.Name.Split(',')[0] == "yemol")
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Break Off Request</h3>
+                </div>
+                @*<div class="panel-body">*@
+                <div id="breakoffrequest" class="table-responsive">
+                    <table id="breakrequest" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>UserName</th>
+                                <th>DateFrom</th>
+                                <th>DateTo</th>
+                                <th>CutFrom</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in (IEnumerable<TeamManager.Models.BreakOffTable>)ViewData["BreakOffRequest"])
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.user.UserName)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:yyyy/MM/dd HH:mm:ss}", item.breakoff.BreakOffFrom)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:yyyy/MM/dd HH:mm:ss}", item.breakoff.BreakOffTo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.breakoff.CutFrom)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.time)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.breakoff.Status)
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><em><b>Process Break Off request. @Html.ActionLink("GO", "Index", "BreakOffManager")</b></em></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    @*</div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Over Time Request</h3>
+                </div>
+                @*<div class="panel-body">*@
+                <div id="overTime" class="table-responsive">
+                    <table id="OverTime" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>UserName</th>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in (IEnumerable<TeamManager.Models.OverTimeTable>)ViewData["OverTimeRequest"])
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.user.UserName)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:yyyy/MM/dd}", item.overtime.OnDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.overtime.Hours)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.overtime.Status)
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><em><b>Process Work Over time request. @Html.ActionLink("GO", "Index", "OverTimeManager")</b></em></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @* </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+}

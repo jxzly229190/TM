@@ -1,0 +1,95 @@
+﻿@model List<TeamManager.Models.Monthly>
+@{
+    ViewBag.Title = "SendEmail";
+}
+<h2>Monthly Appraisal</h2>
+
+
+ 
+@using (Html.BeginForm("ExportAppraisal", "Appraisal", FormMethod.Post, new { @class = "form-inline" }))
+{
+   @Html.DropDownList("GroupName", ViewData["ListItem"] as SelectList, "Choose", new { @class = "form-control" })
+
+     @*<div style="margin-left: 8px">
+        <label class="text-info">StartDate:</label>
+        <div class="form-group">
+           @Html.TextBox("startDate")
+        </div>
+        <label class="text-info">SearchTo:</label>
+        <div class="form-group">
+             @Html.TextBox("endDate")
+        </div>
+        <button id="search" type="submit" class="btn btn-primary">Search</button>
+    </div>*@
+    
+    <label class="text-info">StartDate:</label>
+    @Html.TextBox("startDate", ViewData["startDate"], new { @class="form-control"})
+    @*<input id="startDate" name="startDate" type="text"  class="form-control"/>*@
+    <label class="text-info">EndDate:</label>
+    @Html.TextBox("endDate",ViewData["endDate"],new{@class="form-control"})
+    @*<input id="endDate" name="endDate" type="text" class="form-control"/>*@
+    <input id="query" type="button" value="Search" class="btn btn-warning"/>
+    <input id="export" type="submit" value="Export" class="btn btn-danger"/>
+} 
+ 
+<div id="list"></div>
+<input type="button" id="send" name="send" value="SendEmail"  class="btn btn-primary" style="margin-top:20px"/>
+
+<script>
+    $(function () {
+        //$("#startDate,#endDate").datepicker();
+        $("#startDate,#endDate").attr({ class: "form-control", placeholder: "Time" });
+        $("#startDate,#endDate").datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: true,
+            forceParse: 0,
+            showMeridian: 0,
+            minView: 2,
+            format: "mm/dd/yyyy"
+        });
+
+        $("#GroupName").change(DisaplayMember);
+        $("#query").click(DisaplayMember);
+
+        $("#send").click(SendEmail);
+    });
+    function DisaplayMember() {
+        var groupName = $("#GroupName option:selected").text();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        $.ajax({
+            type: "POST",
+            url: "/Appraisal/List",
+            data: { "groupName": groupName, "startDate": startDate, "endDate": endDate },
+            dataType: "html",
+            success: function (result) {
+                $("#list").html(result);                  
+            }
+        });
+    }
+     
+    function SendEmail() {
+        $(this).attr("value", "Sending...");
+        $(this).attr("disabled", "true");
+
+        var groupName = $("#GroupName option:selected").text();
+        var table = $("#list").html();
+        var tr = $("#list").find("tr").length;
+        var td = $("#list").find("td").length;
+        $.ajax({
+            type: "POST",
+            url: "/Appraisal/Email",
+            data: { "groupName": groupName, "table": encodeURI(table), "tr": tr, "td": td },
+            dataType: "html",
+            success: function (result) {
+                $("#send").attr("value", "SendEmail");
+                $("#send").removeAttr("disabled");
+                alert(result);
+            }
+        });
+
+    }
+</script>
+

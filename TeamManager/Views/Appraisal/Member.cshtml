@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TeamManager.DataProvider.UserAppraisal>
+
+
+<table class="table table-striped table-hover" style="margin-top:20px">
+    <tr>
+        <th style="width:25%">Name</th>
+        <th style="width:35%">Item</th>
+        <th style="width:40%">Score</th>
+    </tr>
+    @foreach (var member in Model)
+    {   
+        @Html.ValidationSummary(true)
+        <tr>
+            <td rowspan="4">
+                @Html.DisplayFor(item => member.UserName)
+            </td>
+            <td>Work Done
+            </td>
+            <td>
+                @Html.TextBox(member.UserID + "WorkDone", null,new { @class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td>Bug Created
+            </td>
+            <td>
+                @Html.TextBox(member.UserID+"BugCreated", null, new { @class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td>Work Quality
+            </td>
+            <td>
+                @Html.TextBox(member.UserID+"WorkQuality", null, new { @class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td>Daily Performance
+            </td>
+            <td>
+                @Html.TextBox(member.UserID+"DailyPerformance", null, new { @class="form-control"})
+            </td>
+        </tr> 
+    }
+</table>
+ 

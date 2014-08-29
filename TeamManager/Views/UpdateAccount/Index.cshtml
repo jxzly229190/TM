@@ -1,0 +1,197 @@
+﻿@model TeamManager.DataProvider.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#UserID,#UserName,#oldPassword,#newLoginPassword,#confirmLoginPassword,#EmailAddress,#EMAccount,#newEMPassword,#confirmEMPassword").attr({ class: "form-control" });
+        $("#UserID,#oldPassword").attr({ disabled: true });
+
+        $("#UserName").blur(function () {
+
+            VerifyNotNull($("#UserName"), $("#nameSpan"));
+        });
+
+        $("#confirmLoginPassword").blur(function () {
+
+            VerifyEqual($("#newLoginPassword"), $("#confirmLoginPassword"), $("#confirmSpan"));
+        });
+
+        $("#EmailAddress").blur(function () {
+
+            VerifyEmail($("#EmailAddress"), $("#emailSpan"));
+        });
+
+        //$("#update").submit(function () {
+
+        //    if ($("#EmailAddress").val() == "" || $("#UserName").val() == "" || $("#LoginPassword").val() == "") {
+        //        alert("The UserName,LoginPassword and EmailAddress is required.");
+        //        return false;
+        //    } else {
+        //        //var reg = /^([a-zA-Z0-9_-])+@@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+        //        var  reg = /^([a-zA-Z0-9_-]+[_|\_|\.]?)*[a-zA-Z0-9_-]+@@([a-zA-Z0-9_-]+[_|\_|\.]?)*[a-zA-Z0-9_-]+\.(?:com|cn)$/;
+        //        if (!reg.test($("#EmailAddress").val())) {
+        //            alert('The Email format is error.');
+        //            return false;
+        //        }
+        //    }
+        //});
+    });
+
+    function VerifyNotNull(obj, mesgTab) {
+
+        var objValue = obj.val();
+
+        if (objValue == "" || objValue == null || objValue == undefined) {
+
+            mesgTab.html("Please fill in this item!").css("color", "red");
+        }
+
+        else {
+            mesgTab.html("");
+        }
+    }
+
+    function VerifyEqual(obj1, obj2, mesgTab) {
+        var objValue1 = obj1.val();
+        var objValue2 = obj2.val();
+        if (objValue1 != objValue2) {
+            mesgTab.html("ConfirmPassword is incorrect!").css("color", "red");
+        }
+        else {
+            mesgTab.html("");
+        }
+    }
+
+    function VerifyEmail(obj, mesgTab) {
+        var patternEmail = /^([a-zA-Z0-9_-]+[_|\_|\.]?)*[a-zA-Z0-9_-]+@@([a-zA-Z0-9_-]+[_|\_|\.]?)*[a-zA-Z0-9_-]+\.(?:com|cn)$/;
+        var objValue = obj.val();
+        if (objValue == "" || objValue == null || objValue == undefined) {
+            mesgTab.html("Please fill in this item!").css("color", "red");
+        }
+        else {
+            if (!patternEmail.test(objValue)) {
+                mesgTab.html("Please fill in the correct email format!").css("color", "red");
+            }
+            else {
+                mesgTab.html("");
+            }
+        }
+    }
+
+ 
+
+
+    function OnSuccessPost(e) {
+        alert(e);
+        if (e == "Update Successfully.") {
+            location.href = "/Home/Index";
+        }
+        else {
+            location.reload();
+        }
+    }
+
+
+</script>
+
+@using (Ajax.BeginForm("Index", "UpdateAccount", null, new AjaxOptions
+{
+    HttpMethod = "Post",
+    OnSuccess = "OnSuccessPost"
+}, new { @class = "form-horizontal", id = "update" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Update Account Info</legend>
+
+        <div class="form-group">
+            <label for="UserID" class="col-sm-2 control-label">UserID</label>
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.UserID)
+                @Html.ValidationMessageFor(model => model.UserID)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserName" class="col-sm-2 control-label">UserName</label>
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
+                <span id="nameSpan"></span>
+            </div>
+        </div>
+     @*   <div class="form-group">
+            <label for="LoginPassword" class="col-sm-2 control-label">OldPassword</label>
+            <div class="col-sm-10">
+                @Html.TextBox("oldPassword",User.Identity.Name.Split(',')[2])
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label for="LoginPassword" class="col-sm-2 control-label">NewLoginPassword</label>
+            <div class="col-sm-10">
+                @Html.Editor("newLoginPassword")
+            </div>
+        </div>
+
+         <div class="form-group">
+            <label for="LoginPassword" class="col-sm-2 control-label">ConfirmLoginPassword</label>
+            <div class="col-sm-10">
+                @Html.Editor("confirmLoginPassword")
+                <span id="confirmSpan"></span>
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.LoginPassword)
+
+        @Html.HiddenFor(model => model.LastLogin)
+
+        @Html.HiddenFor(model => model.IsTrainee)
+
+        @Html.HiddenFor(model => model.IsDeparted)
+
+        @Html.HiddenFor(model => model.EMPassword)
+
+        <div class="form-group">
+            <label for="EmailAddress" class="col-sm-2 control-label">EmailAddress</label>
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.EmailAddress)
+                @Html.ValidationMessageFor(model => model.EmailAddress)
+                <span id="emailSpan"></span>
+            </div>
+        </div>
+
+         <div class="form-group">
+            <label for="EMAccount" class="col-sm-2 control-label">EMAccount</label>
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.EMAccount)
+                @Html.ValidationMessageFor(model => model.EMAccount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="LoginPassword" class="col-sm-2 control-label">NewLoginPassword</label>
+            <div class="col-sm-10">
+                @Html.Editor("newEMPassword")
+            </div>
+        </div>
+
+         <div class="form-group">
+            <label for="LoginPassword" class="col-sm-2 control-label">ConfirmLoginPassword</label>
+            <div class="col-sm-10">
+                @Html.Editor("confirmEMPassword")
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="Update" class="btn btn-primary" type="submit">Update</button>
+            </div>
+        </div>
+    </fieldset>
+}
+

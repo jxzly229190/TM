@@ -1,0 +1,68 @@
+﻿@model QA_System.Models.RequestTestModels
+@using QA_System.Models
+@{
+    ViewBag.Title = "Test Assign";
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title. </h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                
+            </p>
+        </div>
+    </section>
+}
+
+<form id="form" method="post"  enctype="multipart/form-data">
+
+@Html.Action("RequestView", "PartialView", new { requestModel= Model})   
+
+<div class="fieldLine">
+    <h1>Assign Test</h1>
+</div>
+<div class="fieldLine">
+    <hr />
+</div> 
+<div class="fieldLine">
+    @Html.Label("Assign to ") @Html.DropDownList("drpTester", ViewBag.Tester as IEnumerable<SelectListItem>)
+</div>
+<br />
+<div style="clear:both;" >
+ <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveTestAssign()">Save</a>  
+ <a href="javascript:void(0)" class="easyui-linkbutton" onclick="window.history.go(-1)">Cancel</a> 
+</div>
+@Html.Action("TestIssueView", "PartialView", new { requestModel= Model})
+
+@Html.Hidden("txtRequestID", @Model.ReqestID as object)
+@Html.Hidden("pageIndex", @ViewBag.pageIndex as object)
+@Html.Hidden("sort", @ViewBag.sort as object)
+</form>
+<script>
+    function saveTestAssign() {
+        $.messager.progress();
+        var assignTo = $("#drpTester option:selected").val();
+        var requestID = $("#txtRequestID").val();
+        var pageIndex = $("#pageIndex").val();
+        var sort = $("#sort").val();
+        var baklink = "../Test/TestAssignList?pageIndex=" + pageIndex + "&sort=" + sort;
+        $('#form').form('submit', {
+            url: "../Test/SaveTestAssign?requestID=" + requestID + "&assignTo=" + assignTo,
+            onSubmit: function () {
+                var isValid = $(this).form('validate');
+                if (!isValid) {
+                    $.messager.progress('close');	// hide progress bar while the form is invalid
+                }
+                return isValid;
+            },
+            success: function (msg) {
+                window.location.href = baklink;
+            }
+        });
+    }
+</script>
+

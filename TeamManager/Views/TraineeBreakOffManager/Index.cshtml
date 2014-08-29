@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div id="tbfm">
+    @using (Ajax.BeginForm("Search", "TraineeBreakOffManager", null, new AjaxOptions
+{
+    UpdateTargetId = "traineeBreakOffMan",
+    HttpMethod = "Post",
+    OnSuccess = " ",
+}, new { @class = "form-inline", id = "searchForm", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>TraineeBreakOff Manager</legend>
+
+            <div id="search" class="search" style="margin-left: 8px;">
+                <label class="text-info">From:</label>
+                <div class="form-group">
+                    @Html.Editor("fromTime")
+                </div>
+                <label class="text-info">To:</label>
+                <div class="form-group">
+                    @Html.Editor("toTime")
+                </div>
+                <div class="form-group">
+                    <label class="text-info">Status:</label>
+                    @Html.DropDownList("status", (IEnumerable<SelectListItem>)ViewData["statusList"], "")
+                </div>
+
+                <button id="Search" type="submit" class="btn btn-warning">Search..</button>
+                <button id="Week" type="submit" class="btn btn-warning">This Week</button>
+                <button id="Month" type="submit" class="btn btn-warning">This Month</button>
+
+                @*<strong>Attendance Month:</strong>
+            @Html.DropDownList("month", (IEnumerable<SelectListItem>)ViewData["monthsList"], "")*@
+                @Html.ActionLink("Export", "Export", null, new { @class = "btn btn-primary" })
+
+            </div>
+
+            @Html.Partial("TraineeBreakOffTable")
+        </fieldset>
+    }
+    <div id="email"></div>
+</div>
+@Styles.Render("~/Content/TraineeBreakOff")
+@Scripts.Render("~/bundles/TraineeBreakOff")

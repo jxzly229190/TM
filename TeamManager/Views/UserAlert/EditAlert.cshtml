@@ -1,0 +1,113 @@
+﻿@model TeamManager.Models.AlertList
+
+@{
+    ViewBag.Title = "EditAlert";
+}
+<h2>Basic Alert Edit</h2>
+@using (Html.BeginForm("EditAlert", "UserAlert", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Alert Information</legend>
+        
+        @Html.HiddenFor(model => model.alert.ABID)
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.alert.ABName, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.alert.ABName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Type</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model=> model.alert.ABType, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.alert.ABType)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Status</label>
+            <div class="col-sm-10">
+                @Html.RadioButtonFor(model => model.alert.ABStatus, 1, new { @class="radio-inline"})valid
+                @Html.RadioButtonFor(model => model.alert.ABStatus, 0, new { @class="radio-inline"})invalid
+                @Html.ValidationMessageFor(model => model.alert.ABStatus)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Order</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.alert.ABOrder, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.alert.ABOrder)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Remark</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.alert.ABRemark,5,50, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.alert.ABRemark)
+            </div>
+        </div>
+        </fieldset>
+    
+    if (Model.alertAttachs.Count() != 0)
+        {
+            <fieldset>
+            <legend>Attachs Information</legend>
+            <table class="table table-striped">
+                <tr>
+                    <th>ID </th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Remark</th>
+                    <th>CreateBy</th>
+                    <th>CreateDate</th>
+                    <th>ModifyBy</th>
+                    <th>ModifyDate</th>
+                    <th></th>
+                </tr>
+            @foreach (var item in Model.alertAttachs) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model=> item.ABAID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ABAName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ABAType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ABAStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ABARemark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifyBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifyDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("EditAttach", "EditAlertAttach", new { id = item.ABAID }, new { @class="btn btn-success btn-sm"})
+                    </td>
+                </tr>
+            }
+            </table>
+                </fieldset>
+        }
+        <button type="submit" class="btn btn-primary">Save</button>
+             @Html.ActionLink("Back to List", "AlertIndex", null, new { @class="btn btn-default"})
+ 
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

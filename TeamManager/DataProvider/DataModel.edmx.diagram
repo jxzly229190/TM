@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eef1a8062cdb43cd893cb584593076be" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="TeamManage_Model.BreakOff" Width="1.5" PointX="6.1827318734408969" PointY="17.790230431496273" />
+        <EntityTypeShape EntityType="TeamManage_Model.DailyProjectReport" Width="1.5" PointX="11.254628805096555" PointY="15.521631397084162" />
+        <EntityTypeShape EntityType="TeamManage_Model.DailyReport" Width="1.5" PointX="5.2177128667094337" PointY="1.5281760103666111" />
+        <EntityTypeShape EntityType="TeamManage_Model.OverTime" Width="1.5" PointX="5.853902296095109" PointY="25.191877466250155" />
+        <EntityTypeShape EntityType="TeamManage_Model.QA_Files" Width="1.5" PointX="0.79830809347252729" PointY="27.71771596172718" />
+        <EntityTypeShape EntityType="TeamManage_Model.QA_Request" Width="1.5" PointX="10.028362176394259" PointY="8.1727223285346859" />
+        <EntityTypeShape EntityType="TeamManage_Model.QA_Test" Width="1.5" PointX="0.875" PointY="13.125" />
+        <EntityTypeShape EntityType="TeamManage_Model.QA_TestIssue" Width="1.5" PointX="1.5139946385817578" PointY="10.271425177469581" />
+        <EntityTypeShape EntityType="TeamManage_Model.sysdiagram" Width="1.5" PointX="5.4796000781839709" PointY="26.547990423882375" />
+        <EntityTypeShape EntityType="TeamManage_Model.t_ABAttach" Width="1.5" PointX="3.8225102591433142" PointY="9.4596370502652771" />
+        <EntityTypeShape EntityType="TeamManage_Model.t_AlertBase" Width="1.5" PointX="5.5507269248136906" PointY="10.458282460671981" />
+        <EntityTypeShape EntityType="TeamManage_Model.t_AlertUser" Width="1.5" PointX="3.6331274265577678" PointY="23.79708358263461" />
+        <EntityTypeShape EntityType="TeamManage_Model.t_AUAttach" Width="1.5" PointX="9.1396804475875939" PointY="11.251858865493842" />
+        <EntityTypeShape EntityType="TeamManage_Model.Test" Width="1.5" PointX="1.0350279645226095" PointY="11.428811197834467" />
+        <EntityTypeShape EntityType="TeamManage_Model.TraineeAttendance" Width="1.5" PointX="11.057142348520989" PointY="19.8580203744853" />
+        <EntityTypeShape EntityType="TeamManage_Model.TraineeBreakOff" Width="1.5" PointX="7.4432422255367241" PointY="1.5926247693563926" />
+        <EntityTypeShape EntityType="TeamManage_Model.UploadFile" Width="1.5" PointX="0.97545658842448912" PointY="30.439759074915088" />
+        <EntityTypeShape EntityType="TeamManage_Model.UserAppraisal" Width="1.5" PointX="11.204760336878133" PointY="1.5040338344425122" />
+        <EntityTypeShape EntityType="TeamManage_Model.UserLeave" Width="1.5" PointX="11.798438837657887" PointY="21.249079147935415" />
+        <EntityTypeShape EntityType="TeamManage_Model.UserLeaveCutLog" Width="1.5" PointX="8.1978706010607389" PointY="8.0461210943973249" />
+        <EntityTypeShape EntityType="TeamManage_Model.UserRole" Width="1.5" PointX="4.7193158179145849" PointY="6.4441698223558115" />
+        <EntityTypeShape EntityType="TeamManage_Model.User" Width="1.5" PointX="11.039468155726542" PointY="27.283644048163502" />
+        <EntityTypeShape EntityType="TeamManage_Model.UserType" Width="1.5" PointX="5.483454719876617" PointY="22.102931971709676" />
+        <AssociationConnector Association="TeamManage_Model.FK_QA_Request_QA_Request" />
+        <AssociationConnector Association="TeamManage_Model.FK_QA_Test_QA_Request" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_ABAttach_Users" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_ABAttach_Users1" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_AlertBase_Users" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_AlertBase_Users2" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_AlertUser_t_AlertBase" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_AlertUser_Users" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_AlertUser_Users1" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_AUAttach_t_AlertUser" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_AUAttach_Users" />
+        <AssociationConnector Association="TeamManage_Model.FK_t_AUAttach_Users1" />
+        <AssociationConnector Association="TeamManage_Model.QA_RequestFile" />
+        <AssociationConnector Association="TeamManage_Model.QA_TestFile" />
+        <AssociationConnector Association="TeamManage_Model.QA_TestIssueFile" />
+        <EntityTypeShape EntityType="TeamManage_Model.UserToken" Width="1.5" PointX="9.48338028112584" PointY="30.849792107404113" />
+        <EntityTypeShape EntityType="TeamManage_Model.VoteDetail" Width="1.5" PointX="8.0339759793290746" PointY="30.334104045449806" />
+        <EntityTypeShape EntityType="TeamManage_Model.VoteItem" Width="1.5" PointX="7.8399967233836634" PointY="22.224905501224523" />
+        <EntityTypeShape EntityType="TeamManage_Model.VoteProject" Width="1.5" PointX="1.4587200495687873" PointY="24.199786003772068" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

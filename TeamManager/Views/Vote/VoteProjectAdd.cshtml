@@ -1,0 +1,75 @@
+﻿@model TeamManager.Models.VoteProjectModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $(".selectpicker").selectpicker();
+
+        $("#alertSubmit").click(function () {
+            $("#alertForm").submit();
+        });
+        $(".date").datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: true,
+            forceParse: 0,
+            showMeridian: 1,
+            minView: 2,
+            format: "mm/dd/yyyy"
+        });
+
+    });
+</script>
+@using (Html.BeginForm("VoteProject", "Vote", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Project Information</legend>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.voteproject.Name,new { @class="form-control"})
+                 @Html.ValidationMessageFor(model => model.voteproject.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Term</label>
+            <div class="col-sm-10">
+                 @Html.TextBoxFor(model => model.voteproject.TermFrom, new { @id = "termFrom",@class="date"}) to  
+                 @Html.TextBoxFor(model => model.voteproject.TermTo, new { @id = "termTo",@class="date"})
+                @Html.ValidationMessageFor(model => model.voteproject.TermFrom)
+                @Html.ValidationMessageFor(model => model.voteproject.TermTo)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Vote Time</label>
+            <div class="col-sm-10">
+                 @Html.TextBoxFor(model => model.voteproject.BeginTime, new { @id = "beginTime",@class="date"}) to  
+                 @Html.TextBoxFor(model => model.voteproject.EndTime, new { @id = "endTime",@class="date"})
+                @Html.ValidationMessageFor(model => model.voteproject.BeginTime)
+                @Html.ValidationMessageFor(model => model.voteproject.EndTime)
+            </div>
+        </div>
+
+       <div class="form-group">
+            <label class="col-sm-2 control-label">Max vote number</label>
+            <div class="col-sm-10">
+                 @Html.TextBoxFor(model => model.voteproject.VoteNum, new {@id="voteNum" ,@class="form-control"})
+                @Html.ValidationMessageFor(model => model.voteproject.VoteNum)
+            </div>
+        </div>
+</fieldset>
+        
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Back to List", "Index", null, new { @class="btn btn-default"})
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

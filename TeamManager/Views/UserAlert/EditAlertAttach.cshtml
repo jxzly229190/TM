@@ -1,0 +1,57 @@
+﻿@model TeamManager.DataProvider.t_ABAttach
+
+@{
+    ViewBag.Title = "EditAttach";
+}
+<h2>EditAttach</h2>
+
+@using (Html.BeginForm("EditAlertAttach", "UserAlert", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Attach Information</legend>
+
+        @Html.HiddenFor(model => model.ABAID)
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.ABID)
+        </div>
+        <div class="col-sm-10">
+            @Html.EditorFor(model => model.ABID)
+            @Html.ValidationMessageFor(model => model.ABID)
+        </div>*@
+
+        <div class="form-group"><label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.ABAName, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.ABAName)
+            </div>
+        </div>
+        @*<div class="form-group"><label class="col-sm-2 control-label">Type</label >
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.ABAType, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.ABAType)
+            </div>
+        </div>*@
+        <div class="form-group"><label class="col-sm-2 control-label">Status</label>
+            <div class="col-sm-10">
+                @Html.RadioButtonFor(model => model.ABAStatus, 1, new { @class="radio-inline"})valid
+                @Html.RadioButtonFor(model => model.ABAStatus, 0, new { @class="radio-inline"})invalid
+                @Html.ValidationMessageFor(model => model.ABAStatus)
+            </div>
+        </div>
+        <div class="form-group"><label class="col-sm-2 control-label">Remark</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.ABARemark, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.ABARemark)
+            </div>
+        </div>
+        <p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+    </fieldset>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

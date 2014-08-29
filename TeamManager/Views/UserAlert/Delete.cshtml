@@ -1,0 +1,16 @@
+﻿@model TeamManager.Models.UserList
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you to delete this?</h3>
+@{Html.RenderPartial("DisplayPartial", Model);}   
+@using (Html.BeginForm()) {
+    <p>
+        <button type="submit" class="btn btn-primary">Delete</button>
+        @Html.ActionLink("Back to List", "Index", new { unitNum=Model.user.AUUnitNum }, new { @class = "btn btn-default" })
+    </p>
+}

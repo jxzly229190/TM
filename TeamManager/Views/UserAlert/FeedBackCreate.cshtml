@@ -1,0 +1,97 @@
+﻿@model TeamManager.Models.UserAlertList
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@*<script type="text/javascript">
+
+    function btnRemove_Click() {
+        $(this).parent().parent().remove();
+        $("#tbFiles tbody tr").each(function (index) {
+            var txtName = "txt" + (index + 1);
+            $(this).children().first().children().first().attr("name", txtName);
+        });
+    }
+
+    $(function () {
+        $("input[value='remove']").click(btnRemove_Click);
+
+        $("#btnAddFile").click(function () {
+            var trContent = "<tr></tr>";
+            $("#tbFiles tbody").append(trContent);
+
+            var tdContent = "<td><input type='file' name='fileToUpload' class='form-control' style='height:35px;' /></td>";
+            $("#tbFiles tbody tr").last().append(tdContent);
+
+            tdContent = "<td><input type='button' value='remove' class='btn btn-warning btn-sm'/></td>";
+            $("#tbFiles tbody tr").last().append(tdContent);
+
+            $("input[value='remove']").last().click(btnRemove_Click);
+        });
+
+    });
+</script>*@
+<style>
+.form-horizontal .form-group .form-control {
+    max-width:550px;
+}
+</style>
+@using (Html.BeginForm("FeedBackCreate", "UserAlert", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>FeedBack Information</legend>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-7">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.userList.user.AUTitle, new { @class = "form-control", style = "width:450px;" })
+                        @Html.ValidationMessageFor(model => model.userList.user.AUTitle)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Content</label>
+                    <div class="col-sm-10">
+                        @* <input type="button" id="btnAddFile" value="add" class="btn btn-info btn-sm" />*@
+                        @*<table id="tbFiles" style="width: 45%;" class="table">
+                    <tbody style="border:hidden;">
+                        <tr>
+                            <td>
+                                <input type="file" name="fileToUpload" style="height:35px;" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="button" value="remove" class="btn btn-warning btn-sm" /></td>
+                        </tr>
+                    </tbody>
+                </table>*@
+                        @Html.TextAreaFor(model => model.userList.user.AUContent, 20, 50, new { @class = "form-control", @style = "resize: none;" })
+                        <input type="file" name="fileToUpload" style="height: 35px;" multiple=true class="form-control" />
+                        @Html.ValidationMessageFor(model => model.userList.user.AUContent)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="alert alert-info fade in">
+                    <p>Thank you for using the new team daily system.</p>
+                    <p>
+                        If you have any questions and any suggestions,
+                         you can submit to me through the <strong>form</strong> which is on the left side.
+                        </p>
+                    <p> Especially, the<strong> attachment </strong> will be more conducive to illustrate your questions and Suggestions.</p>
+                     <p> Thank you for your support!</p>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+   
+}

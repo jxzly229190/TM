@@ -1,0 +1,209 @@
+﻿@model TeamManager.Models.UserList
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $(".selectpicker").selectpicker();
+
+        $("#addAttachSubmit").click(function () {
+            $("#addAttachForm").submit();
+        });
+
+        $("#interval").change(function () {
+            if ($(this).val() == "3") {
+                $("#editNumId").attr("disabled", "true");
+            }
+            else {
+                $("#editNumId").removeAttr("disabled");
+            }
+        });
+        $("#startTime").datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: true,
+            showMeridian: 1,
+            minView: 0,
+            format: "mm/dd/yyyy hh:ii"
+        });
+    });
+    
+</script>
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "UserAlert", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>User Information</legend>
+        @Html.HiddenFor(model => model.user.AUID)
+         <div class="form-group">
+            <label class="col-sm-2 control-label">UserID</label>
+            <div class="col-sm-10">
+                @Html.ListBox("ToUser", ViewBag.UserList as MultiSelectList,new {@class="selectpicker"}) 
+                @Html.ValidationMessageFor(model => model.user.UserID)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">CcUser</label>
+            <div class="col-sm-10">
+                @Html.ListBox("CcUser", ViewBag.CcUserList as MultiSelectList,new {@class="selectpicker"}) 
+                @Html.ValidationMessageFor(model => model.user.CcUser)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">AlertID</label>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.user.ABID, (IEnumerable<SelectListItem>)ViewData["ABID"],new { @class="form-control"}) 
+                @Html.ValidationMessageFor(model => model.user.ABID)
+                @if (ViewBag.Title == "Create")
+                {
+                    <a class="btn btn-default btn-default" data-toggle="modal" href="#CreateDialog">Create New Alert</a>
+                }                
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-10">
+                 @Html.TextBoxFor(model => model.user.AUTitle,new { @class="form-control"})
+                 @Html.ValidationMessageFor(model => model.user.AUTitle)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Content</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.user.AUContent,10,50,new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.user.AUContent)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Status</label>
+            <div class="col-sm-10">
+                @Html.RadioButtonFor(model => model.user.AUStatus, 1,new {@class="radio-inline" })valid
+                @Html.RadioButtonFor(model => model.user.AUStatus, 0,new {@class="radio-inline" })invalid
+                @Html.ValidationMessageFor(model => model.user.AUStatus)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Interval</label>
+            <div class="col-sm-10">
+                @Html.DropDownList("interval", new SelectList(ViewBag.IntervalTime, "Value", "Text", Model.user.AUInterval), new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.user.AUInterval)
+            </div>
+        </div>
+
+       <div class="form-group">
+            <label class="col-sm-2 control-label">UnitNum</label>
+            <div class="col-sm-10">
+                 @Html.TextBoxFor(model => model.user.AUUnitNum, new {@id="editNumId" ,@class="form-control"})
+                @Html.ValidationMessageFor(model => model.user.AUUnitNum)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">StartTime</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(model => model.user.AUTime, new { @id = "startTime",@class="form-control",@Value = String.Format("{0}", Model.user.AUTime.ToString("MM'/'dd'/'yyyy HH:mm"))})
+                @Html.ValidationMessageFor(model => model.user.AUTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Remark</label>
+            <div class="col-sm-10">
+                 @Html.TextAreaFor(model => model.user.AURemark,5,50,new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.user.AURemark)
+            </div>
+        </div>
+    </fieldset>
+    //if (Model.userAttachs.Count() != 0)
+    //{  
+        <fieldset>
+        <legend>Attachs Information</legend>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>ID </th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Remark</th>
+                    <th><a class="btn btn-info btn-sm" data-toggle="modal" href="#AddAttachDialog">AddAttach</a></th>
+                    @*<th>@Html.ActionLink("AddAttach", "AddAttach", null, new { @class="btn btn-info btn-sm"})</th>*@
+                </tr>
+            @foreach (var item in Model.userAttachs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AUAID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AUAName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AUAType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AUAStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AUARemark)
+                    </td>
+                    <td>
+                        
+                        @Html.ActionLink("EditAttach", "EditAttach", new { id = item.AUAID }, new { @class="btn btn-success btn-sm"})
+                        @Html.ActionLink("DeleteAttach", "DeleteAttach", new { id = item.AUAID }, new { @class="btn btn-warning btn-sm"})
+                    </td>
+                </tr>
+            }
+            </table>
+        </fieldset>@*
+    }  *@    
+        <button type="submit" class="btn btn-primary">Save</button>
+            @Html.ActionLink("Back to List", "Index", new { unitNum=Model.user.AUUnitNum}, new { @class = "btn btn-default" })    
+}
+<div class="modal fade" id="AddAttachDialog" tabindex="-1" role="dialog" aria-labelledby="AddAttachDialogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="AddAttachDialogLabel">Add Attach</h3>
+                <div class="modal-body">
+                    @using (Html.BeginForm("AddAttach", "UserAlert", new { userid = Model.user.AUID }, FormMethod.Post, new { @id = "addAttachForm", @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Remark</label>
+                            <div class="col-sm-10">
+                                 @Html.TextArea("attachRemark", new { @class = "form-control" })
+                            </div>
+                        </div>
+                                               
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Remark</label>
+                            <div class="col-sm-10">
+                                 <input type="file" name="fileToUpload" class="form-control" style="height:45px"/>
+                            </div>
+                        </div>                        
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="addAttachSubmit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

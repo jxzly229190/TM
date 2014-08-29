@@ -1,0 +1,63 @@
+﻿@model TeamManager.Models.VoteItem
+
+@{
+    ViewBag.Title = "ItemAdd";
+}
+
+<h2>Create</h2>
+<script src="~/Scripts/knockout-3.2.0.debug.js"></script>
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Create Vote Item</legend>
+        <div class="form-group">
+            <label for="inputName" class="col-lg-2 control-label">Name</label>
+            <div class="col-lg-10">
+                <input type="text" data-bind="value:name" class="form-control {required:true}" id="inputName" placeholder="Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fromTerm" class="col-lg-2 control-label">Term</label>
+            <div class="col-lg-10">
+                    <input type="text" class="date" id="fromTerm" data-bind="value: termFrom" /> &nbsp to <input type="text" class="date" id="toTerm" data-bind="value: termTo" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="begin" class="col-lg-2 control-label">Vote Time</label>
+            <div class="col-lg-10">
+                    <input type="text" class="date" id="begin" data-bind="value:beginTime" /> &nbsp to <input type="text" class="date" id="end" data-bind="value:endTime" />
+            </div>
+        </div>
+    </fieldset>
+</form>
+   
+<script type="text/javascript">
+    var vm = {
+        name: ko.observable("New Item Name"),
+        termFrom: ko.observable(),
+        termTo:ko.observable(),
+        beginTime: ko.observable("08/07/2014"),
+        endTime:ko.observable()
+    };
+
+    ko.applyBindings(vm);
+
+    $(function () {
+        $(".date").datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: true,
+            forceParse: 0,
+            showMeridian: 1,
+            minView: 2,
+            format: "mm/dd/yyyy"
+        });
+        $("#searchFrom").attr("class", "form-control");
+    });
+</script>
+<style>
+    .date {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>

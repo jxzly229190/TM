@@ -1,0 +1,114 @@
+﻿@model TeamManager.Models.VoteProjectModel
+
+@{
+    ViewBag.Title = "VoteProjectEdit";
+}
+
+@using (Html.BeginForm("VoteProjectEdit", "Vote", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", id = "vpInfo_edit", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Edit Vote Project</legend>
+
+        @Html.HiddenFor(model => model.voteproject.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.voteproject.Name,new{@class="col-lg-2 control-label"})
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.voteproject.Name)
+            @Html.ValidationMessageFor(model => model.voteproject.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.voteproject.TermFrom,new{@class="col-lg-2 control-label"})
+        </div>
+        <div class="form-group">
+             @Html.TextBoxFor(model => model.voteproject.TermFrom, new {@class="date",@Value = String.Format("{0:d}", Model.voteproject.TermFrom.ToString())})
+            @Html.ValidationMessageFor(model => model.voteproject.TermFrom)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.voteproject.TermTo,new{@class="col-lg-2 control-label"})
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.voteproject.TermTo, new {@class="date",@Value = String.Format("{0:d}", Model.voteproject.TermTo.ToString())})
+            @Html.ValidationMessageFor(model => model.voteproject.TermTo)
+        </div>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.State)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.voteproject.State)
+            @Html.ValidationMessageFor(model => model.voteproject.State)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.voteproject.VoteNum,new{@class="col-lg-2 control-label"})
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.voteproject.VoteNum)
+            @Html.ValidationMessageFor(model => model.voteproject.VoteNum)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.voteproject.BeginTime,new{@class="col-lg-2 control-label"})
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.voteproject.BeginTime, new {@class="date",@Value = String.Format("{0:d}", Model.voteproject.BeginTime.ToString())})
+            @Html.ValidationMessageFor(model => model.voteproject.BeginTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.voteproject.EndTime,new{@class="col-lg-2 control-label"})
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.voteproject.EndTime, new {@class="date",@Value = String.Format("{0:d}",Model.voteproject.EndTime.ToString())})
+            @Html.ValidationMessageFor(model => model.voteproject.EndTime)
+        </div>
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedTime)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.voteproject.CreatedTime)
+            @Html.ValidationMessageFor(model => model.voteproject.CreatedTime)
+        </div>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.CreatedBy)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.voteproject.CreatedBy)
+            @Html.ValidationMessageFor(model => model.voteproject.CreatedBy)
+        </div>
+
+        <p>
+            <button id="Save_edit" class="btn btn-primary" type="submit">Save</button>
+            @Html.ActionLink("Back to List", "VoteProjectIndex",null, new {@class="btn btn-default" })
+        </p>
+    </fieldset>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    
+    $(function () {
+        $(".date").datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: true,
+            forceParse: 0,
+            showMeridian: 1,
+            minView: 2,
+            format: "mm/dd/yyyy"
+        });
+        $("#searchFrom").attr("class", "form-control");
+    });
+</script>
+

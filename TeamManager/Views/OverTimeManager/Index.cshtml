@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@*<script type="text/javascript">
+    $(function () {
+        $("#fromTime,#toTime,#status").attr({ class: "form-control", placeholder: "On"});
+        $("#fromTime,#toTime").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true
+        });
+
+        function getMonday(offset) {
+            var d = new Date();
+            var date = new Date(d - ((d.getDay() || 7) - 1 - (offset || 0) * 7) * 864E5);
+            var year = date.getFullYear();
+            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+            var day = ("0" + date.getDate()).slice(-2);
+            return month + "/" + day + "/" + year;
+        }
+
+        function getFirstDay() {
+            var d = new Date();
+            var year = d.getFullYear();
+            var month = ("0" + (d.getMonth() + 1)).slice(-2);
+            var day = "01";
+            return month + "/" + day + "/" + year;
+        }
+
+        function getLastDay() {
+            //get this date
+            var d_now = new Date();
+            var year_now = d_now.getFullYear();
+            var month_now = ("0" + (d_now.getMonth() + 1)).slice(-2);
+            var day_now = "01";
+            //get date next month
+            var d = new Date(year_now, month_now, day_now);
+            var year = d.getFullYear();
+            var month = ("0" + (d.getMonth() + 1)).slice(-2);
+            var day = "01";
+            return month + "/" + day + "/" + year;
+        }
+
+        $("#searchForm").submit(function (e) {
+            if ($("#fromTime").val() == "" || $("#toTime").val() == "") {
+                alert("Please input from date and to date.");
+                return false;
+            }
+            var from = new Date($("#fromTime").val());
+            var to = new Date($("#toTime").val());
+            if (from > to) {
+                alert('From date cannot be greater than to date.');
+                return false;
+            }
+
+            var $action = "OverTimeManager/Search";
+            $(this).attr("action", $action + "?from=" + $("#fromTime").val() + "&to=" + $("#toTime").val() + "&status=" + $("#status").val());
+        });
+
+        $("#Week").click(function () {
+            $("#fromTime").val(getMonday(0));
+            $("#toTime").val(getMonday(1));
+        });
+
+        $("#Month").click(function () {
+            $("#fromTime").val(getFirstDay());
+            $("#toTime").val(getLastDay());
+        });
+
+        $("#search a").click(function () {
+            var $href = "OverTimeManager/Export";
+            $(this).attr("href", $href + "?from=" + $("#fromTime").val() + "&to=" + $("#toTime").val() + "&status=" + $("#status").val());
+        });
+    });
+</script>*@
+
+<div id="ovm">
+    @using (Ajax.BeginForm("Search", "OverTimeManager", null, new AjaxOptions
+{
+    UpdateTargetId = "overTimeMan",
+    HttpMethod = "Post",
+    OnSuccess = " ",
+}, new { @class = "form-inline", id = "searchForm", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>OverTime Manager</legend>
+
+            <div id="search" class="search" style="margin-left:8px;">
+                <label class="text-info">From:</label>
+                <div class="form-group">
+                    @Html.Editor("fromTime")
+                </div>
+                <label class="text-info">To:</label>
+                <div class="form-group">
+                    @Html.Editor("toTime")
+                </div>
+                <div class="form-group">
+                    <label class="text-info">Status:</label>
+                      @Html.DropDownList("status", (IEnumerable<SelectListItem>)ViewData["statusList"], "")
+                </div>
+
+                <button id="Search" type="submit" class="btn btn-warning">Search..</button>
+                <button id="Week" type="submit" class="btn btn-warning">This Week</button>
+                <button id="Month" type="submit" class="btn btn-warning">This Month</button>
+
+                @*<strong>Attendance Month:</strong>
+            @Html.DropDownList("month", (IEnumerable<SelectListItem>)ViewData["monthsList"], "")*@
+                @Html.ActionLink("Export", "Export", null, new { @class = "btn btn-primary" })
+
+            </div>
+
+            @Html.Partial("OverTimeTable")
+        </fieldset>
+    }
+    <div id="email"></div>
+</div>
+@Styles.Render("~/Content/OverTime")
+@Scripts.Render("~/bundles/OverTime")

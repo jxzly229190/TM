@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Test";
+}
+@using QA_System.Models
+@using QA_System.Classes
+@using System.Collections.Generic
+@model QA_System.Classes.PageQuery<PagerInfo, IEnumerable<QA_System.Models.RequestTestModels>>
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title </h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                
+            </p>
+        </div>
+    </section>
+}
+<script src="~/Scripts/default.js" type="text/javascript"></script>
+
+<table class="tableClass">
+    <tr class="trTitle">
+        <td><a href="TestList?pageIndex=@Model.Pager.PageIndex&sort=UpdateTime&sortDirection=@ViewBag.sortDirection">Project</a></td>
+        <td>Related JIRA</td>
+        <td><a href="TestList?pageIndex=@Model.Pager.PageIndex&sort=DeveloperName&sortDirection=@ViewBag.sortDirection">Developer</a></td>
+        <td>Test Instruction</td>
+        <td><a href="TestList?pageIndex=@Model.Pager.PageIndex&sort=UpdateTime&sortDirection=@ViewBag.sortDirection">Request Date</a></td>
+        <td><a href="TestList?pageIndex=@Model.Pager.PageIndex&sort=Result&sortDirection=@ViewBag.sortDirection">Test Result</a></td>
+        <td></td>
+    </tr>
+
+@foreach (var request in Model.EntityList)
+{
+    <tr>
+        <td>@request.Project</td>
+        <td>
+            <a href="http://199.189.124.36/browse/@request.RelatedJIRA" target='_blank'>@request.RelatedJIRA</a>            
+        </td>
+        <td>@request.DeveloperName</td>
+        <td>@request.Instruction</td>        
+        <td>@request.UpdateTime.ToString("MM/dd/yyyy")</td>
+        <td>@request.TestModel.Result</td>
+        <td><a href="../Test/Test?requestID=@request.ReqestID">Edit</a></td>
+    </tr>
+}   
+</table>
+<br />
+@Html.Pager(Model.Pager.PageSize, Model.Pager.PageTotalCount)
+
+<script>
+    $(document).ready(function(){
+        $(".tableClass tr:not(.trTitle):odd").addClass("odd");
+        $(".tableClass tr:not(.trTitle):even").addClass("even");
+    })    
+</script>

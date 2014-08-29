@@ -1,0 +1,54 @@
+﻿@model QA_System.Models.RequestTestModels
+@using QA_System.Models
+
+@{
+    if (Model.TestModel.TestIssues.Count > 0)
+    {
+        <div id="divFoundIssue">
+            <div class="fieldLine">
+                <h1>Found Issue</h1>                
+            </div>
+            <div class="fieldLine">
+                <hr />
+            </div>
+            <div class="fieldLine">
+                <table class="tableClass">
+                    <tr class="trTitle">
+                        <td width="60%">Description</td>
+                        <td width="35%">Attachments</td>
+                        <td>DateTime</td>                        
+                    </tr>
+                    @foreach (var testIssue in Model.TestModel.TestIssues)
+                    { 
+                        <tr>
+                            <td>@testIssue.Description</td>
+                            <td>
+                                @{
+                                if (testIssue.TestIssueFiles.Count > 0)
+                                    {
+                                        foreach (var file in testIssue.TestIssueFiles)
+                                        {         
+                                            <div id="@file.TestIssueFileID"></div>
+                                            <script>showAttachmentList('@file.TestIssueFileID', '@file.TestIssueFileName', '@file.TestIssueFileExt', false, '');</script>
+                                        }
+                                    }
+                                }    
+
+                            </td>
+                            <td>@testIssue.UpdateTime.ToShortDateString()</td>                           
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+}
+
+<script>
+    $(document).ready(function () {
+        $(".tableClass tr:not(.trTitle):odd").addClass("odd");
+        $(".tableClass tr:not(.trTitle):even").addClass("even");
+    })
+</script>
+
+

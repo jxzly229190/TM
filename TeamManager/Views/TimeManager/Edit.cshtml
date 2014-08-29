@@ -1,0 +1,67 @@
+﻿@model  TeamManager.Models.TimeTable
+
+@{
+    ViewBag.Title = "Edit";
+}
+<script>
+    $(function () {
+        $("#userLeave_AnnualDays,#userLeave_AnnualDaysRest,#userLeave_AnnualDaysERP,#userLeave_OverTime,#userLeave_OverTimeRest").addClass( "form-control" );
+    });
+</script>
+
+@using (Html.BeginForm("Edit", "TimeManager", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", id = "timeInfo_edit", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>AnnualDay&OverTime</legend>
+        @Html.HiddenFor(model => model.userLeave.ID)
+        @Html.HiddenFor(model => model.userLeave.UserID)
+        <div class="form-group">
+            <label class="text-info">UserName</label>
+            <br />
+            @Html.DisplayFor(model => model.user.UserName)
+            <br />
+            @Html.ValidationMessageFor(model => model.user.UserName)
+        </div>
+        <p></p>
+        <div class="form-group">
+            <label class="text-info">AnnualDays</label>
+            <br />
+            @Html.EditorFor(model => model.userLeave.AnnualDays)
+            <br />
+            @Html.ValidationMessageFor(model => model.userLeave.AnnualDays)
+        </div>
+        <p></p>
+        <div class="form-group">
+            <label class="text-info">AnnualDaysRest</label>
+            <br />
+            @Html.EditorFor(model => model.userLeave.AnnualDaysRest)
+            <br />
+            @Html.ValidationMessageFor(model => model.userLeave.AnnualDaysRest)
+        </div>
+        <p></p>
+            @Html.HiddenFor(model => model.userLeave.AnnualDaysERP)
+        <div class="form-group">
+            <label class="text-info">OverTime</label>
+            <br />
+            @Html.EditorFor(model => model.userLeave.OverTime)
+            <br />
+            @Html.ValidationMessageFor(model => model.userLeave.OverTime)
+        </div>
+        <p></p>
+        <div class="form-group">
+            <label class="text-info">OverTimeRest</label>
+            <br />
+            @Html.EditorFor(model => model.userLeave.OverTimeRest)
+            <br />
+            @Html.ValidationMessageFor(model => model.userLeave.OverTimeRest)
+        </div>
+        <p></p>
+        @Html.HiddenFor(model => model.userLeave.InitDateTime)
+        <button id="Save_edit" class="btn btn-primary" type="submit">Save</button>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    </fieldset>
+}
+

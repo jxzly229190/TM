@@ -1,0 +1,38 @@
+﻿@*<script type="text/javascript">
+    $(function () {
+        $("#emailTo,#emailCc,#subject").attr({ class: "form-control" });
+    });
+</script>*@
+@if (ViewBag.flag == true)
+{
+    <form role="form">
+        <fieldset id="sendEmail">
+            <legend>SendEmail</legend>
+
+            <div class="form-group">
+                <label class="text-info">Eamil To:</label>
+                @Html.Editor("emailTo")@**Separate the options with ;*@
+            </div>
+            <p></p>
+            <div class="form-group">
+                <label class="text-info">Email Cc:</label>
+                @Html.Editor("emailCc")@**Separate the options with ;*@
+            </div>
+            <p></p>
+            <div class="form-group">
+                <label class="text-info">Subject:</label>
+                @Html.Editor("subject")
+            </div>
+            <p></p>
+            <div class="form-group">
+                <label class="text-info">Content:</label><br />
+                @Html.TextArea("content", new { @class = "form-control", cols = "20", rows = "2"})
+            </div>
+            <p></p>
+            <button type="button" class="btn btn-info">SendEmail</button>
+
+        </fieldset>
+    </form>
+}
+@Styles.Render("~/Content/OverTime")
+@Scripts.Render("~/bundles/OverTime")

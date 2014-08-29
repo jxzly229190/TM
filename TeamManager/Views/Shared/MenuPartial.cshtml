@@ -1,0 +1,77 @@
+﻿<li>@Html.ActionLink("Dashboard", "Index", "Home")</li>
+<li>@Html.ActionLink("Update Account", "Index", "UpdateAccount")</li>
+@if (User.Identity.Name.Split(',')[1] == "Project Manager")
+{ 
+    <li class="dropdown"><a href="#" class="dropdown-toggle" id="dropdown_report_admin" data-toggle="dropdown">Report <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown_report_admin">
+            <li role="menuitem">@Html.ActionLink("Daily Report", "Create", "Reports")</li>          
+            <li role="menuitem">@Html.ActionLink("Daily Report List", "Index", "DailyReportList")</li>
+            <li role="menuitem">@Html.ActionLink("Weekly Report List", "Index", "WeeklyReport")</li>
+            <li role="menuitem">@Html.ActionLink("Daily Project Report List", "Index", "DailyProject")</li>
+        </ul>
+    </li>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" id="dropdown_leave_admin" data-toggle="dropdown">Leave&OverTime <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown_leave_admin">
+            <li role="menuitem">@Html.ActionLink("Leave Application", "Index", "BreakOff")</li>
+            <li role="menuitem">@Html.ActionLink("Leave Management", "Index", "BreakOffManager")</li>
+            <li role="menuitem">@Html.ActionLink("OverTime Application", "Index", "OverTime")</li>
+            <li role="menuitem">@Html.ActionLink("OverTime Management", "Index", "OverTimeManager")</li>
+            <li role="menuitem">@Html.ActionLink("TotalTime Management", "Index", "TimeManager")</li>
+        </ul>
+    </li>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" id="dropdown_trainee_admin" data-toggle="dropdown">TraineeManage<b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown_trainee_admin">
+            <li>@Html.ActionLink("Attendance Management", "Index", "TraineeAttendanceManager")</li>
+            <li>@Html.ActionLink("BreakOff Management", "Index", "TraineeBreakOffManager")</li>
+        </ul>
+    </li>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" id="dropdown_appraisal_admin" data-toggle="dropdown">Appraisal <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown_appraisal_admin">
+            <li role="menuitem">@Html.ActionLink("Create Appraisal ", "Create", "Appraisal")</li>
+            <li role="menuitem">@Html.ActionLink("Appraisal Management", "Edit", "Appraisal")</li>
+             <li role="menuitem">@Html.ActionLink("Monthly Appraisal", "MonthlyAppraisal", "Appraisal")</li>
+        </ul>
+    </li>   
+}else if( User.Identity.Name.Split(',')[1] == "Team Leader")
+{
+     <li class="dropdown"><a href="#" class="dropdown-toggle" id="dropdown_report_leader" data-toggle="dropdown">Report <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown_report_leader">
+            <li role="menuitem">@Html.ActionLink("Daily Report", "Create", "Reports")</li>           
+            <li role="menuitem">@Html.ActionLink("Daily Report List", "Index", "DailyReportList")</li>
+            <li role="menuitem">@Html.ActionLink("Weekly Report List", "Index", "WeeklyReport")</li>            
+        </ul>
+    </li>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" id="dropdown_leave_leader" data-toggle="dropdown">Application <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown_leave_leader">
+            <li role="menuitem">@Html.ActionLink("Leave Application", "Index", "BreakOff")</li>
+            <li role="menuitem">@Html.ActionLink("OverTime Application", "Index", "OverTime")</li>
+            <li role="menuitem">@Html.ActionLink("TotalTime Management", "Index", "TimeManager")</li>
+        </ul>
+    </li>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" id="dropdown_appraisal_leader" data-toggle="dropdown">Appraisal <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown_appraisal_leader">
+            <li role="menuitem">@Html.ActionLink("Create Appraisal ", "Create", "Appraisal")</li>
+            <li role="menuitem">@Html.ActionLink("Appraisal Management", "Edit", "Appraisal")</li>
+             <li role="menuitem">@Html.ActionLink("Monthly Appraisal", "MonthlyAppraisal", "Appraisal")</li>
+        </ul>
+    </li>   
+}
+else
+{
+    if (User.Identity.Name.Split(',')[1] != "Trainee")
+    {
+    <li>@Html.ActionLink("Report", "Create", "Reports")</li>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" id="dropdown_leave" data-toggle="dropdown">Application <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown_leave">
+            <li role="menuitem">@Html.ActionLink("Leave Application", "Index", "BreakOff")</li>
+            <li role="menuitem">@Html.ActionLink("OverTime Application", "Index", "OverTime")</li>
+        </ul>
+    </li>
+    }
+    else
+    {
+    <li>@Html.ActionLink("Trainee Attendance", "Index", "TraineeAttendance")</li>
+    <li>@Html.ActionLink("Trainee BreakOff", "Index", "TraineeBreakOff")</li>
+    }
+}
+<li>@Html.ActionLink("UserAlert Manage", "Index", "UserAlert")</li>

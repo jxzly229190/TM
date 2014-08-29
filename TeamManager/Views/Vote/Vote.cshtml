@@ -1,0 +1,73 @@
+﻿@model TeamManager.Models.VoteModel
+@{
+    ViewBag.Title = "Vote Page";
+}
+<script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
+
+<h2 class="">Vote Page</h2>
+
+<div class="content" data-bind="foreach: items">
+    <div class="panel" data-bind="css: { 'panel-info': IsSelected(), 'panel-default': !IsSelected() }, click: $parent.select($data)">
+            <div class="panel-heading">
+                Panel content <span data-bind="text: Name"></span>
+            </div>
+     </div>
+</div>
+
+<div class="content alert alert-warning" role="alert" data-bind="visible:!selectedItems().length>0">Please select the item to vote.</div>
+
+<button type="button" class="btn btn-default" data-bind="disable:!selectedItems().length>0">Submit</button>
+
+
+<script type="text/javascript">
+    var data = @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Items));
+    var vm = function () {
+        var self = this;
+        self.items = ko.mapping.fromJS(data);
+
+        self.selectedItems = ko.observableArray();
+
+        self.select = function (e) {
+            if (e.IsSelected() == false && self.selectedItems().length >= 2) {
+                alert("Cannot be exceed 2");
+                return;
+            }
+
+            e.IsSelected(!e.IsSelected());
+
+            if (e.IsSelected() == true)
+                self.selectedItems.push(e);
+            else
+                self.selectedItems.remove(e);
+        };
+
+        self.submit=function(){
+            if(self.selectedItems().length>0){
+
+            }
+            else{
+
+            }
+        };
+    };
+
+    ko.applyBindings(new vm());
+    
+</script>
+
+<style>
+    .content {
+        width:60%;
+    }
+    .panel {
+        cursor:pointer;
+    }
+    .panel-body {
+        padding: 15px;
+        height: 50px;
+        width:200px;
+        overflow: auto;
+        overflow-y: auto;
+        }
+</style>
+

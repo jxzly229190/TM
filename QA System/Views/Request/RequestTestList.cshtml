@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Request";
+}
+@using QA_System.Models
+@using QA_System.Classes
+@using System.Collections.Generic
+@model QA_System.Classes.PageQuery<PagerInfo, IEnumerable<QA_System.Models.RequestTestModels>>
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title </h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                
+            </p>
+        </div>
+    </section>
+}
+<script src="~/Scripts/default.js" type="text/javascript"></script>
+
+<div class="fieldTop">
+    @{
+        if(!ViewBag.showAllUser)
+        {
+            <a href="RequestTestList?user=All"><b>All Requests</b></a> 
+        }
+        else
+        {
+            <a href="RequestTestList"><b>My Requests</b></a> 
+        }
+    }
+    &nbsp;&nbsp;&nbsp;&nbsp;<a href="RequestTest"><b>Create Request</b></a>
+</div>
+<br />
+<table class="tableClass">
+    <tr class="trTitle">
+        <td><a href="RequestTestList?pageIndex=@Model.Pager.PageIndex&sort=Project&sortDirection=@ViewBag.sortDirection">Project</a></td>
+        <td><a href="RequestTestList?pageIndex=@Model.Pager.PageIndex&sort=RelatedJIRA&sortDirection=@ViewBag.sortDirection">Related JIRA</a></td>
+        <td><a href="RequestTestList?pageIndex=@Model.Pager.PageIndex&sort=Developer&sortDirection=@ViewBag.sortDirection">Developer</a></td>
+        <td>Test Instruction</td>
+        @*<td width="15%">Attachments</td>*@
+        <td><a href="RequestTestList?pageIndex=@Model.Pager.PageIndex&sort=UpdateTime&sortDirection=@ViewBag.sortDirection">DateTime</a></td>
+        <td><a href="RequestTestList?pageIndex=@Model.Pager.PageIndex&sort=TesterName&sortDirection=@ViewBag.sortDirection">QA tester</a></td>
+        <td><a href="RequestTestList?pageIndex=@Model.Pager.PageIndex&sort=Result&sortDirection=@ViewBag.sortDirection">Test Result</a></td>
+        <td ></td>
+    </tr>
+
+@foreach (var request in Model.EntityList)
+{
+    <tr>
+        <td>@request.Project</td>
+        <td>
+            <a href="http://199.189.124.36/browse/@request.RelatedJIRA" target='_blank'>@request.RelatedJIRA</a>
+        </td>
+        <td>@request.DeveloperName</td>
+        <td>@request.Instruction</td>
+        @*<td>@request.Comments <br /> @request.OtherFields.Environment</td>*@
+       @* <td>@{
+                if (request.RequestTestFiles.Count > 0)
+                {
+                    foreach (var file in request.RequestTestFiles)
+                    {         
+                        <div id="@file.RequestTestFileID"></div>
+                        <script>showAttachmentList('@file.RequestTestFileID', '@file.RequestTestFileName', '@file.RequestTestFileExt', false, '');</script>
+                    }
+                }
+            }
+        </td>*@
+        <td>@request.UpdateTime.ToString("MM/dd/yyyy")</td>
+        <td>@request.TestModel.TesterName</td>
+        <td>@request.TestModel.Result</td>
+        <td><a href="../Request/RequestTestDetail?requestID=@request.ReqestID&pageIndex=@Model.Pager.PageIndex&sort=@ViewBag.sort">View/Edit</a></td>
+    </tr>
+}   
+</table>
+<br />
+@Html.Pager(Model.Pager.PageSize, Model.Pager.PageTotalCount)
+
+<script>
+    $(document).ready(function(){
+        $(".tableClass tr:not(.trTitle):odd").addClass("odd");
+        $(".tableClass tr:not(.trTitle):even").addClass("even");
+    })
+    
+</script>

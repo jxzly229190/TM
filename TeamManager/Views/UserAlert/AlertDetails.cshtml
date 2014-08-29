@@ -1,0 +1,122 @@
+﻿@model TeamManager.Models.AlertList
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<fieldset>
+    <legend>Alert Details</legend>
+    <div role="form" class="form-horizontal">
+    <div class="form-group">
+            <label class="col-sm-2 control-label">ID</label>
+            <div class="col-sm-10 form-control-static">
+                @Html.DisplayFor(model => model.alert.ABID)
+            </div>
+        </div>        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10 form-control-static">
+                @Html.DisplayFor(model => model.alert.ABName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Status</label>
+            <div class="col-sm-10 form-control-static">
+                @Html.DisplayFor(model => model.alert.ABStatus)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Type </label>
+            <div class="col-sm-10 form-control-static">
+                @Html.DisplayFor(model => model.alert.ABType)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Remark</label> 
+            <div class="col-sm-10 form-control-static">
+                @Html.DisplayFor(model => model.alert.ABRemark)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">CreateBy</label> 
+            <div class="col-sm-10 form-control-static">
+                @Html.DisplayFor(model => model.alert.CreateBy)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">CreateDate</label> 
+            <div class="col-sm-10 form-control-static">
+                @Html.DisplayFor(model => model.alert.CreateDate)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">ModifyBy</label> 
+            <div class="col-sm-10 form-control-static">
+                @Html.DisplayFor(model => model.alert.ModifyBy)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">ModifyDate</label> 
+            <div class="col-sm-10 form-control-static">
+                @Html.DisplayFor(model => model.alert.ModifyDate)
+            </div>
+        </div>
+    </div>
+    </fieldset>
+@if (Model.alertAttachs.Count()!=0)
+{   
+<fieldset>
+<legend>Attachs Information</legend>
+<table class="table table-bordered">
+    <tr>
+        <th>ID </th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Remark</th>
+        <th>CreateBy</th>
+        <th>CreateDate</th>
+        <th>ModifyBy</th>
+        <th>ModifyDate</th>
+    </tr>
+
+@foreach (var item in Model.alertAttachs) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ABAID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ABAName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ABAType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ABAStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ABARemark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifyBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifyDate)
+        </td>
+    </tr>
+}
+
+</table>
+    </fieldset>
+}
+<p>
+    @Html.ActionLink("Edit", "EditAlert", new { id=Model.alert.ABID },new{@class="btn btn-success"})
+    @Html.ActionLink("Back to List", "AlertIndex", null, new { @class="btn btn-default"})
+</p>

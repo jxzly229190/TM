@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>                
+            </hgroup>
+            <p>
+                This system is used to tracking all testing works in our team.
+            </p>
+        </div>
+    </section>
+}
+<h3>Welcome to our QA System!</h3>
+<br />
+<span>@(new HtmlString(ViewBag.ShowMsg))</span>
+
+

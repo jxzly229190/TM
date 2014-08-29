@@ -1,0 +1,91 @@
+﻿@model List<TeamManager.Models.VoteItemModel> 
+@{
+    ViewBag.Title = "Vote Page";
+}
+<script src="~/Scripts/knockout-3.2.0.debug.js"></script>
+<script src="~/Scripts/knockout.mapping-latest.js"></script>
+<h2 class="">Vote Page</h2>
+
+@*<div class="content">
+@{
+    if(Model!=null&&Model.Count>0)
+    {
+        foreach(var item in Model){
+            
+            <div class="panel panel-primary">
+            <div class="panel-heading">@item.Name (@foreach(var u in item.Nominees){
+                                                       @u
+                                                   })
+            </div>
+            <div class="panel-body hidden">
+                Panel content
+            </div>
+        </div>
+        }
+      }
+}
+</div>*@
+
+<div class="content" data-bind="foreach: items">
+    <div class="panel" data-bind="css: { 'panel-info': selected(), 'panel-default': !selected() }, click: $parent.select($data)">
+            <div class="panel-heading">
+            </div>
+            <div class="panel-body hidden">
+                Panel content <span data-bind="value:name"></span>
+            </div>
+        </div>
+
+</div>
+
+<script type="text/javascript">
+    var item = function (name, selected) {
+        var self = this;
+        self.name = ko.observable(name);
+        self.selected = ko.observable(selected);
+    };
+
+    var vm = function () {
+        var self = this;
+        //var js = ko.mapping.fromJS(data);
+        self.items = ko.observableArray();
+
+        self.selectedItems = ko.observableArray();
+
+        self.select = function (e) {
+            if (e.selected() == false && self.selectedItems().length >= 2) {
+                alert("Cannot be exceed 2");
+                return;
+            }
+
+            e.selected(!e.selected());
+
+            if (e.selected() == true)
+                self.selectedItems.push(e);
+            else
+                self.selectedItems.remove(e);
+        }
+        //[new item("Jimmy", false), new item("Peter", false), new item("tom", false)]
+        self.items.push(new item("Jimmy", false));
+        self.items.push(new item("Peter", false));
+        self.items.push(new item("Tom", false));
+    };
+
+    ko.applyBindings(new vm());
+</script>
+
+<style>
+    .content {
+        width:60%;
+    }
+    .panel {
+        cursor:pointer;
+    }
+    .panel-body {
+        padding: 15px;
+        height: 50px;
+        width:200px;
+        overflow: auto;
+        overflow-y: auto;
+        }
+</style>
+

@@ -1,0 +1,47 @@
+﻿@model  TeamManager.Models.UserAlertList
+
+<fieldset>
+    <legend>Basic Alert Information</legend>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"> AlertName</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(model => model.alertList.alert.ABName,new { @class="form-control"})
+            @Html.ValidationMessageFor(model => model.alertList.alert.ABName)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">AlertStatus</label>
+        <div class="col-sm-10">
+            @Html.RadioButtonFor(model => model.alertList.alert.ABStatus, 1, new { @class="status",@checked="checked"})valid
+            @Html.RadioButtonFor(model => model.alertList.alert.ABStatus, 0, new { @class="status"})invalid
+            @Html.ValidationMessageFor(model => model.alertList.alert.ABStatus)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"> AlertRemark</label>
+        <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.alertList.alert.ABRemark,5,100,new { @class="form-control"})
+            @Html.ValidationMessageFor(model => model.alertList.alert.ABRemark)
+        </div>
+    </div>
+</fieldset>
+    
+<fieldset>
+<legend>Basic Alert Attach</legend>
+    <table id="tbAlertFiles" style="width:100px;border:1px" class="table table-striped">
+        <thead>
+            <tr>
+                <td>Remark</td>
+                <td>Files</td>                   
+                <td><input type="button" id="btnAddAlertFile" value="add" class="btn btn-info btn-sm"/></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><textarea name="txt1" class="form-control" style="width:180px;"></textarea></td> 
+                <td><input type="file" name="fileToUpload" class="form-control" style="width:230px;height:45px"/></td>                                                              
+                <td><input type="button" value="removed" class="btn btn-warning btn-sm"/></td>
+            </tr>
+        </tbody>
+    </table>
+</fieldset>

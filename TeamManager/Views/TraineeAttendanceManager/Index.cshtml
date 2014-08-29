@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div id="tam">
+    @using (Ajax.BeginForm("Search", "TraineeAttendanceManager", null, new AjaxOptions
+{
+    UpdateTargetId = "traineeMan",
+    HttpMethod = "Post",
+    OnSuccess = " ",
+}, new { @class = "form-inline", id = "searchForm", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Trainee Attendance Manager</legend>
+
+            <div id="search" class="search" style="margin-left: 8px;">
+                <label class="text-info">From:</label>
+                <div class="form-group">
+                    @Html.Editor("fromTime")
+                </div>
+                <label class="text-info">To:</label>
+                <div class="form-group">
+                    @Html.Editor("toTime")
+                </div>
+                <div class="form-group">
+                    <label class="text-info">Who:</label>
+                    @Html.DropDownList("dropdown", (IEnumerable<SelectListItem>)ViewData["dropdown"])
+                </div>
+
+                <button id="Search" type="submit" class="btn btn-warning">Search..</button>
+                <button id="Week" type="submit" class="btn btn-warning">This Week</button>
+                <button id="Month" type="submit" class="btn btn-warning">This Month</button>
+
+            </div>
+
+            @Html.Partial("TraineeTable")
+        </fieldset>
+    }
+</div>
+@Styles.Render("~/Content/Trainee")
+@Scripts.Render("~/bundles/Trainee")

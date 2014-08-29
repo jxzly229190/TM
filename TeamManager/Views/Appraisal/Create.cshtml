@@ -1,0 +1,59 @@
+﻿
+<h2>Create Appraisal</h2>
+@using (Html.BeginForm("Create", "Appraisal", FormMethod.Post, new { role = "form",@id="myform"}))
+{
+    
+    @Html.DropDownList("GroupName", ViewData["ListItem"] as SelectList, "Choose", new { @class = "form-control"})
+    @*@Html.TextBox("yemolWorkDone")
+
+    *@<div id="member"></div>  
+    <button type="submit" class="btn btn-primary" style="margin-top:20px">Save</button>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $("#GroupName").change(DisaplayMember);
+        });
+
+        
+        //$("#myform").validate({
+        //    rules: {
+        //        yemolWorkDone: {
+        //            range: [0, 5]
+        //        }
+        //    }
+        //});
+        function DisaplayMember() {
+            var groupName = $("#GroupName option:selected").text();
+            $.ajax({
+                type: "POST",
+                url: "/Appraisal/Member",
+                data: { "groupName": groupName },
+                dataType: "html",
+                success: function (result) {
+                    $("#member").html(result);
+                    //alert(result);
+                }
+            });           
+        }
+
+        //function verify(e) {
+        //    var txtNameOld = $(e).attr("name");
+        //    alert(txtNameOld);
+        //    txtNameNew = txtNameOld.replace(".", "");
+        //    alert(txtNameNew);
+        //    $(e).attr("name", txtNameNew);
+        //    //var txtNameNew = $(e).attr("name");
+        //    $("#myform").validate({
+        //        rules: {
+        //            txtNameNew: {
+        //                range: [0, 5]
+        //            }
+        //        }
+        //    });
+        //    $(e).attr("name", txtNameOld);
+        //}
+    </script>
+}
+

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TeamManager.Models.Monthly>
+
+<table class="table table-striped table-hover" style="margin-top:20px">     
+    <tr>
+        <th style="width:200px">Name</th>
+        <th style="width:200px">Item</th>
+
+        @foreach (var member in ViewBag.date)
+        {<th>
+                @member
+            </th>
+        }
+
+    </tr>
+    @foreach (var member in Model)
+    {
+        <tr>
+            <td rowspan="4">@Html.DisplayFor(m => member.UserName)</td>
+            <td>WorkDone </td>
+            @foreach (var item in member.MonthlyAppraisal)
+            {
+                <td>@Html.DisplayFor(i => item.WorkDone)</td>
+            }
+        </tr>
+        <tr>
+            <td>BugCreated </td>
+            @foreach (var item in member.MonthlyAppraisal)
+            {
+                <td>@Html.DisplayFor(i => item.BugCreated)</td>
+            }
+        </tr>
+        <tr>
+            <td>WorkQuality</td>
+            @foreach (var item in member.MonthlyAppraisal)
+            {
+                <td>@Html.DisplayFor(i => item.WorkQuality)</td>
+            }
+        </tr>
+        <tr>
+            <td>DailyPerformance</td>
+            @foreach (var item in member.MonthlyAppraisal)
+            {
+                <td>@Html.DisplayFor(i => item.DailyPerformance)</td>
+            }
+        </tr>
+    }
+</table>

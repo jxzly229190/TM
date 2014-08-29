@@ -1,0 +1,100 @@
+﻿@model IEnumerable<TeamManager.DataProvider.TraineeAttendance>
+@{
+    ViewBag.Title = "Index";
+}
+<div id="Trainee Attendance">
+    <fieldset>
+        <legend>Trainee Attendance</legend>
+        <p>
+            <a class="btn btn-primary btn-default" data-toggle="modal" href="#CreateDialog">Create New</a>
+        </p>
+        <div class="modal fade" id="CreateDialog" tabindex="-1" role="dialog" aria-labelledby="CreateDialogLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title" id="CreateDialogLabel">Create New Attendance</h3>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("Create", "TraineeAttendance", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", id = "AttendanceInfo", role = "form" }))
+                        {
+                            <div class="form-group">
+                                <label class="text-info">AttendanceFrom</label>
+                                <br />
+                                <input type="text" id="AttendanceFrom" name="AttendanceFrom" />
+                            </div>
+                            <p></p>
+                            <div class="form-group">
+                                <label class="text-info">AttendanceTo</label>
+                                <br />
+                                <input type="text" id="AttendanceTo" name="AttendanceTo" />
+                            </div>
+                            <p></p>
+                            <div class="form-group">
+                                <label class="text-info">Comments</label>
+                                <br />
+                                @Html.TextArea("Comments", new { @class = "form-control", cols = "20", rows = "2" })
+                            </div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button id="Save" type="submit" class="btn btn-primary">Save</button>
+                        <button id="Close" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Trainee" class="table-responsive">
+            <table id="TraineeTable" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>AttendanceFrom</th>
+                        <th>AttendanceTo</th>
+                        <th>Comments</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @string.Format("{0:yyyy/MM/dd HH:mm:ss}", item.AttendanceFrom)
+                            </td>
+                            <td>
+                                @string.Format("{0:yyyy/MM/dd HH:mm:ss}", item.AttendanceTo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Comments)
+                            </td>
+                            <td style="width:125px;">
+                                @if ((DateTime.Now - Convert.ToDateTime(item.CreateTime)).TotalMinutes <= 10)
+                                {                                   
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.AttendanceGuid }, new { @class = "btn btn-success btn-sm", role = "button", style = "margin-right:4px;" })   
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.AttendanceGuid }, new { @class = "btn btn-danger btn-sm", role = "button" })
+                                }
+                                else
+                                {
+                                    <button id="Edit" class="btn btn-default btn-sm" disabled>Edit</button>
+                                    <button id="Delete" class="btn btn-default btn-sm" disabled>Delete</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    @if (Model.Count() == 0)
+                    {
+                
+                        <tr>
+                            <td><em>There is no record.</em></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>
+@Styles.Render("~/Content/Trainee")
+@Scripts.Render("~/bundles/Trainee")

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Tuple<string, List<Tuple<string, string>>>>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Daily Report List</h2>
+<div style="float:right;margin-bottom:20px">
+    @Html.ActionLink("Export To Excel", "Export", null,new { @class = "btn btn-primary" })
+
+    @Html.ActionLink("WebCenter To Excel", "WorkExport", null,new { @class = "btn btn-info" })
+</div>
+
+
+<div id="searchReport">
+
+@foreach (var item in Model)
+{
+    if (item.Item2.Count!=0)
+    {        
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th colspan="2" style="text-align:center">@item.Item1</th>
+            </tr>
+            @foreach (var project in item.Item2) {
+            <tr>
+                <td style="width:300px">
+                    @Html.DisplayFor(modelItem =>project.Item1)
+                </td>
+                <td>
+                    @*@Html.Raw(item.Item2)*@
+                    @(new HtmlString(project.Item2))
+            
+                </td>
+            </tr>
+            }
+        </table>        
+    }
+}
+</div>

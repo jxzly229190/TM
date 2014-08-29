@@ -1,0 +1,13 @@
+﻿@model TeamManager.Models.UserList
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+ @{Html.RenderPartial("DisplayPartial", Model);}
+
+<p>
+    @Html.ActionLink("Back to List", "Index", new { unitNum=Model.user.AUUnitNum }, new { @class="btn btn-default"})
+</p>
+

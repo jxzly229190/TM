@@ -1,0 +1,18 @@
+﻿div#overTime, div#overTimeMan {
+    margin-top:25px;
+}
+
+div#CreateDialog #ovInfo .form-group {
+    margin-left: 130px;
+}
+
+div#overTime table td a {
+     margin-right: 4px;
+}
+
+#content {
+     width: 400px;
+     height: 200px; 
+     max-height: 300px; 
+     max-width: 500px; 
+}

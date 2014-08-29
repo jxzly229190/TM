@@ -1,0 +1,146 @@
+﻿@model QA_System.Models.RequestTestModels
+@using QA_System.Models
+@using QA_System.Classes
+
+@{
+    ViewBag.Title = "Test";
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>                
+            </p>
+        </div>
+    </section>
+}
+<div id="Msgbox"></div>
+
+@Html.Action("RequestView", "PartialView", new { requestModel= Model})   
+
+<form id="formTest"  method="post"   enctype="multipart/form-data" >    
+<div class="fieldLine">
+    <h1>Test Information</h1>
+</div>
+<div class="fieldLine">
+    <hr />
+</div>
+<div class="fieldLine">
+    <label>Test Status</label> <span id="spanStatus">@Utils.DisplayName(Model.TestModel.Status)</span>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="statusInProgress" onclick="saveTestStatus('1')">In Progress</a>  
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="statusFoundIssue" onclick="saveTestStatus('2')">Found Issue</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="statusTested" onclick="saveTestStatus('3')">Tested</a>  
+</div>
+<div></div>
+<div class="fieldLine">
+    <label>Test Result</label> <span id="spanResult">@QA_System.Classes.Utils.DisplayName(Model.TestModel.Result)</span>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="resultPass" onclick="saveTestResult('1')">Pass</a>  
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="resultNotPass" onclick="saveTestResult('2')">Not Pass</a>  
+</div>
+<div class="fieldLine">
+    <label>Code Evaluate</label>
+    @*@Html.EnumDropDownListFor(model => model.TestModel.CodeEvaluate, new { @id="drpCodeEvaluate"})*@
+    @Html.DropDownList("drpCodeEvaluate", Utils.ToSelectList(Model.TestModel.CodeEvaluate))
+</div>
+<div class="fieldLine">
+    <label>Comments</label>
+    <div class="commentsDiv">
+    @{
+        if (Model.TestModel.Comments.Count > 0)    
+        {
+            foreach(var comment in Model.TestModel.Comments)
+            {
+                <span>
+                @comment.AddUser  added a comment -  @comment.AddDate.ToString("MM/dd/yyyy h:mm tt") <br />@comment.Comments  <br /><br />
+                </span>
+            }
+        }
+    }
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="addComment">Add Comment</a>
+    </div>
+</div>
+<div id="divAddComments">
+    <div class="fieldLine">
+        <label>&nbsp;</label>@Html.TextArea("txtComments", new {row=5,maxlength=250})
+    </div>
+    <div class="fieldLine">
+        <label>&nbsp;</label>
+        <div style="padding-left: 0px; padding-top:10px; float: left;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="saveComment">Save</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="cancelComment">Cancel</a>
+        </div>
+    </div>
+</div>
+<br />
+<div id="divFoundIssue" style="display:none">
+    <div class="fieldLine">
+        <h1>Found Issue</h1>
+        <div class="fieldTop"> <a href="javascript:void(0)" id="addIssue"><b>Add Issue</b></a></div>
+    </div>
+    <div class="fieldLine">
+        <hr />
+    </div>
+    <div class="fieldLine">
+        <table class="tableClass">
+            <tr class="trTitle">
+                <td width="70%">Description</td>
+                <td width="25%">Attachments</td>
+                <td>DateTime</td>
+                <td></td>
+            </tr>
+            @foreach (var testIssue in Model.TestModel.TestIssues)
+            { 
+                <tr>
+                    <td>@testIssue.Description</td>
+                    <td>
+                        @{
+                        if (testIssue.TestIssueFiles.Count > 0)
+                            {
+                                foreach (var file in testIssue.TestIssueFiles)
+                                {         
+                                    <div id="@file.TestIssueFileID"></div>
+                                    <script>showAttachmentList('@file.TestIssueFileID', '@file.TestIssueFileName', '@file.TestIssueFileExt', false, '');</script>
+                                }
+                            }
+                        }    
+
+                    </td>
+                    <td>@testIssue.UpdateTime.ToShortDateString()</td>
+                    <td><a href="javascript:void(0)" onclick="EditIssue('@testIssue.TestIssueID')">Edit</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+@Html.Hidden("txtTestReportID", @Model.TestModel.TestReportID as object)
+@Html.Hidden("txtStatus", @Model.TestModel.Status as object)
+@Html.Hidden("txtHasFoundIssue", (Model.TestModel.TestIssues.Count > 0))
+</form>
+<div id="dlgAddIssue" class="easyui-dialog" style="width:800px;height:280px;padding:10px 20px"  
+            closed="true" buttons="#dlg-buttons">  
+        <form id="fm" method="post" enctype="multipart/form-data">  
+             <div class="fieldLine">
+                <label>Description:</label> 
+                <textarea rows="2" id="txtIssueDes" name="txtIssueDes" class="easyui-validatebox" required="true" maxlength="250"></textarea>
+            </div> 
+            <div class="fieldLine">
+                <label>Attachments:</label> <input type="file" id="issueFile"/>
+                <div id="issueFile-list" style="clear:left;padding-left:150px;">
+                 
+                </div>
+            </div> 
+            <br />
+            <div class="fieldLine">
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="SaveIssue()">Save</a>  
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlgAddIssue').dialog('close')">Cancel</a>  
+            </div>  
+            <input type="hidden" id="testReportID" name="testReportID"/>
+            <input type="hidden" id="testIssueID" name="testIssueID"/>
+        </form>  
+</div>  
+<script src="@Url.Content("~/Scripts/test.js")" type="text/javascript"></script>

@@ -1,0 +1,121 @@
+﻿@*@model TeamManager.Models.TimeTable*@
+@model IPagedList<TeamManager.Models.TimeTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/bootstrap/css/pager.css" rel="stylesheet" />
+<script>
+    $(function () {
+        $("#UserID,#AnnualDays,#AnnualDaysRest,#AnnualDaysERP,#OverTime,#OverTimeRest").addClass("form-control");
+        $("#Save").click(function () {
+            if ($("#UserID").val() == "" || $("#AnnualDays").val() == "" || $("#OverTime").val()=="") {
+                alert("The UserID,AnnualDays and OverTime is required.");
+                return false;
+            }
+            $("#timeInfo").submit();
+        });
+    });
+</script>
+<fieldset>
+    <legend>TotalTime Management</legend>
+
+    @if (User.Identity.Name.Split(',')[1] == "Project Manager")
+    {
+        <p>
+            <a class="btn btn-primary btn-default" data-toggle="modal" href="#CreateDialog">Create New</a>
+        </p>
+        <div class="modal fade" id="CreateDialog" tabindex="-1" role="dialog" aria-labelledby="CreateDialogLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title" id="CreateDialogLabel">Create New</h3>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("Create", "TimeManager", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", id = "timeInfo", role = "form" }))
+                        {
+                            <div class="form-group">
+                                <label for="UserID" class="col-sm-4 control-label">UserID</label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownList("UserID", (IEnumerable<SelectListItem>)ViewData["List"], "--Select One--")
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="AnnualDays" class="col-sm-4 control-label">AnnualDays</label>
+                                <div class="col-sm-4">
+                                    <input type="text" id="AnnualDays" name="AnnualDays" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="OverTime" class="col-sm-4 control-label">OverTime</label>
+                                <div class="col-sm-4">
+                                    <input type="text" id="OverTime" name="OverTime" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button id="Save" type="submit" class="btn btn-primary">Save</button>
+                        <button id="Close" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div id="timeManager" class="table-responsive">
+        <table id="TimeManager" class="table table-condensed table-striped table-hover">
+            <thead>
+                <tr>
+                    @*<th><a href="/TimeManager/SortTable?page=@Model.PageIndex&sortDirection=@ViewBag.sortDirection">UserName</a></th>*@
+                    <th>UserName</th>
+                    <th>AnnualLeave(H)</th>
+                    <th>AnnualLeaveRest(H)</th>
+                    @*<th>AnnualLeaveERP(H)</th>*@
+                    <th>OverTime(H)</th>
+                    <th>OverTimeRest(H)</th>
+                    @if (User.Identity.Name.Split(',')[1] == "Project Manager")
+                    {
+                        <th>Manage</th>
+                    }                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.user.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.userLeave.AnnualDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.userLeave.AnnualDaysRest)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.userLeave.AnnualDaysERP)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.userLeave.OverTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.userLeave.OverTimeRest)
+                        </td>
+                        @if (User.Identity.Name.Split(',')[1] == "Project Manager")
+                        {
+                            <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.userLeave.ID }, new { @class = "btn btn-success btn-sm" })
+                        </td>
+                        }
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="pager">
+            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o => o.AlwaysAddFirstPageNumber())
+        </div>
+    </div>
+</fieldset>

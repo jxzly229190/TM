@@ -1,0 +1,29 @@
+﻿
+@model IEnumerable<Tuple<string,string,string>>
+<div id="searchReport">
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Completed</th>
+        <th>uncompleted</th>
+    </tr>
+    @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem =>item.Item1)
+        </td>
+        <td>
+            @*@Html.Raw(item.Item2)*@
+            @(new HtmlString(item.Item2))
+            
+        </td>
+        <td>
+            @Html.Raw(item.Item3)
+            
+        </td>
+    </tr>
+    }
+</table>
+</div>

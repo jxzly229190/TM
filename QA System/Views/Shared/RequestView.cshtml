@@ -1,0 +1,50 @@
+﻿@model QA_System.Models.RequestTestModels
+@using QA_System.Models
+
+<div class="fieldLine">
+    <h1>Request Information</h1>
+    @{
+        if (Model.Developer == ViewBag.UserID)
+        {
+            <div class="fieldTop"> <a href="~/Request/RequestTest?requestID=@Model.ReqestID">Edit Request</a></div>
+        }
+    }
+</div>
+<div class="fieldLine">
+    <hr />
+</div>
+<div class="fieldShow">
+    <label>Project</label> @Model.Project
+</div>
+<div class="fieldShow">
+    @Html.Label("Related JIRA")  <a href="http://199.189.124.36/browse/@Model.RelatedJIRA" target='_blank'>@Model.RelatedJIRA</a>
+</div>
+<div class="fieldShow">
+    @Html.Label("Developer") @Model.DeveloperName
+</div>
+<div class="fieldShow">
+    @Html.Label("Test instruction")     @Model.Instruction
+</div>
+<div class="fieldShow">
+    @Html.Label("Comments") @Model.Comments <br />
+        
+</div>
+@*<div class="fieldShow">
+    @Html.Label("Test Enviroment") @Model.OtherFields.Environment
+</div>*@
+<div class="fieldShow">
+    @Html.Label("Attachment List") 
+    <div id="attachmentContainer" style="float:left;padding-left:0px;">
+    @{
+        foreach(var attachment in Model.RequestTestFiles)    
+        {
+            <div id="@attachment.RequestTestFileID"></div>
+            <script>showAttachmentList('@attachment.RequestTestFileID', '@attachment.RequestTestFileName', '@attachment.RequestTestFileExt', false, 'attachmentContainer')</script>        
+        }
+    }
+    
+    </div>
+</div>
+
+
+

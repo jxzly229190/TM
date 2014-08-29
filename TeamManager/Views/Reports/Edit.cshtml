@@ -1,0 +1,222 @@
+﻿@model TeamManager.Models.ReportItems
+
+@{
+    ViewBag.Title = "Edit";
+}
+<style> 
+     #toSubmit {
+        position: fixed;
+        float: right;
+        width: 100px;
+        height: 100%;
+        right: 50px;
+        bottom: 20px;
+        padding: 6px 12px;
+        font-size: 16px;
+        background: #2d6ca2;
+        color: white;
+        cursor: pointer;
+        opacity: 1;
+    }
+      
+</style>
+<script type="text/javascript">
+
+    $(function () {
+        $("#toSubmit").click(function () {
+            $("#formReports").submit();
+        });
+    });
+
+    function AddControl(data) {
+        var countBefore = $("#field" + data + " select").length;
+        var countAfter = countBefore + 1;
+        var content = "<div id='div" + data + countAfter + "' ></div>"
+        if (countBefore != 0) {
+            $("#div" + data + countBefore).append(content);            
+        }
+        else {
+            $("#hidden" + data).append(content);
+        }
+
+        $("#div" + data + countAfter).load("/Reports/RP", { "item": data + countAfter });
+        $("#hide" + data).attr("value", countAfter);
+    }
+</script>
+<h2>Edit</h2>
+<p>@Html.ActionLink("View My Old Report", "Details", null, new { @class = "btn btn-info", target = "_blank" })</p>
+
+@using (Html.BeginForm("Edit", "Reports", FormMethod.Post, new { @class = "form-horizontal", @id = "formReports", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.Hidden("hideID", ViewData["DailyReportID"])
+
+    
+    <fieldset id="fieldFinished">
+        <legend>Finished</legend>
+        <div id="hiddenFinished">
+            @Html.Hidden("hideFinished",  Model.Finished.Count)
+         </div>        
+        @for (int i = 0; i < Model.Finished.Count; i++)
+        {  
+            <div id="@string.Format("divFinished{0}", i + 1)">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Work For</label>
+                    <div class="col-sm-10">
+                        @Html.DropDownList(string.Format("Finished{0}_DDL", i + 1), new SelectList(ViewBag.ReportProject, "Value", "Text", Model.Finished[i].Project), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Finished[i].Project)
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Item</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox(string.Format("Finished{0}_TB", i + 1), Model.Finished[i].Work,new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Finished[i].Work)
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        @Html.TextArea(string.Format("Finished{0}_TA", i + 1),Model.Finished[i].Description, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Finished[i].Description)
+                    </div>
+                </div>
+            </div>
+        }        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button  type="button" class="btn btn-default" onclick="AddControl('Finished')">Add</button>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="fieldWIP">
+        <legend>WIP</legend>
+        <div id="hiddenWIP">
+             @Html.Hidden("hideWIP", Model.WIP.Count)
+        </div>
+        @for (int i = 0; i < Model.WIP.Count; i++)
+        {
+            <div id="@string.Format("divWIP{0}", i + 1)">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Work For</label>
+                    <div class="col-sm-10">
+                        @Html.DropDownList(string.Format("WIP{0}_DDL", i + 1), new SelectList(ViewBag.ReportProject, "Value", "Text", Model.WIP[i].Project), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.WIP[i].Project)
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Item</label>
+                    <div class="col-sm-10">
+                        @Html.TextBox(string.Format("WIP{0}_TB", i + 1), Model.WIP[i].Work, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.WIP[i].Work)
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        @Html.TextArea(string.Format("WIP{0}_TA", i + 1), Model.WIP[i].Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.WIP[i].Description)
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button  type="button" class="btn btn-default" onclick="AddControl('WIP')">Add</button>
+            </div>
+        </div>
+   </fieldset>     
+    <fieldset id="fieldPlanning">
+        <legend>Planning</legend>
+        <div id="hiddenPlanning">
+            @Html.Hidden("hidePlanning", Model.Planning.Count)
+        </div>
+            @for (int i = 0; i < Model.Planning.Count; i++)
+            {
+                <div id="@string.Format("divPlanning{0}", i + 1)">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Work For</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownList(string.Format("Planning{0}_DDL", i + 1), new SelectList(ViewBag.ReportProject, "Value", "Text", Model.Planning[i].Project), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Planning[i].Project)
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Item</label>
+                       <div class="col-sm-10">
+                            @Html.TextBox(string.Format("Planning{0}_TB", i + 1),Model.Planning[i].Work, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Planning[i].Work)
+                        </div>
+                    </div>
+        
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            @Html.TextArea(string.Format("Planning{0}_TA", i + 1), Model.Planning[i].Description,new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Planning[i].Description)
+                        </div>
+                    </div>
+                </div>
+            }
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button  type="button" class="btn btn-default" onclick="AddControl('Planning')">Add</button>
+            </div>
+        </div>
+       </fieldset> 
+    <fieldset id="fieldBlocking">
+            <legend>Blocking</legend>
+        <div id="hiddenBlocking">
+            @Html.Hidden("hideBlocking", Model.Blocking.Count)
+        </div>
+            @for (int i = 0; i < Model.Blocking.Count; i++)
+            {
+                <div id="@string.Format("divBlocking{0}", i + 1)">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Work For</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownList(string.Format("Blocking{0}_DDL", i + 1), new SelectList(ViewBag.ReportProject, "Value", "Text", Model.Blocking[i].Project), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Blocking[i].Project)
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Item</label>
+                       <div class="col-sm-10">
+                            @Html.TextBox(string.Format("Blocking{0}_TB", i + 1),Model.Blocking[i].Work, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Blocking[i].Work)
+                        </div>
+                    </div>
+        
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            @Html.TextArea(string.Format("Blocking{0}_TA", i + 1),Model.Blocking[i].Description, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Blocking[i].Description)
+                        </div>
+                    </div>
+                </div>
+            }
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button  type="button" class="btn btn-default" onclick="AddControl('Blocking')">Add</button>
+            </div>
+        </div>
+       </fieldset>         
+        <p>
+            <input type="submit" value="Save" class="btn btn-primary"/>
+        </p>
+    
+}
+<button id="toSubmit">Save</button>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Create Request Test";
+}
+@model QA_System.Models.RequestTestModels
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title. </h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                Each developer has to send a QA request here.
+            </p>
+        </div>
+    </section>
+}
+<div class="errorMsg"></div>
+<form id="formRequest" method="post"  enctype="multipart/form-data">
+<div class="fieldLine">
+    <label>Project</label><select name="selproject" id="selproject"><option value="WebCenter">Web Center</option>
+        <option value="ProService">Pro Service</option>
+        <option value="DocumentEngine">Document Engine</option>
+        <option value="AC&TC">Appraical & Title Center</option>
+        <option value="HomePage">Home Page</option>
+    </select>
+</div>
+<div class="fieldLine">
+    @Html.Label("Related JIRA") @Html.TextBox("txtrelatedJIRA", Model.RelatedJIRA)
+</div>
+<div class="fieldLine">
+    @Html.Label("Developer") @Html.TextBox("txtdeveloper", ViewBag.UserName as object, new { disabled= true})
+</div>
+<div class="fieldLine">
+     @Html.Label("Test instruction")
+    <textarea class="easyui-validatebox" cols="20" name="txtInstruction" rows="3" data-options="required:true">@Model.Instruction</textarea>
+</div>
+<div class="fieldLine">
+    @Html.Label("Comments") 
+    <textarea class="easyui-validatebox" cols="20" name="txtComments" rows="3" data-options="required:false">@Model.Comments</textarea>
+</div>
+@*<div class="fieldLine">
+    @Html.Label("Test Environment") @Html.TextBox("txtEnvironment", @Model.OtherFields.Environment as object)
+</div>*@
+<div class="fieldLine">
+    @Html.Label("Attachment List") <input type="file" id="attachmentFile"/>
+    <br />
+    <div id="file-list" style="clear:left;padding-left:150px;">
+     @{
+        foreach(var attachment in Model.RequestTestFiles)    
+        {
+            <script>showAttachmentList('@attachment.RequestTestFileID', '@attachment.RequestTestFileName', '@attachment.RequestTestFileExt', true, 'file-list')</script>        
+        }
+    }
+    </div>
+</div>
+
+<br />
+<div style="clear:both;" >
+ <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveRequestTest()">Submit</a>  
+  <a href="javascript:void(0)" class="easyui-linkbutton" onclick="window.history.go(-1)">Cancel</a> 
+</div>
+    @Html.Hidden("txtproject", @Model.Project as object)
+    @Html.Hidden("txtrequestID", @Model.ReqestID as object)
+    @Html.Hidden("pageIndex", @ViewBag.pageIndex as object)
+    @Html.Hidden("sort", @ViewBag.sort as object)
+</form>
+<script src="~/Scripts/default.js" type="text/javascript"></script>
+<script>
+    var projectname = $("#txtproject").val();    
+    $("#selproject").find("option[value='" + projectname + "']").attr("selected", true);
+    
+    function saveRequestTest() {
+        $.messager.progress();
+        $('#formRequest').form('submit', {
+            url:"../Request/SaveRequestTest",
+            onSubmit: function () {
+                var isValid = $(this).form('validate');
+                if (!isValid) {
+                    $.messager.progress('close');	// hide progress bar while the form is invalid
+                }
+                return isValid;
+            },
+            success: function (msg) {
+                var resultJson = eval("(" + msg + ")");
+                if (resultJson.IsSuccess) {
+                    window.location.href = resultJson.href;
+                }
+                else {
+                    $(".errorMsg").html(resultJson.errorMsg);
+                    $.messager.progress('close');	// hide progress bar while the form is invalid
+                }
+            }
+        });
+    }
+
+    $(function () { // wait for document to load 
+        $('#attachmentFile').MultiFile({ list: '#file-list' });
+    });
+</script>

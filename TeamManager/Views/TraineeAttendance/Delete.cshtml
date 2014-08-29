@@ -1,0 +1,41 @@
+﻿@model TeamManager.DataProvider.TraineeAttendance
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#AttendanceFrom,#AttendanceTo,#Comments").attr({ class: "form-control", disabled: true });
+    });
+</script>
+
+@using (Html.BeginForm("Delete", "TraineeAttendance", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", id = "AttendanceInfo_del", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset disabled>
+        <legend>Are you sure that you want to delete this?</legend>
+        <div class="form-group">
+            <label class="text-info">AttendanceFrom</label>
+            <br />
+           @Html.EditorFor(model => model.AttendanceFrom)
+        </div>
+        <p></p>
+        <div class="form-group">
+            <label class="text-info">AttendanceTo</label>
+            <br />
+           @Html.EditorFor(model => model.AttendanceTo)
+        </div>
+        <p></p>
+        <div class="form-group">
+            <label class="text-info">Comments</label>
+            <br />
+            @Html.TextArea("Comments", new { @class = "form-control", cols = "20", rows = "2"})
+            <br />
+        </div>
+    </fieldset>
+    <p></p>
+    <button id="Delete" class="btn btn-danger" type="submit">Delete</button>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+}
+@Styles.Render("~/Content/Trainee")

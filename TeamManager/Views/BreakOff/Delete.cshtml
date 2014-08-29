@@ -1,0 +1,46 @@
+﻿@model TeamManager.DataProvider.BreakOff
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#BreakOffFrom,#BreakOffTo,#CutFrom,#Status").attr({ class: "form-control", disabled: true });
+    });
+</script>
+
+@using (Html.BeginForm("Delete", "BreakOff", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", id = "bfInfo_del", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset disabled>
+        <legend>Are you sure that you want to delete this?</legend>
+        <div class="form-group">
+            <label class="text-info">DateFrom</label>
+            <br />
+           @Html.EditorFor(model => model.BreakOffFrom)
+        </div>
+        <p></p>
+        <div class="form-group">
+            <label class="text-info">DateTo</label>
+            <br />
+           @Html.EditorFor(model => model.BreakOffTo)
+        </div>
+        <p></p>
+        <div class="form-group">
+            <label class="text-info">CutFrom</label>
+            <br />
+           @Html.DropDownList("CutFrom", (IEnumerable<SelectListItem>)ViewData["List"], "--Select One--")
+        </div>
+        <p></p>
+        <div class="form-group">
+            <label class="text-info">Status</label>
+            <br />
+            @Html.EditorFor(model => model.Status)
+            <br />
+        </div>
+    </fieldset>
+    <p></p>
+    <button id="Delete" class="btn btn-danger" type="submit">Delete</button>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+}

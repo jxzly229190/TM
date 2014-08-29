@@ -1,0 +1,10 @@
+﻿div#Trainee, div#traineeMan {
+    margin-top:25px;
+}
+
+#Comments {
+    width: 400px;
+    height: 200px;
+    max-height: 300px;
+    max-width: 500px;
+}

@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Details";
+}
+
+<script type="text/javascript">
+$(function () {
+        $("#searchFrom").datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: true,
+            forceParse: 0,
+            showMeridian: 1,
+            minView: 2,
+            format:"mm/dd/yyyy"
+        });
+        $("#searchFrom").attr("class", "form-control");
+    });
+</script>
+@using (Ajax.BeginForm("DailyReportSearch", "Reports", null, new AjaxOptions
+{
+    UpdateTargetId = "searchReport",
+    HttpMethod = "Post",
+    OnSuccess = " ",
+}, new { @class = "form-inline", role = "form" }))
+{
+<fieldset>
+    <legend>My DailyReport</legend>
+    <div class="search" style="margin-left: 8px;">
+        <label class="text-info">DateTime:</label>
+        <div class="form-group">
+            @Html.TextBox("searchFrom")
+        </div>
+        <button id="search" type="submit" class="btn btn-primary">Search</button>
+    </div>
+
+    @{Html.RenderPartial("DailyReportPartial");}
+
+   </fieldset>
+}
+

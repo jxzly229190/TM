@@ -1,0 +1,1727 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TeamManage_Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TeamManage_ModelStoreContainer">
+          <EntitySet Name="BreakOff" EntityType="TeamManage_Model.Store.BreakOff" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DailyProjectReport" EntityType="TeamManage_Model.Store.DailyProjectReport" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DailyReport" EntityType="TeamManage_Model.Store.DailyReport" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OverTime" EntityType="TeamManage_Model.Store.OverTime" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QA_Files" EntityType="TeamManage_Model.Store.QA_Files" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QA_Request" EntityType="TeamManage_Model.Store.QA_Request" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QA_RequestFile" EntityType="TeamManage_Model.Store.QA_RequestFile" store:Type="Tables" store:Schema="dbo" store:Name="QA_RequestFile">
+            <DefiningQuery>SELECT 
+      [QA_RequestFile].[FileID] AS [FileID], 
+      [QA_RequestFile].[RequestID] AS [RequestID]
+      FROM [dbo].[QA_RequestFile] AS [QA_RequestFile]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="QA_Test" EntityType="TeamManage_Model.Store.QA_Test" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QA_TestFile" EntityType="TeamManage_Model.Store.QA_TestFile" store:Type="Tables" store:Schema="dbo" store:Name="QA_TestFile">
+            <DefiningQuery>SELECT 
+      [QA_TestFile].[FileID] AS [FileID], 
+      [QA_TestFile].[TestReportID] AS [TestReportID]
+      FROM [dbo].[QA_TestFile] AS [QA_TestFile]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="QA_TestIssue" EntityType="TeamManage_Model.Store.QA_TestIssue" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="QA_TestIssueFile" EntityType="TeamManage_Model.Store.QA_TestIssueFile" store:Type="Tables" store:Schema="dbo" store:Name="QA_TestIssueFile">
+            <DefiningQuery>SELECT 
+      [QA_TestIssueFile].[FileID] AS [FileID], 
+      [QA_TestIssueFile].[TestIssueID] AS [TestIssueID]
+      FROM [dbo].[QA_TestIssueFile] AS [QA_TestIssueFile]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sysdiagrams" EntityType="TeamManage_Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_ABAttach" EntityType="TeamManage_Model.Store.t_ABAttach" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_AlertBase" EntityType="TeamManage_Model.Store.t_AlertBase" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_AlertUser" EntityType="TeamManage_Model.Store.t_AlertUser" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_AUAttach" EntityType="TeamManage_Model.Store.t_AUAttach" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Test" EntityType="TeamManage_Model.Store.Test" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TraineeAttendance" EntityType="TeamManage_Model.Store.TraineeAttendance" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TraineeBreakOff" EntityType="TeamManage_Model.Store.TraineeBreakOff" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UploadFile" EntityType="TeamManage_Model.Store.UploadFile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserAppraisal" EntityType="TeamManage_Model.Store.UserAppraisal" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserLeave" EntityType="TeamManage_Model.Store.UserLeave" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserLeaveCutLog" EntityType="TeamManage_Model.Store.UserLeaveCutLog" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserRole" EntityType="TeamManage_Model.Store.UserRole" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="TeamManage_Model.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserToken" EntityType="TeamManage_Model.Store.UserToken" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserType" EntityType="TeamManage_Model.Store.UserType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VoteDetail" EntityType="TeamManage_Model.Store.VoteDetail" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VoteItem" EntityType="TeamManage_Model.Store.VoteItem" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VoteProject" EntityType="TeamManage_Model.Store.VoteProject" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_QA_Request_QA_Request" Association="TeamManage_Model.Store.FK_QA_Request_QA_Request">
+            <End Role="QA_Request" EntitySet="QA_Request" />
+            <End Role="QA_Request1" EntitySet="QA_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QA_RequestFile_QA_Files" Association="TeamManage_Model.Store.FK_QA_RequestFile_QA_Files">
+            <End Role="QA_Files" EntitySet="QA_Files" />
+            <End Role="QA_RequestFile" EntitySet="QA_RequestFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QA_RequestFile_QA_Request" Association="TeamManage_Model.Store.FK_QA_RequestFile_QA_Request">
+            <End Role="QA_Request" EntitySet="QA_Request" />
+            <End Role="QA_RequestFile" EntitySet="QA_RequestFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QA_Test_QA_Request" Association="TeamManage_Model.Store.FK_QA_Test_QA_Request">
+            <End Role="QA_Request" EntitySet="QA_Request" />
+            <End Role="QA_Test" EntitySet="QA_Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QA_TestFile_QA_Files" Association="TeamManage_Model.Store.FK_QA_TestFile_QA_Files">
+            <End Role="QA_Files" EntitySet="QA_Files" />
+            <End Role="QA_TestFile" EntitySet="QA_TestFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QA_TestFile_QA_Test" Association="TeamManage_Model.Store.FK_QA_TestFile_QA_Test">
+            <End Role="QA_Test" EntitySet="QA_Test" />
+            <End Role="QA_TestFile" EntitySet="QA_TestFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QA_TestIssueFile_QA_Files" Association="TeamManage_Model.Store.FK_QA_TestIssueFile_QA_Files">
+            <End Role="QA_Files" EntitySet="QA_Files" />
+            <End Role="QA_TestIssueFile" EntitySet="QA_TestIssueFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QA_TestIssueFile_QA_TestIssue" Association="TeamManage_Model.Store.FK_QA_TestIssueFile_QA_TestIssue">
+            <End Role="QA_TestIssue" EntitySet="QA_TestIssue" />
+            <End Role="QA_TestIssueFile" EntitySet="QA_TestIssueFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_ABAttach_Users" Association="TeamManage_Model.Store.FK_t_ABAttach_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="t_ABAttach" EntitySet="t_ABAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_ABAttach_Users1" Association="TeamManage_Model.Store.FK_t_ABAttach_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="t_ABAttach" EntitySet="t_ABAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertBase_Users" Association="TeamManage_Model.Store.FK_t_AlertBase_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="t_AlertBase" EntitySet="t_AlertBase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertBase_Users2" Association="TeamManage_Model.Store.FK_t_AlertBase_Users2">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="t_AlertBase" EntitySet="t_AlertBase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertUser_t_AlertBase" Association="TeamManage_Model.Store.FK_t_AlertUser_t_AlertBase">
+            <End Role="t_AlertBase" EntitySet="t_AlertBase" />
+            <End Role="t_AlertUser" EntitySet="t_AlertUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertUser_Users" Association="TeamManage_Model.Store.FK_t_AlertUser_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="t_AlertUser" EntitySet="t_AlertUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertUser_Users1" Association="TeamManage_Model.Store.FK_t_AlertUser_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="t_AlertUser" EntitySet="t_AlertUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AUAttach_t_AlertUser" Association="TeamManage_Model.Store.FK_t_AUAttach_t_AlertUser">
+            <End Role="t_AlertUser" EntitySet="t_AlertUser" />
+            <End Role="t_AUAttach" EntitySet="t_AUAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AUAttach_Users" Association="TeamManage_Model.Store.FK_t_AUAttach_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="t_AUAttach" EntitySet="t_AUAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AUAttach_Users1" Association="TeamManage_Model.Store.FK_t_AUAttach_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="t_AUAttach" EntitySet="t_AUAttach" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BreakOff">
+          <Key>
+            <PropertyRef Name="BreakOffGuid" />
+          </Key>
+          <Property Name="BreakOffGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="BreakOffFrom" Type="datetime" Nullable="false" />
+          <Property Name="BreakOffTo" Type="datetime" Nullable="false" />
+          <Property Name="CutFrom" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Status" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DailyProjectReport">
+          <Key>
+            <PropertyRef Name="DailyProjectReportID" />
+          </Key>
+          <Property Name="DailyProjectReportID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Project" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Report" Type="xml" Nullable="false" />
+          <Property Name="AddDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DailyReport">
+          <Key>
+            <PropertyRef Name="DailyReportID" />
+          </Key>
+          <Property Name="DailyReportID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Report" Type="xml" Nullable="false" />
+          <Property Name="AddDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OverTime">
+          <Key>
+            <PropertyRef Name="OverTimeGuid" />
+          </Key>
+          <Property Name="OverTimeGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="OnDate" Type="datetime" Nullable="false" />
+          <Property Name="Hours" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="QA_Files">
+          <Key>
+            <PropertyRef Name="FileID" />
+          </Key>
+          <Property Name="FileID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FileContent" Type="image" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="QA_Request">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Project" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RelatedJIRA" Type="varchar" MaxLength="128" />
+          <Property Name="Developer" Type="varchar" MaxLength="50" />
+          <Property Name="Instruction" Type="varchar(max)" />
+          <Property Name="Comments" Type="varchar(max)" />
+          <Property Name="Fields" Type="xml" />
+          <Property Name="Log" Type="varchar(max)" />
+          <Property Name="InsertDateTime" Type="datetime" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'TeamManage_Vote.dbo.QA_RequestFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="QA_RequestFile">
+          <Key>
+            <PropertyRef Name="FileID" />
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="FileID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequestID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QA_Test">
+          <Key>
+            <PropertyRef Name="TestReportID" />
+          </Key>
+          <Property Name="TestReportID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequestID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Result" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CodeEvaluate" Type="int" />
+          <Property Name="Tester" Type="varchar" MaxLength="50" />
+          <Property Name="Comments" Type="xml" />
+          <Property Name="Log" Type="xml" />
+          <Property Name="InsertTime" Type="datetime" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'TeamManage_Vote.dbo.QA_TestFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="QA_TestFile">
+          <Key>
+            <PropertyRef Name="FileID" />
+            <PropertyRef Name="TestReportID" />
+          </Key>
+          <Property Name="FileID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TestReportID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QA_TestIssue">
+          <Key>
+            <PropertyRef Name="TestIssueID" />
+          </Key>
+          <Property Name="TestIssueID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TestReportID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="Status" Type="tinyint" />
+          <Property Name="Log" Type="varchar(max)" />
+          <Property Name="DateTime" Type="datetime" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'TeamManage_Vote.dbo.QA_TestIssueFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="QA_TestIssueFile">
+          <Key>
+            <PropertyRef Name="FileID" />
+            <PropertyRef Name="TestIssueID" />
+          </Key>
+          <Property Name="FileID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TestIssueID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="t_ABAttach">
+          <Key>
+            <PropertyRef Name="ABAID" />
+          </Key>
+          <Property Name="ABAID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ABID" Type="int" Nullable="false" />
+          <Property Name="ABAName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ABAFile" Type="image" Nullable="false" />
+          <Property Name="ABAType" Type="int" />
+          <Property Name="ABAStatus" Type="int" />
+          <Property Name="ABARemark" Type="ntext" />
+          <Property Name="CreateBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_AlertBase">
+          <Key>
+            <PropertyRef Name="ABID" />
+          </Key>
+          <Property Name="ABID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ABName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ABType" Type="int" />
+          <Property Name="ABStatus" Type="int" />
+          <Property Name="ABOrder" Type="int" />
+          <Property Name="ABRemark" Type="ntext" />
+          <Property Name="CreateBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_AlertUser">
+          <Key>
+            <PropertyRef Name="AUID" />
+          </Key>
+          <Property Name="AUID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="350" />
+          <Property Name="CcUser" Type="varchar" MaxLength="350" />
+          <Property Name="ABID" Type="int" Nullable="false" />
+          <Property Name="AUTitle" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="AUContent" Type="ntext" />
+          <Property Name="AUType" Type="int" />
+          <Property Name="AUStatus" Type="int" />
+          <Property Name="AUInterval" Type="int" Nullable="false" />
+          <Property Name="AUUnitNum" Type="int" Nullable="false" />
+          <Property Name="AUTime" Type="datetime" Nullable="false" />
+          <Property Name="AURemark" Type="ntext" />
+          <Property Name="CreateBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_AUAttach">
+          <Key>
+            <PropertyRef Name="AUAID" />
+          </Key>
+          <Property Name="AUAID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AUID" Type="int" Nullable="false" />
+          <Property Name="AUAName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="AUAFile" Type="image" Nullable="false" />
+          <Property Name="AUAType" Type="int" />
+          <Property Name="AUAStatus" Type="int" />
+          <Property Name="AUARemark" Type="ntext" />
+          <Property Name="CreateBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Aid" />
+          </Key>
+          <Property Name="Aid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TraineeAttendance">
+          <Key>
+            <PropertyRef Name="AttendanceGuid" />
+          </Key>
+          <Property Name="AttendanceGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="AttendanceFrom" Type="datetime" Nullable="false" />
+          <Property Name="AttendanceTo" Type="datetime" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TraineeBreakOff">
+          <Key>
+            <PropertyRef Name="BreakOffGuid" />
+          </Key>
+          <Property Name="BreakOffGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="BreakOffFrom" Type="datetime" Nullable="false" />
+          <Property Name="BreakOffTo" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UploadFile">
+          <Key>
+            <PropertyRef Name="UploadFileID" />
+          </Key>
+          <Property Name="UploadFileID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FileName" Type="varchar" Nullable="false" MaxLength="1024" />
+          <Property Name="FileContent" Type="image" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAppraisal">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="DateTime" />
+            <PropertyRef Name="GroupName" />
+          </Key>
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="128" />
+          <Property Name="WorkDone" Type="decimal" Precision="2" Scale="1" />
+          <Property Name="BugCreated" Type="decimal" Precision="2" Scale="1" />
+          <Property Name="WorkQuality" Type="decimal" Precision="2" Scale="1" />
+          <Property Name="DailyPerformance" Type="decimal" Precision="2" Scale="1" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserLeave">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="AnnualDays" Type="int" Nullable="false" />
+          <Property Name="AnnualDaysRest" Type="int" Nullable="false" />
+          <Property Name="OverTime" Type="int" Nullable="false" />
+          <Property Name="OverTimeRest" Type="int" Nullable="false" />
+          <Property Name="InitDateTime" Type="datetime" />
+          <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="AnnualDaysERP" Type="int" />
+        </EntityType>
+        <EntityType Name="UserLeaveCutLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BreakOFFID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LeaveType" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CutHour" Type="int" Nullable="false" />
+          <Property Name="CutDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="GroupName" />
+          </Key>
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RoleID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RoleName" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="GroupName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="128" />
+          <Property Name="LoginPassword" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastLogin" Type="datetime" />
+          <Property Name="IsTrainee" Type="bit" />
+          <Property Name="IsDeparted" Type="bit" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" />
+          <Property Name="EMAccount" Type="varchar" MaxLength="50" />
+          <Property Name="EMPassword" Type="varchar" MaxLength="50" />
+          <Property Name="JIRAToken" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserToken">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Token" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="TimeMark" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VoteDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PId" Type="int" />
+          <Property Name="IId" Type="int" />
+          <Property Name="Voter" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="ModifiedTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="VoteItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nominees" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nominator" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="State" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="ModifiedTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="VoteProject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="TermFrom" Type="datetime" />
+          <Property Name="TermTo" Type="datetime" />
+          <Property Name="State" Type="int" />
+          <Property Name="VoteNum" Type="int" />
+          <Property Name="BeginTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedTime" Type="datetime" />
+          <Property Name="ModifiedTime" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_QA_Request_QA_Request">
+          <End Role="QA_Request" Type="TeamManage_Model.Store.QA_Request" Multiplicity="1" />
+          <End Role="QA_Request1" Type="TeamManage_Model.Store.QA_Request" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="QA_Request">
+              <PropertyRef Name="RequestID" />
+            </Principal>
+            <Dependent Role="QA_Request1">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QA_RequestFile_QA_Files">
+          <End Role="QA_Files" Type="TeamManage_Model.Store.QA_Files" Multiplicity="1" />
+          <End Role="QA_RequestFile" Type="TeamManage_Model.Store.QA_RequestFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QA_Files">
+              <PropertyRef Name="FileID" />
+            </Principal>
+            <Dependent Role="QA_RequestFile">
+              <PropertyRef Name="FileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QA_RequestFile_QA_Request">
+          <End Role="QA_Request" Type="TeamManage_Model.Store.QA_Request" Multiplicity="1" />
+          <End Role="QA_RequestFile" Type="TeamManage_Model.Store.QA_RequestFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QA_Request">
+              <PropertyRef Name="RequestID" />
+            </Principal>
+            <Dependent Role="QA_RequestFile">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QA_Test_QA_Request">
+          <End Role="QA_Request" Type="TeamManage_Model.Store.QA_Request" Multiplicity="1" />
+          <End Role="QA_Test" Type="TeamManage_Model.Store.QA_Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QA_Request">
+              <PropertyRef Name="RequestID" />
+            </Principal>
+            <Dependent Role="QA_Test">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QA_TestFile_QA_Files">
+          <End Role="QA_Files" Type="TeamManage_Model.Store.QA_Files" Multiplicity="1" />
+          <End Role="QA_TestFile" Type="TeamManage_Model.Store.QA_TestFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QA_Files">
+              <PropertyRef Name="FileID" />
+            </Principal>
+            <Dependent Role="QA_TestFile">
+              <PropertyRef Name="FileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QA_TestFile_QA_Test">
+          <End Role="QA_Test" Type="TeamManage_Model.Store.QA_Test" Multiplicity="1" />
+          <End Role="QA_TestFile" Type="TeamManage_Model.Store.QA_TestFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QA_Test">
+              <PropertyRef Name="TestReportID" />
+            </Principal>
+            <Dependent Role="QA_TestFile">
+              <PropertyRef Name="TestReportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QA_TestIssueFile_QA_Files">
+          <End Role="QA_Files" Type="TeamManage_Model.Store.QA_Files" Multiplicity="1" />
+          <End Role="QA_TestIssueFile" Type="TeamManage_Model.Store.QA_TestIssueFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QA_Files">
+              <PropertyRef Name="FileID" />
+            </Principal>
+            <Dependent Role="QA_TestIssueFile">
+              <PropertyRef Name="FileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QA_TestIssueFile_QA_TestIssue">
+          <End Role="QA_TestIssue" Type="TeamManage_Model.Store.QA_TestIssue" Multiplicity="1" />
+          <End Role="QA_TestIssueFile" Type="TeamManage_Model.Store.QA_TestIssueFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QA_TestIssue">
+              <PropertyRef Name="TestIssueID" />
+            </Principal>
+            <Dependent Role="QA_TestIssueFile">
+              <PropertyRef Name="TestIssueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_ABAttach_Users">
+          <End Role="Users" Type="TeamManage_Model.Store.Users" Multiplicity="1" />
+          <End Role="t_ABAttach" Type="TeamManage_Model.Store.t_ABAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_ABAttach">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_ABAttach_Users1">
+          <End Role="Users" Type="TeamManage_Model.Store.Users" Multiplicity="0..1" />
+          <End Role="t_ABAttach" Type="TeamManage_Model.Store.t_ABAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_ABAttach">
+              <PropertyRef Name="ModifyBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertBase_Users">
+          <End Role="Users" Type="TeamManage_Model.Store.Users" Multiplicity="1" />
+          <End Role="t_AlertBase" Type="TeamManage_Model.Store.t_AlertBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AlertBase">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertBase_Users2">
+          <End Role="Users" Type="TeamManage_Model.Store.Users" Multiplicity="0..1" />
+          <End Role="t_AlertBase" Type="TeamManage_Model.Store.t_AlertBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AlertBase">
+              <PropertyRef Name="ModifyBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertUser_t_AlertBase">
+          <End Role="t_AlertBase" Type="TeamManage_Model.Store.t_AlertBase" Multiplicity="1" />
+          <End Role="t_AlertUser" Type="TeamManage_Model.Store.t_AlertUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_AlertBase">
+              <PropertyRef Name="ABID" />
+            </Principal>
+            <Dependent Role="t_AlertUser">
+              <PropertyRef Name="ABID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertUser_Users">
+          <End Role="Users" Type="TeamManage_Model.Store.Users" Multiplicity="1" />
+          <End Role="t_AlertUser" Type="TeamManage_Model.Store.t_AlertUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AlertUser">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertUser_Users1">
+          <End Role="Users" Type="TeamManage_Model.Store.Users" Multiplicity="0..1" />
+          <End Role="t_AlertUser" Type="TeamManage_Model.Store.t_AlertUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AlertUser">
+              <PropertyRef Name="ModifyBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AUAttach_t_AlertUser">
+          <End Role="t_AlertUser" Type="TeamManage_Model.Store.t_AlertUser" Multiplicity="1" />
+          <End Role="t_AUAttach" Type="TeamManage_Model.Store.t_AUAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_AlertUser">
+              <PropertyRef Name="AUID" />
+            </Principal>
+            <Dependent Role="t_AUAttach">
+              <PropertyRef Name="AUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AUAttach_Users">
+          <End Role="Users" Type="TeamManage_Model.Store.Users" Multiplicity="1" />
+          <End Role="t_AUAttach" Type="TeamManage_Model.Store.t_AUAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AUAttach">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AUAttach_Users1">
+          <End Role="Users" Type="TeamManage_Model.Store.Users" Multiplicity="0..1" />
+          <End Role="t_AUAttach" Type="TeamManage_Model.Store.t_AUAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AUAttach">
+              <PropertyRef Name="ModifyBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TeamManage_Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TeamManage_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BreakOffs" EntityType="TeamManage_Model.BreakOff" />
+          <EntitySet Name="DailyProjectReports" EntityType="TeamManage_Model.DailyProjectReport" />
+          <EntitySet Name="DailyReports" EntityType="TeamManage_Model.DailyReport" />
+          <EntitySet Name="OverTimes" EntityType="TeamManage_Model.OverTime" />
+          <EntitySet Name="QA_Files" EntityType="TeamManage_Model.QA_Files" />
+          <EntitySet Name="QA_Request" EntityType="TeamManage_Model.QA_Request" />
+          <EntitySet Name="QA_Test" EntityType="TeamManage_Model.QA_Test" />
+          <EntitySet Name="QA_TestIssue" EntityType="TeamManage_Model.QA_TestIssue" />
+          <EntitySet Name="sysdiagrams" EntityType="TeamManage_Model.sysdiagram" />
+          <EntitySet Name="t_ABAttach" EntityType="TeamManage_Model.t_ABAttach" />
+          <EntitySet Name="t_AlertBase" EntityType="TeamManage_Model.t_AlertBase" />
+          <EntitySet Name="t_AlertUser" EntityType="TeamManage_Model.t_AlertUser" />
+          <EntitySet Name="t_AUAttach" EntityType="TeamManage_Model.t_AUAttach" />
+          <EntitySet Name="Tests" EntityType="TeamManage_Model.Test" />
+          <EntitySet Name="TraineeAttendances" EntityType="TeamManage_Model.TraineeAttendance" />
+          <EntitySet Name="TraineeBreakOffs" EntityType="TeamManage_Model.TraineeBreakOff" />
+          <EntitySet Name="UploadFiles" EntityType="TeamManage_Model.UploadFile" />
+          <EntitySet Name="UserAppraisals" EntityType="TeamManage_Model.UserAppraisal" />
+          <EntitySet Name="UserLeaves" EntityType="TeamManage_Model.UserLeave" />
+          <EntitySet Name="UserLeaveCutLogs" EntityType="TeamManage_Model.UserLeaveCutLog" />
+          <EntitySet Name="UserRoles" EntityType="TeamManage_Model.UserRole" />
+          <EntitySet Name="Users" EntityType="TeamManage_Model.User" />
+          <EntitySet Name="UserTypes" EntityType="TeamManage_Model.UserType" />
+          <AssociationSet Name="FK_QA_Request_QA_Request" Association="TeamManage_Model.FK_QA_Request_QA_Request">
+            <End Role="QA_Request" EntitySet="QA_Request" />
+            <End Role="QA_Request1" EntitySet="QA_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QA_Test_QA_Request" Association="TeamManage_Model.FK_QA_Test_QA_Request">
+            <End Role="QA_Request" EntitySet="QA_Request" />
+            <End Role="QA_Test" EntitySet="QA_Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_ABAttach_Users" Association="TeamManage_Model.FK_t_ABAttach_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="t_ABAttach" EntitySet="t_ABAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_ABAttach_Users1" Association="TeamManage_Model.FK_t_ABAttach_Users1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="t_ABAttach" EntitySet="t_ABAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertBase_Users" Association="TeamManage_Model.FK_t_AlertBase_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="t_AlertBase" EntitySet="t_AlertBase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertBase_Users2" Association="TeamManage_Model.FK_t_AlertBase_Users2">
+            <End Role="User" EntitySet="Users" />
+            <End Role="t_AlertBase" EntitySet="t_AlertBase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertUser_t_AlertBase" Association="TeamManage_Model.FK_t_AlertUser_t_AlertBase">
+            <End Role="t_AlertBase" EntitySet="t_AlertBase" />
+            <End Role="t_AlertUser" EntitySet="t_AlertUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertUser_Users" Association="TeamManage_Model.FK_t_AlertUser_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="t_AlertUser" EntitySet="t_AlertUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AlertUser_Users1" Association="TeamManage_Model.FK_t_AlertUser_Users1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="t_AlertUser" EntitySet="t_AlertUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AUAttach_t_AlertUser" Association="TeamManage_Model.FK_t_AUAttach_t_AlertUser">
+            <End Role="t_AlertUser" EntitySet="t_AlertUser" />
+            <End Role="t_AUAttach" EntitySet="t_AUAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AUAttach_Users" Association="TeamManage_Model.FK_t_AUAttach_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="t_AUAttach" EntitySet="t_AUAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_AUAttach_Users1" Association="TeamManage_Model.FK_t_AUAttach_Users1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="t_AUAttach" EntitySet="t_AUAttach" />
+          </AssociationSet>
+          <AssociationSet Name="QA_RequestFile" Association="TeamManage_Model.QA_RequestFile">
+            <End Role="QA_Files" EntitySet="QA_Files" />
+            <End Role="QA_Request" EntitySet="QA_Request" />
+          </AssociationSet>
+          <AssociationSet Name="QA_TestFile" Association="TeamManage_Model.QA_TestFile">
+            <End Role="QA_Files" EntitySet="QA_Files" />
+            <End Role="QA_Test" EntitySet="QA_Test" />
+          </AssociationSet>
+          <AssociationSet Name="QA_TestIssueFile" Association="TeamManage_Model.QA_TestIssueFile">
+            <End Role="QA_Files" EntitySet="QA_Files" />
+            <End Role="QA_TestIssue" EntitySet="QA_TestIssue" />
+          </AssociationSet>
+          <EntitySet Name="UserTokens" EntityType="TeamManage_Model.UserToken" />
+          <EntitySet Name="VoteDetails" EntityType="TeamManage_Model.VoteDetail" />
+          <EntitySet Name="VoteItems" EntityType="TeamManage_Model.VoteItem" />
+          <EntitySet Name="VoteProjects" EntityType="TeamManage_Model.VoteProject" />
+        </EntityContainer>
+        <EntityType Name="BreakOff">
+          <Key>
+            <PropertyRef Name="BreakOffGuid" />
+          </Key>
+          <Property Type="Guid" Name="BreakOffGuid" Nullable="false" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="BreakOffFrom" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="BreakOffTo" Nullable="false" Precision="3" />
+          <Property Type="String" Name="CutFrom" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DailyProjectReport">
+          <Key>
+            <PropertyRef Name="DailyProjectReportID" />
+          </Key>
+          <Property Type="Guid" Name="DailyProjectReportID" Nullable="false" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Project" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Report" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="AddDate" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="DailyReport">
+          <Key>
+            <PropertyRef Name="DailyReportID" />
+          </Key>
+          <Property Type="Guid" Name="DailyReportID" Nullable="false" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Report" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="AddDate" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="OverTime">
+          <Key>
+            <PropertyRef Name="OverTimeGuid" />
+          </Key>
+          <Property Type="Guid" Name="OverTimeGuid" Nullable="false" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="OnDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Hours" Nullable="false" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="QA_Files">
+          <Key>
+            <PropertyRef Name="FileID" />
+          </Key>
+          <Property Type="Guid" Name="FileID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="FileContent" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="Type" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="QA_Request" Relationship="TeamManage_Model.QA_RequestFile" FromRole="QA_Files" ToRole="QA_Request" />
+          <NavigationProperty Name="QA_Test" Relationship="TeamManage_Model.QA_TestFile" FromRole="QA_Files" ToRole="QA_Test" />
+          <NavigationProperty Name="QA_TestIssue" Relationship="TeamManage_Model.QA_TestIssueFile" FromRole="QA_Files" ToRole="QA_TestIssue" />
+        </EntityType>
+        <EntityType Name="QA_Request">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Type="Guid" Name="RequestID" Nullable="false" />
+          <Property Type="String" Name="Project" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RelatedJIRA" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Developer" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Instruction" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Comments" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Fields" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Log" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="InsertDateTime" Precision="3" />
+          <Property Type="DateTime" Name="UpdateTime" Precision="3" />
+          <NavigationProperty Name="QA_Request1" Relationship="TeamManage_Model.FK_QA_Request_QA_Request" FromRole="QA_Request" ToRole="QA_Request1" />
+          <NavigationProperty Name="QA_Request2" Relationship="TeamManage_Model.FK_QA_Request_QA_Request" FromRole="QA_Request1" ToRole="QA_Request" />
+          <NavigationProperty Name="QA_Test" Relationship="TeamManage_Model.FK_QA_Test_QA_Request" FromRole="QA_Request" ToRole="QA_Test" />
+          <NavigationProperty Name="QA_Files" Relationship="TeamManage_Model.QA_RequestFile" FromRole="QA_Request" ToRole="QA_Files" />
+        </EntityType>
+        <EntityType Name="QA_Test">
+          <Key>
+            <PropertyRef Name="TestReportID" />
+          </Key>
+          <Property Type="Guid" Name="TestReportID" Nullable="false" />
+          <Property Type="Guid" Name="RequestID" Nullable="false" />
+          <Property Type="Int32" Name="Result" />
+          <Property Type="Int32" Name="Status" />
+          <Property Type="Int32" Name="CodeEvaluate" />
+          <Property Type="String" Name="Tester" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Comments" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Log" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="InsertTime" Precision="3" />
+          <Property Type="DateTime" Name="UpdateTime" Precision="3" />
+          <NavigationProperty Name="QA_Request" Relationship="TeamManage_Model.FK_QA_Test_QA_Request" FromRole="QA_Test" ToRole="QA_Request" />
+          <NavigationProperty Name="QA_Files" Relationship="TeamManage_Model.QA_TestFile" FromRole="QA_Test" ToRole="QA_Files" />
+        </EntityType>
+        <EntityType Name="QA_TestIssue">
+          <Key>
+            <PropertyRef Name="TestIssueID" />
+          </Key>
+          <Property Type="Guid" Name="TestIssueID" Nullable="false" />
+          <Property Type="Guid" Name="TestReportID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="Status" />
+          <Property Type="String" Name="Log" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateTime" Precision="3" />
+          <Property Type="DateTime" Name="UpdateTime" Precision="3" />
+          <NavigationProperty Name="QA_Files" Relationship="TeamManage_Model.QA_TestIssueFile" FromRole="QA_TestIssue" ToRole="QA_Files" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="principal_id" Nullable="false" />
+          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="version" />
+          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="t_ABAttach">
+          <Key>
+            <PropertyRef Name="ABAID" />
+          </Key>
+          <Property Type="Int32" Name="ABAID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ABID" Nullable="false" />
+          <Property Type="String" Name="ABAName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="ABAFile" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="Int32" Name="ABAType" />
+          <Property Type="Int32" Name="ABAStatus" />
+          <Property Type="String" Name="ABARemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateBy" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ModifyBy" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ModifyDate" Precision="3" />
+          <NavigationProperty Name="User" Relationship="TeamManage_Model.FK_t_ABAttach_Users" FromRole="t_ABAttach" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="TeamManage_Model.FK_t_ABAttach_Users1" FromRole="t_ABAttach" ToRole="User" />
+        </EntityType>
+        <EntityType Name="t_AlertBase">
+          <Key>
+            <PropertyRef Name="ABID" />
+          </Key>
+          <Property Type="Int32" Name="ABID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ABName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ABType" />
+          <Property Type="Int32" Name="ABStatus" />
+          <Property Type="Int32" Name="ABOrder" />
+          <Property Type="String" Name="ABRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateBy" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ModifyBy" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ModifyDate" Precision="3" />
+          <NavigationProperty Name="User" Relationship="TeamManage_Model.FK_t_AlertBase_Users" FromRole="t_AlertBase" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="TeamManage_Model.FK_t_AlertBase_Users2" FromRole="t_AlertBase" ToRole="User" />
+          <NavigationProperty Name="t_AlertUser" Relationship="TeamManage_Model.FK_t_AlertUser_t_AlertBase" FromRole="t_AlertBase" ToRole="t_AlertUser" />
+        </EntityType>
+        <EntityType Name="t_AlertUser">
+          <Key>
+            <PropertyRef Name="AUID" />
+          </Key>
+          <Property Type="Int32" Name="AUID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CcUser" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ABID" Nullable="false" />
+          <Property Type="String" Name="AUTitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AUContent" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="AUType" />
+          <Property Type="Int32" Name="AUStatus" />
+          <Property Type="Int32" Name="AUInterval" Nullable="false" />
+          <Property Type="Int32" Name="AUUnitNum" Nullable="false" />
+          <Property Type="DateTime" Name="AUTime" Nullable="false" Precision="3" />
+          <Property Type="String" Name="AURemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateBy" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ModifyBy" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ModifyDate" Precision="3" />
+          <NavigationProperty Name="t_AlertBase" Relationship="TeamManage_Model.FK_t_AlertUser_t_AlertBase" FromRole="t_AlertUser" ToRole="t_AlertBase" />
+          <NavigationProperty Name="User" Relationship="TeamManage_Model.FK_t_AlertUser_Users" FromRole="t_AlertUser" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="TeamManage_Model.FK_t_AlertUser_Users1" FromRole="t_AlertUser" ToRole="User" />
+          <NavigationProperty Name="t_AUAttach" Relationship="TeamManage_Model.FK_t_AUAttach_t_AlertUser" FromRole="t_AlertUser" ToRole="t_AUAttach" />
+        </EntityType>
+        <EntityType Name="t_AUAttach">
+          <Key>
+            <PropertyRef Name="AUAID" />
+          </Key>
+          <Property Type="Int32" Name="AUAID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="AUID" Nullable="false" />
+          <Property Type="String" Name="AUAName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="AUAFile" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="Int32" Name="AUAType" />
+          <Property Type="Int32" Name="AUAStatus" />
+          <Property Type="String" Name="AUARemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateBy" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ModifyBy" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ModifyDate" Precision="3" />
+          <NavigationProperty Name="t_AlertUser" Relationship="TeamManage_Model.FK_t_AUAttach_t_AlertUser" FromRole="t_AUAttach" ToRole="t_AlertUser" />
+          <NavigationProperty Name="User" Relationship="TeamManage_Model.FK_t_AUAttach_Users" FromRole="t_AUAttach" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="TeamManage_Model.FK_t_AUAttach_Users1" FromRole="t_AUAttach" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Aid" />
+          </Key>
+          <Property Type="Int32" Name="Aid" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TraineeAttendance">
+          <Key>
+            <PropertyRef Name="AttendanceGuid" />
+          </Key>
+          <Property Type="Guid" Name="AttendanceGuid" Nullable="false" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AttendanceFrom" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="AttendanceTo" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Comments" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TraineeBreakOff">
+          <Key>
+            <PropertyRef Name="BreakOffGuid" />
+          </Key>
+          <Property Type="Guid" Name="BreakOffGuid" Nullable="false" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="BreakOffFrom" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="BreakOffTo" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Status" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UploadFile">
+          <Key>
+            <PropertyRef Name="UploadFileID" />
+          </Key>
+          <Property Type="Guid" Name="UploadFileID" Nullable="false" />
+          <Property Type="String" Name="FileName" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="FileContent" Nullable="false" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserAppraisal">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="DateTime" />
+            <PropertyRef Name="GroupName" />
+          </Key>
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UserName" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="WorkDone" Precision="2" Scale="1" />
+          <Property Type="Decimal" Name="BugCreated" Precision="2" Scale="1" />
+          <Property Type="Decimal" Name="WorkQuality" Precision="2" Scale="1" />
+          <Property Type="Decimal" Name="DailyPerformance" Precision="2" Scale="1" />
+          <Property Type="DateTime" Name="DateTime" Nullable="false" Precision="3" />
+          <Property Type="String" Name="GroupName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserLeave">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="AnnualDays" Nullable="false" />
+          <Property Type="Int32" Name="AnnualDaysRest" Nullable="false" />
+          <Property Type="Int32" Name="OverTime" Nullable="false" />
+          <Property Type="Int32" Name="OverTimeRest" Nullable="false" />
+          <Property Type="DateTime" Name="InitDateTime" Precision="3" />
+          <Property Type="DateTime" Name="UpdateTime" Precision="3" />
+          <Property Type="Int32" Name="AnnualDaysERP" />
+        </EntityType>
+        <EntityType Name="UserLeaveCutLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="BreakOFFID" Nullable="false" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LeaveType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CutHour" Nullable="false" />
+          <Property Type="DateTime" Name="CutDateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="GroupName" />
+          </Key>
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RoleID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="GroupName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UserName" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LoginPassword" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LastLogin" Precision="3" />
+          <Property Type="Boolean" Name="IsTrainee" />
+          <Property Type="Boolean" Name="IsDeparted" />
+          <Property Type="String" Name="EmailAddress" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="t_ABAttach" Relationship="TeamManage_Model.FK_t_ABAttach_Users" FromRole="User" ToRole="t_ABAttach" />
+          <NavigationProperty Name="t_ABAttach1" Relationship="TeamManage_Model.FK_t_ABAttach_Users1" FromRole="User" ToRole="t_ABAttach" />
+          <NavigationProperty Name="t_AlertBase" Relationship="TeamManage_Model.FK_t_AlertBase_Users" FromRole="User" ToRole="t_AlertBase" />
+          <NavigationProperty Name="t_AlertBase1" Relationship="TeamManage_Model.FK_t_AlertBase_Users2" FromRole="User" ToRole="t_AlertBase" />
+          <NavigationProperty Name="t_AlertUser" Relationship="TeamManage_Model.FK_t_AlertUser_Users" FromRole="User" ToRole="t_AlertUser" />
+          <NavigationProperty Name="t_AlertUser1" Relationship="TeamManage_Model.FK_t_AlertUser_Users1" FromRole="User" ToRole="t_AlertUser" />
+          <NavigationProperty Name="t_AUAttach" Relationship="TeamManage_Model.FK_t_AUAttach_Users" FromRole="User" ToRole="t_AUAttach" />
+          <NavigationProperty Name="t_AUAttach1" Relationship="TeamManage_Model.FK_t_AUAttach_Users1" FromRole="User" ToRole="t_AUAttach" />
+          <Property Type="String" Name="EMAccount" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EMPassword" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="JIRAToken" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TypeName" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_QA_Request_QA_Request">
+          <End Type="TeamManage_Model.QA_Request" Role="QA_Request" Multiplicity="1" />
+          <End Type="TeamManage_Model.QA_Request" Role="QA_Request1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="QA_Request">
+              <PropertyRef Name="RequestID" />
+            </Principal>
+            <Dependent Role="QA_Request1">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QA_Test_QA_Request">
+          <End Type="TeamManage_Model.QA_Request" Role="QA_Request" Multiplicity="1" />
+          <End Type="TeamManage_Model.QA_Test" Role="QA_Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QA_Request">
+              <PropertyRef Name="RequestID" />
+            </Principal>
+            <Dependent Role="QA_Test">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_ABAttach_Users">
+          <End Type="TeamManage_Model.User" Role="User" Multiplicity="1" />
+          <End Type="TeamManage_Model.t_ABAttach" Role="t_ABAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_ABAttach">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_ABAttach_Users1">
+          <End Type="TeamManage_Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="TeamManage_Model.t_ABAttach" Role="t_ABAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_ABAttach">
+              <PropertyRef Name="ModifyBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertBase_Users">
+          <End Type="TeamManage_Model.User" Role="User" Multiplicity="1" />
+          <End Type="TeamManage_Model.t_AlertBase" Role="t_AlertBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AlertBase">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertBase_Users2">
+          <End Type="TeamManage_Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="TeamManage_Model.t_AlertBase" Role="t_AlertBase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AlertBase">
+              <PropertyRef Name="ModifyBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertUser_t_AlertBase">
+          <End Type="TeamManage_Model.t_AlertBase" Role="t_AlertBase" Multiplicity="1" />
+          <End Type="TeamManage_Model.t_AlertUser" Role="t_AlertUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_AlertBase">
+              <PropertyRef Name="ABID" />
+            </Principal>
+            <Dependent Role="t_AlertUser">
+              <PropertyRef Name="ABID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertUser_Users">
+          <End Type="TeamManage_Model.User" Role="User" Multiplicity="1" />
+          <End Type="TeamManage_Model.t_AlertUser" Role="t_AlertUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AlertUser">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AlertUser_Users1">
+          <End Type="TeamManage_Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="TeamManage_Model.t_AlertUser" Role="t_AlertUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AlertUser">
+              <PropertyRef Name="ModifyBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AUAttach_t_AlertUser">
+          <End Type="TeamManage_Model.t_AlertUser" Role="t_AlertUser" Multiplicity="1" />
+          <End Type="TeamManage_Model.t_AUAttach" Role="t_AUAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_AlertUser">
+              <PropertyRef Name="AUID" />
+            </Principal>
+            <Dependent Role="t_AUAttach">
+              <PropertyRef Name="AUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AUAttach_Users">
+          <End Type="TeamManage_Model.User" Role="User" Multiplicity="1" />
+          <End Type="TeamManage_Model.t_AUAttach" Role="t_AUAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AUAttach">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_AUAttach_Users1">
+          <End Type="TeamManage_Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="TeamManage_Model.t_AUAttach" Role="t_AUAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_AUAttach">
+              <PropertyRef Name="ModifyBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="QA_RequestFile">
+          <End Type="TeamManage_Model.QA_Files" Role="QA_Files" Multiplicity="*" />
+          <End Type="TeamManage_Model.QA_Request" Role="QA_Request" Multiplicity="*" />
+        </Association>
+        <Association Name="QA_TestFile">
+          <End Type="TeamManage_Model.QA_Files" Role="QA_Files" Multiplicity="*" />
+          <End Type="TeamManage_Model.QA_Test" Role="QA_Test" Multiplicity="*" />
+        </Association>
+        <Association Name="QA_TestIssueFile">
+          <End Type="TeamManage_Model.QA_Files" Role="QA_Files" Multiplicity="*" />
+          <End Type="TeamManage_Model.QA_TestIssue" Role="QA_TestIssue" Multiplicity="*" />
+        </Association>
+        <EntityType Name="UserToken">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Token" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="TimeMark" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="VoteDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PId" />
+          <Property Type="Int32" Name="IId" />
+          <Property Type="String" Name="Voter" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="State" />
+          <Property Type="String" Name="CreatedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ModifiedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedTime" Precision="3" />
+          <Property Type="DateTime" Name="ModifiedTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="VoteItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PId" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Nominees" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Nominator" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Comment" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="State" />
+          <Property Type="String" Name="CreatedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ModifiedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedTime" Precision="3" />
+          <Property Type="DateTime" Name="ModifiedTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="VoteProject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="TermFrom" Precision="3" />
+          <Property Type="DateTime" Name="TermTo" Precision="3" />
+          <Property Type="Int32" Name="State" />
+          <Property Type="Int32" Name="VoteNum" />
+          <Property Type="DateTime" Name="BeginTime" Precision="3" />
+          <Property Type="DateTime" Name="EndTime" Precision="3" />
+          <Property Type="String" Name="CreatedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ModifiedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedTime" Precision="3" />
+          <Property Type="DateTime" Name="ModifiedTime" Precision="3" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TeamManage_ModelStoreContainer" CdmEntityContainer="TeamManage_Entities">
+          <EntitySetMapping Name="BreakOffs">
+            <EntityTypeMapping TypeName="TeamManage_Model.BreakOff">
+              <MappingFragment StoreEntitySet="BreakOff">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CutFrom" ColumnName="CutFrom" />
+                <ScalarProperty Name="BreakOffTo" ColumnName="BreakOffTo" />
+                <ScalarProperty Name="BreakOffFrom" ColumnName="BreakOffFrom" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BreakOffGuid" ColumnName="BreakOffGuid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyProjectReports">
+            <EntityTypeMapping TypeName="TeamManage_Model.DailyProjectReport">
+              <MappingFragment StoreEntitySet="DailyProjectReport">
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Report" ColumnName="Report" />
+                <ScalarProperty Name="Project" ColumnName="Project" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DailyProjectReportID" ColumnName="DailyProjectReportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyReports">
+            <EntityTypeMapping TypeName="TeamManage_Model.DailyReport">
+              <MappingFragment StoreEntitySet="DailyReport">
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Report" ColumnName="Report" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DailyReportID" ColumnName="DailyReportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OverTimes">
+            <EntityTypeMapping TypeName="TeamManage_Model.OverTime">
+              <MappingFragment StoreEntitySet="OverTime">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="OnDate" ColumnName="OnDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OverTimeGuid" ColumnName="OverTimeGuid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QA_Files">
+            <EntityTypeMapping TypeName="TeamManage_Model.QA_Files">
+              <MappingFragment StoreEntitySet="QA_Files">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FileID" ColumnName="FileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QA_Request">
+            <EntityTypeMapping TypeName="TeamManage_Model.QA_Request">
+              <MappingFragment StoreEntitySet="QA_Request">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="Log" ColumnName="Log" />
+                <ScalarProperty Name="Fields" ColumnName="Fields" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Instruction" ColumnName="Instruction" />
+                <ScalarProperty Name="Developer" ColumnName="Developer" />
+                <ScalarProperty Name="RelatedJIRA" ColumnName="RelatedJIRA" />
+                <ScalarProperty Name="Project" ColumnName="Project" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QA_Test">
+            <EntityTypeMapping TypeName="TeamManage_Model.QA_Test">
+              <MappingFragment StoreEntitySet="QA_Test">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
+                <ScalarProperty Name="Log" ColumnName="Log" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Tester" ColumnName="Tester" />
+                <ScalarProperty Name="CodeEvaluate" ColumnName="CodeEvaluate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="TestReportID" ColumnName="TestReportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QA_TestIssue">
+            <EntityTypeMapping TypeName="TeamManage_Model.QA_TestIssue">
+              <MappingFragment StoreEntitySet="QA_TestIssue">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Log" ColumnName="Log" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TestReportID" ColumnName="TestReportID" />
+                <ScalarProperty Name="TestIssueID" ColumnName="TestIssueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TeamManage_Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_ABAttach">
+            <EntityTypeMapping TypeName="TeamManage_Model.t_ABAttach">
+              <MappingFragment StoreEntitySet="t_ABAttach">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="ABARemark" ColumnName="ABARemark" />
+                <ScalarProperty Name="ABAStatus" ColumnName="ABAStatus" />
+                <ScalarProperty Name="ABAType" ColumnName="ABAType" />
+                <ScalarProperty Name="ABAFile" ColumnName="ABAFile" />
+                <ScalarProperty Name="ABAName" ColumnName="ABAName" />
+                <ScalarProperty Name="ABID" ColumnName="ABID" />
+                <ScalarProperty Name="ABAID" ColumnName="ABAID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_AlertBase">
+            <EntityTypeMapping TypeName="TeamManage_Model.t_AlertBase">
+              <MappingFragment StoreEntitySet="t_AlertBase">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="ABRemark" ColumnName="ABRemark" />
+                <ScalarProperty Name="ABOrder" ColumnName="ABOrder" />
+                <ScalarProperty Name="ABStatus" ColumnName="ABStatus" />
+                <ScalarProperty Name="ABType" ColumnName="ABType" />
+                <ScalarProperty Name="ABName" ColumnName="ABName" />
+                <ScalarProperty Name="ABID" ColumnName="ABID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_AlertUser">
+            <EntityTypeMapping TypeName="TeamManage_Model.t_AlertUser">
+              <MappingFragment StoreEntitySet="t_AlertUser">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="AURemark" ColumnName="AURemark" />
+                <ScalarProperty Name="AUTime" ColumnName="AUTime" />
+                <ScalarProperty Name="AUUnitNum" ColumnName="AUUnitNum" />
+                <ScalarProperty Name="AUInterval" ColumnName="AUInterval" />
+                <ScalarProperty Name="AUStatus" ColumnName="AUStatus" />
+                <ScalarProperty Name="AUType" ColumnName="AUType" />
+                <ScalarProperty Name="AUContent" ColumnName="AUContent" />
+                <ScalarProperty Name="AUTitle" ColumnName="AUTitle" />
+                <ScalarProperty Name="ABID" ColumnName="ABID" />
+                <ScalarProperty Name="CcUser" ColumnName="CcUser" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AUID" ColumnName="AUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_AUAttach">
+            <EntityTypeMapping TypeName="TeamManage_Model.t_AUAttach">
+              <MappingFragment StoreEntitySet="t_AUAttach">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="AUARemark" ColumnName="AUARemark" />
+                <ScalarProperty Name="AUAStatus" ColumnName="AUAStatus" />
+                <ScalarProperty Name="AUAType" ColumnName="AUAType" />
+                <ScalarProperty Name="AUAFile" ColumnName="AUAFile" />
+                <ScalarProperty Name="AUAName" ColumnName="AUAName" />
+                <ScalarProperty Name="AUID" ColumnName="AUID" />
+                <ScalarProperty Name="AUAID" ColumnName="AUAID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="TeamManage_Model.Test">
+              <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Aid" ColumnName="Aid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TraineeAttendances">
+            <EntityTypeMapping TypeName="TeamManage_Model.TraineeAttendance">
+              <MappingFragment StoreEntitySet="TraineeAttendance">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="AttendanceTo" ColumnName="AttendanceTo" />
+                <ScalarProperty Name="AttendanceFrom" ColumnName="AttendanceFrom" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AttendanceGuid" ColumnName="AttendanceGuid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TraineeBreakOffs">
+            <EntityTypeMapping TypeName="TeamManage_Model.TraineeBreakOff">
+              <MappingFragment StoreEntitySet="TraineeBreakOff">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="BreakOffTo" ColumnName="BreakOffTo" />
+                <ScalarProperty Name="BreakOffFrom" ColumnName="BreakOffFrom" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BreakOffGuid" ColumnName="BreakOffGuid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UploadFiles">
+            <EntityTypeMapping TypeName="TeamManage_Model.UploadFile">
+              <MappingFragment StoreEntitySet="UploadFile">
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="UploadFileID" ColumnName="UploadFileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAppraisals">
+            <EntityTypeMapping TypeName="TeamManage_Model.UserAppraisal">
+              <MappingFragment StoreEntitySet="UserAppraisal">
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="DailyPerformance" ColumnName="DailyPerformance" />
+                <ScalarProperty Name="WorkQuality" ColumnName="WorkQuality" />
+                <ScalarProperty Name="BugCreated" ColumnName="BugCreated" />
+                <ScalarProperty Name="WorkDone" ColumnName="WorkDone" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLeaves">
+            <EntityTypeMapping TypeName="TeamManage_Model.UserLeave">
+              <MappingFragment StoreEntitySet="UserLeave">
+                <ScalarProperty Name="AnnualDaysERP" ColumnName="AnnualDaysERP" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="InitDateTime" ColumnName="InitDateTime" />
+                <ScalarProperty Name="OverTimeRest" ColumnName="OverTimeRest" />
+                <ScalarProperty Name="OverTime" ColumnName="OverTime" />
+                <ScalarProperty Name="AnnualDaysRest" ColumnName="AnnualDaysRest" />
+                <ScalarProperty Name="AnnualDays" ColumnName="AnnualDays" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLeaveCutLogs">
+            <EntityTypeMapping TypeName="TeamManage_Model.UserLeaveCutLog">
+              <MappingFragment StoreEntitySet="UserLeaveCutLog">
+                <ScalarProperty Name="CutDateTime" ColumnName="CutDateTime" />
+                <ScalarProperty Name="CutHour" ColumnName="CutHour" />
+                <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BreakOFFID" ColumnName="BreakOFFID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="TeamManage_Model.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TeamManage_Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="JIRAToken" ColumnName="JIRAToken" />
+                <ScalarProperty Name="EMPassword" ColumnName="EMPassword" />
+                <ScalarProperty Name="EMAccount" ColumnName="EMAccount" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="IsDeparted" ColumnName="IsDeparted" />
+                <ScalarProperty Name="IsTrainee" ColumnName="IsTrainee" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="LoginPassword" ColumnName="LoginPassword" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="TeamManage_Model.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="QA_RequestFile" TypeName="TeamManage_Model.QA_RequestFile" StoreEntitySet="QA_RequestFile">
+            <EndProperty Name="QA_Request">
+              <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+            </EndProperty>
+            <EndProperty Name="QA_Files">
+              <ScalarProperty Name="FileID" ColumnName="FileID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="QA_TestFile" TypeName="TeamManage_Model.QA_TestFile" StoreEntitySet="QA_TestFile">
+            <EndProperty Name="QA_Test">
+              <ScalarProperty Name="TestReportID" ColumnName="TestReportID" />
+            </EndProperty>
+            <EndProperty Name="QA_Files">
+              <ScalarProperty Name="FileID" ColumnName="FileID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="QA_TestIssueFile" TypeName="TeamManage_Model.QA_TestIssueFile" StoreEntitySet="QA_TestIssueFile">
+            <EndProperty Name="QA_TestIssue">
+              <ScalarProperty Name="TestIssueID" ColumnName="TestIssueID" />
+            </EndProperty>
+            <EndProperty Name="QA_Files">
+              <ScalarProperty Name="FileID" ColumnName="FileID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="UserTokens">
+            <EntityTypeMapping TypeName="TeamManage_Model.UserToken">
+              <MappingFragment StoreEntitySet="UserToken">
+                <ScalarProperty Name="TimeMark" ColumnName="TimeMark" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VoteDetails">
+            <EntityTypeMapping TypeName="TeamManage_Model.VoteDetail">
+              <MappingFragment StoreEntitySet="VoteDetail">
+                <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Voter" ColumnName="Voter" />
+                <ScalarProperty Name="IId" ColumnName="IId" />
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VoteItems">
+            <EntityTypeMapping TypeName="TeamManage_Model.VoteItem">
+              <MappingFragment StoreEntitySet="VoteItem">
+                <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Nominator" ColumnName="Nominator" />
+                <ScalarProperty Name="Nominees" ColumnName="Nominees" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VoteProjects">
+            <EntityTypeMapping TypeName="TeamManage_Model.VoteProject">
+              <MappingFragment StoreEntitySet="VoteProject">
+                <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
+                <ScalarProperty Name="VoteNum" ColumnName="VoteNum" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="TermTo" ColumnName="TermTo" />
+                <ScalarProperty Name="TermFrom" ColumnName="TermFrom" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

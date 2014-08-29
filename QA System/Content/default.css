@@ -1,0 +1,122 @@
+﻿/* site title
+----------------------------------------------------------*/
+.site-title {
+    color: #c8c8c8;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 2.3em;
+    margin: 0;
+}
+
+.site-title a, .site-title a:hover, .site-title a:active {
+    background: none;
+    color: #c8c8c8;
+    outline: none;
+    text-decoration: none;
+}
+
+.fieldLine
+{
+    display:block;
+    clear:both;
+	min-height:40px;
+	vertical-align:top;
+}
+
+.fieldLine label
+{
+    float:left;
+    width:150px;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 18px;
+    margin-top:5px;
+}
+
+.NewLine
+{
+	padding-bottom:10px;
+}
+
+.fieldShow
+{
+    display:block;
+    clear:both;
+	font-size:16px;
+	height:40px;
+}
+
+.fieldShow label
+{
+    float:left;
+    width:150px;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 18px;
+}
+
+.fieldLine input,.fieldLine select,.fieldLine textarea
+{
+    float:left;
+    width:500px;
+}
+
+.inputvalidation
+{
+	background-color: #aed1ff;
+	font-weight: bold;
+	border-bottom-color:red;
+}
+
+.tableClass
+{
+	padding:0 0 0 0;
+	width:100%;
+	
+}
+	.tableClass td
+	{
+		height:21px;
+		/*border:#808080 solid 1px;*/
+	}
+
+	.tableClass tr.odd td
+	{
+		background:#EEEEEE;
+	}
+	.tableClass tr.even td
+	{
+		background:#fff;
+	}
+.trTitle td
+{
+	font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-size: 16px;
+	font-weight:bold;
+    margin-top:5px;
+	background:#E2E2E2;
+}
+
+.fieldTop
+{
+	float:right;
+	font-weight:bold;
+}
+
+.successMsg
+{
+	font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-size: 16px;
+	color:green;
+}
+.errorMsg
+{
+	font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-size: 16px;
+	color:red;
+}
+
+.commentsDiv
+ {
+    padding-left:0px;
+    padding-top:10px;
+    float:left;
+    width:300px;
+}

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Tuple<string,string>>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Daily Project List</h2>
+
+   <div id="searchReport">
+
+
+<table class="table table-striped">
+    <tr>
+        <th>UserName</th>
+        <th>File</th>
+        @*<th>Report</th>
+        <th>AddDate</th>*@
+    </tr>
+    @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem =>item.Item1)
+        </td>
+        <td>
+            @*@Html.Raw(item.Item2)*@
+            @(new HtmlString(item.Item2))
+            
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Item3)
+            
+        </td>*@
+    </tr>
+    }
+</table>
+</div>

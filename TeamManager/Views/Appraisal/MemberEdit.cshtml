@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TeamManager.DataProvider.UserAppraisal>
+<style>
+    .firstTD {
+        width:25%;
+    }
+    .SecondTD {
+        width:35%;
+    }
+    .ThirdTD {
+        width:40%;
+    }
+</style>
+
+
+<table class="table table-striped table-hover">
+    @foreach (var member in Model)
+    {   
+        <tr>
+            <td rowspan="4" class="firstTD">
+                @Html.DisplayFor(item => member.UserName)
+            </td>
+            <td class="SecondTD">Work Done
+            </td>
+            <td class="ThirdTD">
+                @Html.TextBox(member.UserID + "WorkDone", member.WorkDone, new { @class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td class="SecondTD">Bug Created
+            </td>
+            <td class="ThirdTD">
+                @Html.TextBox(member.UserID+"BugCreated",member.BugCreated, new { @class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td class="SecondTD">Work Quality
+            </td>
+            <td class="ThirdTD">
+                @Html.TextBox(member.UserID + "WorkQuality", member.WorkQuality, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td class="SecondTD">Daily Performance
+            </td>
+            <td class="ThirdTD">
+                @Html.TextBox(member.UserID+"DailyPerformance",member.DailyPerformance, new { @class="form-control"})
+            </td>
+        </tr> 
+    }
+</table>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Tuple<string, string, string>>
+@*@model IEnumerable<Tuple<string, string>>*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Weekly Report List</h2>
+
+<script type="text/javascript">
+    $(function () {
+        $("#searchFrom,#searchTo").attr({ class: "form-control", placeholder: "Time" });
+        $("#searchFrom,#searchTo").datetimepicker({
+            startDate:"01/01/2012",
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: true,
+            forceParse: 0,
+            showMeridian: 0,
+            minView: 2,
+            format:"mm/dd/yyyy"
+        });
+        $("#groupName").change(DisaplayMember);
+    });
+
+    function DisaplayMember() {
+        var groupName = $("#groupName option:selected").text();
+        var searchFrom = $("#searchFrom").val();
+        var searchTo = $("#searchTo").val();
+        $.ajax({
+            type: "POST",
+            url: "/WeeklyReport/Search",
+            data: { "groupName": groupName, "searchFrom": searchFrom, "searchTo": searchTo },
+            dataType: "html",
+            success: function (result) {
+                $("#searchReport").html(result);
+            }
+        });
+    }
+</script>
+
+@using (Ajax.BeginForm("Search", "WeeklyReport", null, new AjaxOptions
+{
+    UpdateTargetId = "searchReport",
+    HttpMethod = "Post",
+    OnSuccess = " ",
+}, new { @class = "form-inline", id = "searchForm", role = "form" }))
+{
+  
+    <div style="margin-left: 8px">
+        <label class="text-info">Group:</label>
+        @Html.DropDownList("groupName", ViewData["ListItem"] as SelectList, "All", new { @class = "form-control"})
+        <label class="text-info">SearchFrom:</label>
+        <div class="form-group">
+           @Html.TextBox("searchFrom")
+        </div>
+        <label class="text-info">SearchTo:</label>
+        <div class="form-group">
+             @Html.TextBox("searchTo")
+        </div>
+        <button id="search" type="submit" class="btn btn-primary">Search</button>
+    </div>
+    <div style="margin-top: 20px">
+        @{Html.RenderPartial("SearchPartial", Model);
+}</div>
+}
