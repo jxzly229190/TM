@@ -9,6 +9,6 @@ namespace TeamManager.Models
     {
         public DataProvider.VoteProject Project;
 
-        public IEnumerable<Models.VoteItemModel> Items;
+        public IList<Models.VoteItemModel> Items;
     }
 }

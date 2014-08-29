@@ -1,5 +1,31 @@
-﻿@{
+﻿@model TeamManager.Models.VoteModel
+@{
     ViewBag.Title = "Result";
 }
 
-<h2>Result</h2>
+<h2>@Html.Raw(Model.Project.Name)</h2>
+
+<div class="content">
+	@{
+		if (Model != null && Model.Items != null && Model.Items.Count > 0)
+		{
+			int maxVal = Model.Items[0].Count + 2;
+			foreach (var item in Model.Items)
+			{
+				<p>@Html.Raw(item.Name + "(" + item.Nominees + ")" + "  VoteCount:" + item.Count) &nbsp;&nbsp;&nbsp;&nbsp;@Html.Raw(item.IsSelected?"<strong>You Voted<strong>":"")</p>
+				<div class="progress">
+					<div class="progress-bar @Html.Raw(item.IsSelected?"progress-bar-warning":"")" role="progressbar" aria-valuenow="@item.Count" aria-valuemin="0" aria-valuemax="@maxVal"
+						 style="width:@Html.Raw(item.Count * 100 / maxVal)%">
+						
+					</div>
+				</div>
+			}
+		}
+	}
+</div>
+
+<style>
+	.content {
+		width: 60%;
+	}
+</style>

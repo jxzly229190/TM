@@ -240,9 +240,6 @@
     <Compile Include="DataProvider\QA_TestIssue.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataProvider\sysdiagram.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataProvider\Test.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

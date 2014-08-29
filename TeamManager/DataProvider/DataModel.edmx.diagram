@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="TeamManage_Model.QA_Request" Width="1.5" PointX="10.028362176394259" PointY="8.1727223285346859" />
         <EntityTypeShape EntityType="TeamManage_Model.QA_Test" Width="1.5" PointX="0.875" PointY="13.125" />
         <EntityTypeShape EntityType="TeamManage_Model.QA_TestIssue" Width="1.5" PointX="1.5139946385817578" PointY="10.271425177469581" />
-        <EntityTypeShape EntityType="TeamManage_Model.sysdiagram" Width="1.5" PointX="5.4796000781839709" PointY="26.547990423882375" />
         <EntityTypeShape EntityType="TeamManage_Model.t_ABAttach" Width="1.5" PointX="3.8225102591433142" PointY="9.4596370502652771" />
         <EntityTypeShape EntityType="TeamManage_Model.t_AlertBase" Width="1.5" PointX="5.5507269248136906" PointY="10.458282460671981" />
         <EntityTypeShape EntityType="TeamManage_Model.t_AlertUser" Width="1.5" PointX="3.6331274265577678" PointY="23.79708358263461" />

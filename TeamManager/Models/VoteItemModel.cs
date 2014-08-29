@@ -17,6 +17,7 @@ namespace TeamManager.Models
         public string Nominator { get; set; }
         public string Comment { get; set; }
         public bool IsSelected { get; set; }
+		public int Count { get;set; }
         public Nullable<int> State { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
