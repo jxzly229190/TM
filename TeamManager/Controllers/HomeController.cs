@@ -125,17 +125,18 @@ namespace TeamManager.Controllers
                     using (var db = new TeamManage_Entities())
                     {
                         var userRole = db.Users.Where(o => o.UserID == user.UserID).FirstOrDefault();
-                        string Role = null;
+                        var role = db.UserRoles.Where(o => o.UserID == user.UserID).FirstOrDefault();
+                        string roleName = "";
                         if (userRole.IsTrainee == true)
                         {
-                            Role = "Trainee";
+                            roleName = "Trainee";
                         }
                         else
                         {
-                            Role = db.UserRoles.Where(o => o.UserID == user.UserID).FirstOrDefault().RoleName;
+                            roleName = role.RoleName;
                         }
-                        
-                        FormsAuthentication.SetAuthCookie(string.Format("{0},{1}",user.UserID,Role), false);
+
+                        FormsAuthentication.SetAuthCookie(string.Format("{0},{1},{2}", user.UserID.ToLower(),roleName, role.RoleID), false);
                     
                     }
                     //return Redirect(returnUrl);
@@ -147,9 +148,7 @@ namespace TeamManager.Controllers
                     else
                     {
                         return RedirectToAction("Index", "Home");
-                    }
-
-                   
+                    }                   
                 }
 
                 else if (user.IsValid(user.UserID, user.Password))
@@ -161,17 +160,18 @@ namespace TeamManager.Controllers
                      using (var db = new TeamManage_Entities())
                     {
                         var userRole = db.Users.Where(o => o.UserID == user.UserID).FirstOrDefault();
-                        string Role = null;
+                        var role = db.UserRoles.Where(o => o.UserID == user.UserID).FirstOrDefault();
+                        string roleName = "";
                         if (userRole.IsTrainee == true)
                         {
-                            Role = "Trainee";
+                            roleName = "Trainee";
                         }
                         else
                         {
-                            Role = db.UserRoles.Where(o => o.UserID == user.UserID).FirstOrDefault().RoleName;
+                            roleName = role.RoleName;
                         }
-                        
-                        FormsAuthentication.SetAuthCookie(string.Format("{0},{1}",user.UserID,Role), false);
+
+                        FormsAuthentication.SetAuthCookie(string.Format("{0},{1},{2}", user.UserID.ToLower(), roleName,role.RoleID), false);
                     
                     }
                     //return Redirect(returnUrl);

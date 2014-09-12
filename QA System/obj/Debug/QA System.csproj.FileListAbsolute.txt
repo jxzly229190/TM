@@ -1,0 +1,54 @@
+E:\EM\Team Mamager\QA System\bin\QA System.dll
+E:\EM\Team Mamager\QA System\bin\QA System.pdb
+E:\EM\Team Mamager\QA System\bin\Antlr3.Runtime.dll
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.AspNet.dll
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.Core.dll
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.OAuth.Consumer.dll
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.OAuth.dll
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.OpenId.dll
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+E:\EM\Team Mamager\QA System\bin\EntityFramework.dll
+E:\EM\Team Mamager\QA System\bin\Microsoft.Web.Infrastructure.dll
+E:\EM\Team Mamager\QA System\bin\Microsoft.Web.WebPages.OAuth.dll
+E:\EM\Team Mamager\QA System\bin\MvcPaging.dll
+E:\EM\Team Mamager\QA System\bin\Newtonsoft.Json.dll
+E:\EM\Team Mamager\QA System\bin\System.Net.Http.dll
+E:\EM\Team Mamager\QA System\bin\System.Net.Http.Formatting.dll
+E:\EM\Team Mamager\QA System\bin\System.Net.Http.WebRequest.dll
+E:\EM\Team Mamager\QA System\bin\System.Web.Helpers.dll
+E:\EM\Team Mamager\QA System\bin\System.Web.Http.dll
+E:\EM\Team Mamager\QA System\bin\System.Web.Http.WebHost.dll
+E:\EM\Team Mamager\QA System\bin\System.Web.Mvc.dll
+E:\EM\Team Mamager\QA System\bin\System.Web.Optimization.dll
+E:\EM\Team Mamager\QA System\bin\System.Web.Razor.dll
+E:\EM\Team Mamager\QA System\bin\System.Web.WebPages.Deployment.dll
+E:\EM\Team Mamager\QA System\bin\System.Web.WebPages.dll
+E:\EM\Team Mamager\QA System\bin\System.Web.WebPages.Razor.dll
+E:\EM\Team Mamager\QA System\bin\WebGrease.dll
+E:\EM\Team Mamager\QA System\bin\WebMatrix.Data.dll
+E:\EM\Team Mamager\QA System\bin\WebMatrix.WebData.dll
+E:\EM\Team Mamager\QA System\bin\EntityFramework.xml
+E:\EM\Team Mamager\QA System\bin\Newtonsoft.Json.xml
+E:\EM\Team Mamager\QA System\bin\System.Net.Http.xml
+E:\EM\Team Mamager\QA System\bin\System.Net.Http.Formatting.xml
+E:\EM\Team Mamager\QA System\bin\System.Net.Http.WebRequest.xml
+E:\EM\Team Mamager\QA System\bin\System.Web.Helpers.xml
+E:\EM\Team Mamager\QA System\bin\System.Web.Http.xml
+E:\EM\Team Mamager\QA System\bin\System.Web.Http.WebHost.xml
+E:\EM\Team Mamager\QA System\bin\System.Web.Mvc.xml
+E:\EM\Team Mamager\QA System\bin\System.Web.Razor.xml
+E:\EM\Team Mamager\QA System\bin\System.Web.WebPages.xml
+E:\EM\Team Mamager\QA System\bin\System.Web.WebPages.Deployment.xml
+E:\EM\Team Mamager\QA System\bin\System.Web.WebPages.Razor.xml
+E:\EM\Team Mamager\QA System\bin\WebMatrix.Data.xml
+E:\EM\Team Mamager\QA System\bin\Microsoft.Web.WebPages.OAuth.xml
+E:\EM\Team Mamager\QA System\bin\WebMatrix.WebData.xml
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.AspNet.xml
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.Core.xml
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.OAuth.Consumer.xml
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.OAuth.xml
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.OpenId.xml
+E:\EM\Team Mamager\QA System\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+E:\EM\Team Mamager\QA System\obj\Debug\QA System.csprojResolveAssemblyReference.cache
+E:\EM\Team Mamager\QA System\obj\Debug\QA System.dll
+E:\EM\Team Mamager\QA System\obj\Debug\QA System.pdb

@@ -1,21 +1,20 @@
 ﻿@model TeamManager.Models.VoteItemModel
 
 @{
-    ViewBag.Title = "ItemEdit";
+    ViewBag.Title = "ItemAdd";
 }
 
-@using (Html.BeginForm("ItemEdit", "Vote", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("ItemAdd", "Vote", FormMethod.Post, new { @class = "form-horizontal" }))
 {    
-    @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.PId)
 
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Edit Vote Item 编辑提名项</legend>
+        <legend>Vote Item information 提名项信息</legend>
 
-        <div><label id="WarnMsg" class="WarningMessage">@ViewBag.Message</label></div>
+        <div><label id="WarnMsg" style="color:red;">@ViewBag.Message</label></div>
 
         <div class="form-group">
             <label for="Name" class="col-sm-2 control-label">Name<br />提名项名称</label>
@@ -24,11 +23,11 @@
                 @Html.ValidationMessageFor(model => model.Name)
             </div>
         </div>
-        
+
         <div class="form-group">
             <label for="ProjectName" class="col-sm-2 control-label">Project Name<br />项目名称</label>
             <div class="col-sm-10">
-                @Html.TextBoxFor(model => model.ProjectName, new { @class = "form-control", @disabled="disabled" })
+                @Html.TextBoxFor(model => model.ProjectName, new { @class = "form-control", @readonly="readonly"})
                 @Html.ValidationMessageFor(model => model.ProjectName)
             </div>
         </div>
@@ -38,7 +37,6 @@
             <div class="col-sm-10">
                 @Html.TextAreaFor(model => model.Members, new { @class = "form-control", @readonly="readonly"})
                 <a class="btn btn-success btn-sm" data-toggle="modal" href="#CreateDialog">Select</a>
-                @Html.HiddenFor(model => model.Nominator)
                 @Html.ValidationMessageFor(model => model.Members)
             </div>
         </div>
@@ -50,20 +48,24 @@
                         <h3 class="modal-title" id="CreateDialogLabel">Select the member</h3>
                     </div>
                     <div class="modal-body" >
+                        <div>
+                            <label style="color:blue">Please enter key word in below textbox to search user.</label>
+                            <input type="text" id="txtSearchUser" onkeyup="SearchUser()" onchange="SearchUser()" class = "form-control"/> 
+                            @*<button id="NameSearch" class="btn btn-primary" onclick="SearchUser()" type="button">Search</button>*@
+                        </div>
                         <span class="checkbox-group">
                         @foreach (TeamManager.DataProvider.User u in ViewBag.users)
                         {                            
-                                <label style="width:180px;cursor:pointer;">
+                                <label style="width:180px;cursor:pointer;background-color:none;">
                                     <input type="checkbox" value="@u.UserID"/>
                                     @u.UserName
                                 </label>
-                            
                         }
                     </span>
                     </div>
                     <div class="modal-footer">
                         <button id="Save" class="btn btn-primary" onclick="selectUser()" type="button">Select</button>
-                        <button id="btnClose" class="btn btn-primary" data-dismiss="modal">close</button>
+                        <button id="close" class="btn btn-primary" data-dismiss="modal">close</button>
                     </div>
                 </div>
             </div>
@@ -79,7 +81,7 @@
 
         <p>
             <input type="submit" value="Save" class="btn btn-primary" />
-            @Html.ActionLink("Back to List", "ItemList", new { id = Model.PId}, new { @class = "btn btn-default" })
+            @Html.ActionLink("Back to List", "ItemList", new { id = Model.PId }, new { @class = "btn btn-default" })
         </p>
     </fieldset>
 }
@@ -93,6 +95,26 @@
         });
         $("#Members").val(userList);
         $('#CreateDialog').modal('hide')
+    }
+    //click search button
+    function SearchUser(e)
+    {//debugger
+        var filterName = $("#txtSearchUser").val().toLowerCase();
+        $(":checkbox").each(function () {
+            if (filterName != "" && filterName != null) {
+                if ($(this).val().toLowerCase().search(filterName) > -1) {  // 
+                    $(this).parent().attr("style", "width:180px;cursor:pointer;background-color:yellow"); //Add background color
+                    if (filterName.match($(this).val().toLowerCase()))
+                    {
+                        $(this).attr("checked", "checked");
+                    }
+                } else {
+                    $(this).parent().attr("style", "width:180px;cursor:pointer;background-color:none");
+                }
+            } else {
+                $(this).parent().attr("style", "width:180px;cursor:pointer;background-color:none");
+            }
+        });
     }
 
     $(function () {

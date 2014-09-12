@@ -3,89 +3,75 @@
 @{
     ViewBag.Title = "VoteProjectEdit";
 }
-
-@using (Html.BeginForm("VoteProjectEdit", "Vote", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", id = "vpInfo_edit", role = "form" }))
+<link href="~/Content/Vote.css" rel="stylesheet" />
+@using (Html.BeginForm("VoteProjectEdit", "Vote", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Edit Vote Project</legend>
+        <legend>Edit Vote Project  编辑投票项目</legend>
 
-        @Html.HiddenFor(model => model.voteproject.Id)
+        <div><label id="WarnMsg" style="color:red;">@ViewBag.ErrorMsg</label></div>
+
+        @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.voteproject.Name,new{@class="col-lg-2 control-label"})
+            <label class="col-sm-2 control-label">Name<br />项目名称</label>
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.voteproject.Name)
-            @Html.ValidationMessageFor(model => model.voteproject.Name)
+            @Html.TextBoxFor(model => model.Name, new { @class="form-control"})
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
+        <div>&nbsp;</div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.voteproject.TermFrom,new{@class="col-lg-2 control-label"})
+            <label class="col-sm-2 control-label">Term<br />项目届期</label>
         </div>
         <div class="form-group">
-             @Html.TextBoxFor(model => model.voteproject.TermFrom, new {@class="date",@Value = String.Format("{0:d}", Model.voteproject.TermFrom.ToString())})
-            @Html.ValidationMessageFor(model => model.voteproject.TermFrom)
+            @Html.TextBoxFor(model => model.TermFrom, new {@class="date",@disabled="disabled",@Value = String.Format("{0:d}",Model.TermFrom.ToString("MM/dd/yyyy"))}) to
+            @Html.TextBoxFor(model => model.TermTo, new {@class="date",@disabled="disabled",@Value = String.Format("{0:d}", Model.TermTo.ToString("MM/dd/yyyy"))}) <br />
+            @*@Html.ValidationMessageFor(model => model.TermFrom)
+            @Html.ValidationMessageFor(model => model.TermTo)*@
+
+            @Html.HiddenFor(model => model.TermFrom)
+            @Html.HiddenFor(model => model.TermTo)
         </div>
+        <div>&nbsp;</div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.voteproject.TermTo,new{@class="col-lg-2 control-label"})
+            <label class="col-sm-2 control-label">Vote Time<br />投票时间</label>
         </div>
         <div class="form-group">
-            @Html.TextBoxFor(model => model.voteproject.TermTo, new {@class="date",@Value = String.Format("{0:d}", Model.voteproject.TermTo.ToString())})
-            @Html.ValidationMessageFor(model => model.voteproject.TermTo)
+            @Html.TextBoxFor(model => model.BeginTime, new {@id = "beginTime",@class="votedate",@Value = String.Format("{0:d}", Model.BeginTime.ToString("MM/dd/yyyy HH:mm"))}) to
+            @Html.TextBoxFor(model => model.EndTime, new {@id = "endTime",@class="votedate",@Value = String.Format("{0:d}",Model.EndTime.ToString("MM/dd/yyyy HH:mm"))}) <br />
+            @Html.ValidationMessageFor(model => model.BeginTime)
+            @Html.ValidationMessageFor(model => model.EndTime)
         </div>
+        <div>&nbsp;</div>
 
-        @*<div class="editor-label">
-            @Html.LabelFor(model => model.State)
-        </div>*@
+        <div class="editor-label">
+            <label class="col-sm-2 control-label">Max vote number<br />每人可投票数</label>
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.VoteNum, new { @class="form-control"})
+            @Html.ValidationMessageFor(model => model.VoteNum)
+        </div>
+        <div>&nbsp;</div>
+       
         <div class="editor-field">
-            @Html.HiddenFor(model => model.voteproject.State)
-            @Html.ValidationMessageFor(model => model.voteproject.State)
+            @Html.HiddenFor(model => model.State)
+            @Html.ValidationMessageFor(model => model.State)
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.voteproject.VoteNum,new{@class="col-lg-2 control-label"})
-        </div>
-        <div class="form-group">
-            @Html.EditorFor(model => model.voteproject.VoteNum)
-            @Html.ValidationMessageFor(model => model.voteproject.VoteNum)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.voteproject.BeginTime,new{@class="col-lg-2 control-label"})
-        </div>
-        <div class="form-group">
-            @Html.TextBoxFor(model => model.voteproject.BeginTime, new {@class="date",@Value = String.Format("{0:d}", Model.voteproject.BeginTime.ToString())})
-            @Html.ValidationMessageFor(model => model.voteproject.BeginTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.voteproject.EndTime,new{@class="col-lg-2 control-label"})
-        </div>
-        <div class="form-group">
-            @Html.TextBoxFor(model => model.voteproject.EndTime, new {@class="date",@Value = String.Format("{0:d}",Model.voteproject.EndTime.ToString())})
-            @Html.ValidationMessageFor(model => model.voteproject.EndTime)
-        </div>
-
-       @* <div class="editor-label">
-            @Html.LabelFor(model => model.CreatedTime)
-        </div>*@
         <div class="editor-field">
-            @Html.HiddenFor(model => model.voteproject.CreatedTime)
-            @Html.ValidationMessageFor(model => model.voteproject.CreatedTime)
+            @Html.HiddenFor(model => model.CreatedTime)
+            @Html.ValidationMessageFor(model => model.CreatedTime)
         </div>
-
-        @*<div class="editor-label">
-            @Html.LabelFor(model => model.CreatedBy)
-        </div>*@
         <div class="editor-field">
-            @Html.HiddenFor(model => model.voteproject.CreatedBy)
-            @Html.ValidationMessageFor(model => model.voteproject.CreatedBy)
+            @Html.HiddenFor(model => model.CreatedBy)
+            @Html.ValidationMessageFor(model => model.CreatedBy)
         </div>
-
+        <br />
         <p>
             <button id="Save_edit" class="btn btn-primary" type="submit">Save</button>
             @Html.ActionLink("Back to List", "VoteProjectIndex",null, new {@class="btn btn-default" })
@@ -107,6 +93,19 @@
             showMeridian: 1,
             minView: 2,
             format: "mm/dd/yyyy"
+        });
+        var tommorrow = new Date();
+        tommorrow.setDate(tommorrow.getDate() + 1);
+        $(".votedate").datetimepicker({
+            weekStart: 1,
+            autoclose: 1,
+            forceParse: 0,
+            showMeridian: 0,
+            minView: 0,
+            minuteStep: 60,
+            format: "mm/dd/yyyy hh:ii",
+            startDate: tommorrow,
+            minuteStep: 30
         });
         $("#searchFrom").attr("class", "form-control");
     });

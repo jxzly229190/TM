@@ -10,5 +10,7 @@ namespace TeamManager.Models
         public DataProvider.VoteProject Project;
 
         public IList<Models.VoteItemModel> Items;
+
+        public int CurrentUserVoteNum { get; set; }
     }
 }

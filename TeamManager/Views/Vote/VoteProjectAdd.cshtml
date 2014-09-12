@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Create";
 }
-
+<link href="~/Content/Vote.css" rel="stylesheet" />
 <script type="text/javascript">
     $(function () {
         $(".selectpicker").selectpicker();
@@ -11,6 +11,7 @@
         $("#alertSubmit").click(function () {
             $("#alertForm").submit();
         });
+
         $(".date").datetimepicker({
             weekStart: 1,
             todayBtn: 1,
@@ -22,52 +23,70 @@
             format: "mm/dd/yyyy"
         });
 
+        var tommorrow = new Date();
+        tommorrow.setDate(tommorrow.getDate() + 1);
+        $(".votedate").datetimepicker({
+            weekStart: 1,
+            autoclose: 1,
+            todayHighlight: true,
+            forceParse: 0,
+            showMeridian: 0,
+            minView: 0,
+            minuteStep: 60,
+            format: "mm/dd/yyyy hh:ii",
+            startDate: tommorrow,
+            minuteStep: 30
+        });
     });
 </script>
-@using (Html.BeginForm("VoteProject", "Vote", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("VoteProjectAdd", "Vote", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Project Information</legend>
+        <legend>Add Vote Project  新增投票项目</legend>
+
+        <div><label id="WarnMsg" style="color:red;">@ViewBag.ErrorMsg</label></div>
+
         <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
+            <label class="col-sm-2 control-label">Name<br />项目名称</label>
             <div class="col-sm-10">
-                @Html.TextBoxFor(model => model.voteproject.Name,new { @class="form-control"})
-                 @Html.ValidationMessageFor(model => model.voteproject.Name)
+                @Html.TextBoxFor(model => model.Name,new { @class="form-control"})
+                 @Html.ValidationMessageFor(model => model.Name)
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Term</label>
+            <label class="col-sm-2 control-label">Term<br />项目届期</label>
             <div class="col-sm-10">
-                 @Html.TextBoxFor(model => model.voteproject.TermFrom, new { @id = "termFrom",@class="date"}) to  
-                 @Html.TextBoxFor(model => model.voteproject.TermTo, new { @id = "termTo",@class="date"})
-                @Html.ValidationMessageFor(model => model.voteproject.TermFrom)
-                @Html.ValidationMessageFor(model => model.voteproject.TermTo)
+                 @Html.TextBoxFor(model => model.TermFrom, new { @id = "termFrom",@class="date"}) to
+                 @Html.TextBoxFor(model => model.TermTo, new { @id = "termTo",@class="date"}) <br />
+                @Html.ValidationMessageFor(model => model.TermFrom)
+                @Html.ValidationMessageFor(model => model.TermTo)
             </div>
         </div>
-        
+
         <div class="form-group">
-            <label class="col-sm-2 control-label">Vote Time</label>
+            <label class="col-sm-2 control-label">Vote Time<br />投票时间</label>
             <div class="col-sm-10">
-                 @Html.TextBoxFor(model => model.voteproject.BeginTime, new { @id = "beginTime",@class="date"}) to  
-                 @Html.TextBoxFor(model => model.voteproject.EndTime, new { @id = "endTime",@class="date"})
-                @Html.ValidationMessageFor(model => model.voteproject.BeginTime)
-                @Html.ValidationMessageFor(model => model.voteproject.EndTime)
+                 @Html.TextBoxFor(model => model.BeginTime, new { @id = "beginTime",@class="votedate"}) to
+                @Html.TextBoxFor(model => model.EndTime, new { @id = "endTime",@class="votedate"}) <br />
+                @Html.ValidationMessageFor(model => model.BeginTime)
+                @Html.ValidationMessageFor(model => model.EndTime)
             </div>
         </div>
 
        <div class="form-group">
-            <label class="col-sm-2 control-label">Max vote number</label>
+            <label class="col-sm-2 control-label">Max vote number<br />每人可投票数</label>
             <div class="col-sm-10">
-                 @Html.TextBoxFor(model => model.voteproject.VoteNum, new {@id="voteNum" ,@class="form-control"})
-                @Html.ValidationMessageFor(model => model.voteproject.VoteNum)
+                @Html.TextBoxFor(model => model.VoteNum, new {@id="voteNum" ,@class="form-control", @title="The max vote count of each person"})
+                @Html.ValidationMessageFor(model => model.VoteNum)
             </div>
         </div>
 </fieldset>
         
     <button type="submit" class="btn btn-primary">Save</button>
-    @Html.ActionLink("Back to List", "Index", null, new { @class="btn btn-default"})
+    @Html.ActionLink("Back to List", "VoteProjectIndex", null, new { @class="btn btn-default"})
 }
 
 @section Scripts {

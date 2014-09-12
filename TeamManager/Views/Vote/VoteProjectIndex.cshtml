@@ -5,21 +5,25 @@
 <link href="~/Content/bootstrap/css/pager.css" rel="stylesheet" />
 
 <div id="ov">
+     <div class="navigate">@Html.ActionLink("View Current Vote Item", "Vote", null, new { @class = "btn btn-primary", role = "button" })</div>
     <fieldset>
-        <legend>Vote Project Application</legend>
-        <p> 
-            @Html.ActionLink("Create New", "VoteProjectAdd", null, new { @class = "btn btn-primary", role = "button" })
-        </p>
+        <legend>Vote Project Application  投票项目管理</legend>
+        @if (ViewData["UserRole"].ToString() == "Project Manager" || ViewData["UserRole"].ToString() == "Team Leader")
+        {
+            <p> 
+                @Html.ActionLink("Create New", "VoteProjectAdd", null, new { @class = "btn btn-primary", role = "button", @id="btnProjectAdd" })
+            </p>
+        }
         <div id="voteProject" class="table-responsive">
             <table id="VoteProjectTable" class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Term</th>
-                        <th>Status</th>
-                        <th>Begin Time</th>
-                        <th>End Time</th>
-                        <th>Manage</th>
+                        <th>Name<br />投票项目名称</th>
+                        <th>Term<br />项目届期</th>
+                        <th>Status<br />项目状态</th>
+                        <th>Vote Begin Time<br />投票开始时间</th>
+                        <th>Vote End Time<br />投票结束时间</th>
+                        <th>Action<br />操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,38 +34,66 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                               @string.Format("{0:yyyy/MM/dd}", item.TermFrom)-@string.Format("{0:yyyy/MM/dd}", item.TermTo)
+                               @string.Format("{0:yyyy/MM/dd}", item.TermFrom) - @string.Format("{0:yyyy/MM/dd}", item.TermTo)
                             </td>
                             <td>
                                 @if (item.State == 0)
                                 {
-                                   @(new HtmlString("正常"));
+                                   @(new HtmlString("Normal"));
                                 }
                                 else if(item.State==1)
                                 { 
-                                    @(new HtmlString("结束"));
+                                    @(new HtmlString("Finished"));
                                 }
                                 else
                                 {
-                                    @(new HtmlString("已删除"));
+                                    @(new HtmlString("Deleted"));
                                 }
                             </td>
                             <td>
-                                @string.Format("{0:yyyy/MM/dd}", item.BeginTime)
+                                @string.Format("{0:yyyy/MM/dd HH:mm}", item.BeginTime)
                             </td>
                             <td>
-                                @string.Format("{0:yyyy/MM/dd}", item.EndTime)
+                                @string.Format("{0:yyyy/MM/dd HH:mm}", item.EndTime)
                             </td>
                             <td>
                                 @if (item.State == 0)
-                                {                                   
-                                    @Html.ActionLink("Edit", "VoteProjectEdit", new { id = item.Id }, new { @class = "btn btn-success btn-sm", role = "button" })   
-                                    @Html.ActionLink("Delete", "VoteProjectDelete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", role = "button" })
+                                {
+                                    if (ViewData["UserRole"].ToString() == "Project Manager" || ViewData["UserRole"].ToString() == "Team Leader")
+                                    {           
+                                        if (Convert.ToDateTime(item.EndTime) > DateTime.Now && Convert.ToDateTime(item.BeginTime) > DateTime.Now)
+                                        { 
+                                            @Html.ActionLink("Edit", "VoteProjectEdit", new { id = item.Id }, new { @class = "btn btn-success btn-sm", role = "button" })
+                                            @Html.Raw("&nbsp;") 
+                                            @Html.ActionLink("Delete", "VoteProjectDelete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", role = "button" })
+                                        }
+                                        @Html.Raw("&nbsp;") 
+                                        @Html.ActionLink("Item List", "ItemList", new { id = item.Id}, new { @class = "btn btn-success btn-sm", role = "button" })
+                                        @Html.Raw("&nbsp;") 
+                                    }
+                                    //normal status and votetime is not beginning, then redirect to Vote Item List page, otherwise, Vote page
+                                    if (Convert.ToDateTime(item.BeginTime) <= DateTime.Now && Convert.ToDateTime(item.EndTime) >= DateTime.Now)
+                                    {    
+                                        @Html.ActionLink("Vote", "Vote", new { pid=item.Id}, new { @class = "btn btn-success btn-sm", role = "button" })
+                                    }
+                                }
+                                else if (item.State == 1)
+                                {
+                                    if (ViewData["UserRole"].ToString() == "Project Manager" || ViewData["UserRole"].ToString() == "Team Leader")
+                                    {                             
+                                        <button id="VoteProjectEdit" class="btn btn-default btn-sm" disabled>Edit</button> 
+                                        <button id="VoteProjectDelete" class="btn btn-default btn-sm" disabled>Delete</button>
+                                    }
+                                    //finished, then redirect to Result
+                                    @Html.ActionLink("Vote Result", "Result", new { pId = item.Id }, new { @class = "btn btn-success btn-sm", role = "button" })
                                 }
                                 else
                                 {
-                                    <button id="VoteProjectEdit" class="btn btn-default btn-sm" disabled>Edit</button>
-                                    <button id="VoteProjectDelete" class="btn btn-default btn-sm" disabled>Delete</button>
+                                    if (ViewData["UserRole"].ToString() == "Project Manager" || ViewData["UserRole"].ToString() == "Team Leader")
+                                    {   
+                                        <button id="btnVoteProjectEdit1" class="btn btn-default btn-sm" disabled>Edit</button> 
+                                        <button id="btnVoteProjectDelete1" class="btn btn-default btn-sm" disabled>Delete</button>
+                                    }
                                 }
                             </td>
                         </tr>
@@ -88,3 +120,8 @@
 </div>
 @Styles.Render("~/Content/Vote")
 @Scripts.Render("~/bundles/Vote")
+<style>
+    .navigate {
+        text-align:right
+    }
+</style>

@@ -1,39 +1,87 @@
-﻿@model TeamManager.Models.VoteModel
+﻿@using TeamManager.DataProvider
+
+@model TeamManager.Models.VoteModel
 @{
     ViewBag.Title = "Vote Page";
 }
 <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
 
-<h2 class="">Vote Page</h2>
+<div class="navigate">@Html.ActionLink("View Project History", "VoteProjectIndex", null, new { @class = "btn btn-primary", role = "button" })</div>
+<fieldset>
+    <legend>
+        <strong data-bind="text: project.Name()"></strong>&nbsp;        
+        <label style="font-size: 14px;">Voted Count[已投票数]:</label>
+        <span style="color: #f00; font-size: 14px;" data-bind="text: selectedItems().length">@Model.CurrentUserVoteNum</span> /
+        <label style="font-size: 14px;">
+            Remaining[剩余票数]:
+            <span style="color: #05a903; font-size: 14px;" data-bind="text: project.VoteNum() - selectedItems().length">
+                @Convert.ToInt32(@Convert.ToInt32(Model.Project.VoteNum) - @Model.CurrentUserVoteNum)
+            </span>
 
-<div class="content" data-bind="foreach: items">
-	<div class="panel" data-bind="css: { 'panel-info': IsSelected(), 'panel-default': !IsSelected() }, click: $parent.select($data)">
-		<div class="panel-heading">
-			Panel content <span data-bind="text: IsSelected()"></span>
-		</div>
-	</div>
-</div>
+        </label>
+        <br />
+        <span style="color: #05a903; font-size: 14px;">EndTime[投票截至时间]:<span data-bind="text: dateFormat(project.EndTime())"></span></span>
+    </legend>
 
-<div class="content alert alert-warning" role="alert" data-bind="visible:!selectedItems().length>0">Please select the item to vote.</div>
-<div class="content alert alert-success" role="alert" data-bind="visible:success()">Well done! You successfully submit the vote.</div>
+    <div class="left">
+        <div class="content" data-bind="foreach: items">
+            <div class="panel" data-bind="css: { 'panel-info': IsSelected(), 'panel-default': !IsSelected() }, click: $parent.select($data)">
+                <div class="panel-heading">
+                    <input type="checkbox" id="IsSelected" data-bind="checked: IsSelected(), disable: PreSelected()" style="float: left;" />
+                    <span data-bind="text: Name" style="float: left;"></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;[Members: <span data-bind="text: Members"></span>]
+                    <div style="float: right;"><a data-bind="value: Id" onclick="ShowDetail(this)">Detail</a> </div>
+                </div>
+                <div data-bind="attr: { id: 'detail_' + Id() }" class="list-group-item" style="display: none">
+                    <label class="col-lg-2 control-label">Comment:</label>
+                    <span data-bind="text: Comment"></span>
+                </div>
+            </div>
+        </div>
 
-<button type="button" class="btn btn-default" data-bind="disable:!selectedItems().length>0,click:submit">Submit</button>
+        <div class="content alert alert-warning" role="alert" data-bind="visible: !selectedItems().length > 0">Please select the item to vote.</div>
+        <div class="content alert alert-success" role="alert" data-bind="visible: success()">Well done! You successfully submit the vote.</div>
 
+        <button type="button" class="btn btn-default" data-bind="disable: !selectedItems().length > 0, click: submit">Submit</button>
+
+    </div>
+    <div class="right">
+        <div class="list-group">
+            <a class="list-group-item active">Vote Processing Project</a>
+            @{
+                if (ViewBag.projects != null)
+                {
+                    foreach (VoteProject project in ViewBag.projects)
+                    {
+                <a href="###" class="list-group-item" data-bind="click: loadItems" id="@Html.Raw(project.Id)">@project.Name</a>
+                    }
+                }
+            }
+        </div>
+    </div>
+</fieldset>
 
 <script type="text/javascript">
-    var data = @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Items));
     var vm = function () {
         var self = this;
-        self.items = ko.mapping.fromJS(data);
+        self.project=ko.mapping.fromJS(@Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Project)));
+
+        self.items = ko.mapping.fromJS(@Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Items)));
 
         self.selectedItems = ko.observableArray();
 
-        self.success=ko.observable(false);
-		
+        self.success = ko.observable(false);
+
         self.select = function (e) {
-        	self.success(false);
-            if (e.IsSelected() == false && self.selectedItems().length >= 2) {
-                alert("Cannot be exceed 2");
+            for (var j = 0; j < self.selectedItems().length; j++) {
+                if (self.selectedItems()[j].Id() == e.Id() && self.selectedItems()[j].PreSelected() == true) {
+                    return false;
+                }
+            }
+
+            self.success(false);
+            if (e.IsSelected() == false && self.selectedItems().length >= self.project.VoteNum()) {
+                alert("Cannot be exceed " + self.project.VoteNum());
                 return;
             }
 
@@ -45,48 +93,127 @@
                 self.selectedItems.remove(e);
         };
 
-        self.submit=function(){
-        	if(self.selectedItems().length>0){
-        		var ids="";
-        		for(var i=0;i<self.selectedItems().length;i++){
-        			ids+=self.selectedItems()[i].Id()+",";
-        		}
+        self.submit = function () {
+            if (self.selectedItems().length > 0) {
+                var ids = "";
+                for (var i = 0; i < self.selectedItems().length; i++) {
+                    ids += self.selectedItems()[i].Id() + ",";
+                }
 
-        		if(ids.length>0){
-        			ids=ids.substring(0,ids.length-1);
-        		}
+                if (ids.length > 0) {
+                    ids = ids.substring(0, ids.length - 1);
+                }
 
-        		$.post("/Vote/postVote",{pid:@Html.Raw(Model.Project.Id),iIds:ids},function(res){
-        			if(res){
-        				if(res.state==0){
-        					self.success(true);
-        				}else{
-        					alert(res.msg);
-
-        				}
-        			}
-        		})
+                $.post("/Vote/postVote", { pid: self.project.Id(), iIds: ids }, function (res) {
+                    if (res) {
+                        if (res.state == 0) {
+                            self.success(true);
+                        } else {
+                            alert(res.msg);
+                        }
+                    }
+                });
             }
         };
+
+        self.loadItems = function (e, t) {
+            if (parseInt(t.currentTarget.id) == e.project.Id()) {
+                return false;
+            }
+
+            $.getJSON("/Vote/getVoteModel", { pid: t.currentTarget.id,d:new Date() }, function (res) {
+                if (res) {
+                    if (res.state == 0) {
+                        self.project.Name(res.data.Project.Name);
+                        self.project.VoteNum(res.data.Project.VoteNum);
+                        self.project.Id(res.data.Project.Id);
+                        self.project.TermFrom(res.data.Project.TermFrom);
+                        self.project.TermTo(res.data.Project.TermTo);
+                        self.project.EndTime(res.data.Project.EndTime);
+                        self.items.removeAll();
+                        self.selectedItems.removeAll();
+                        for (var i = 0; i < res.data.Items.length; i++) {
+                            self.items.push(ko.mapping.fromJS(res.data.Items[i]));
+                        }
+                    } else {
+                        alert(res.msg);
+                    }
+                } else {
+                    alert("Cannot get the response.");
+                }
+            });
+        }
     };
 
-    ko.applyBindings(new vm());
-    
+        ko.applyBindings(new vm());
+
+        function ShowDetail(e)
+        {
+            //js事件冒泡阻止
+            if(e&&e.stopPropagation){   // 如果传入了事件对象，那么就是非ie浏览器。因此它支持W3C的stopPropagation()方法
+                e.stopPropagation();  
+            }else{    //否则我们使用ie的方法来取消事件冒泡
+                window.event.cancelBubble = true;  
+            }  
+
+            //控制显示隐藏
+            if($("#detail_"+e.value).css("display")=="none")
+                $("#detail_"+e.value).css("display","block");
+            else
+                $("#detail_"+e.value).css("display","none");
+        }
+
+        function dateFormat(datestr) {
+            var birthdayMilliseconds = parseInt(datestr.replace(/\D/igm, ""));
+            //实例化一个新的日期格式，使用1970 年 1 月 1 日至今的毫秒数为参数
+            var date = new Date(birthdayMilliseconds);
+            //return date.toLocaleString();
+
+            var year="",month="",day="",week="",hour="",minute="",second="";
+                year=date.getFullYear();
+                month=add_zero(date.getMonth()+1);
+                day=add_zero(date.getDate());
+            hour=add_zero(date.getHours());
+            minute=add_zero(date.getMinutes());
+            second=add_zero(date.getSeconds());
+            return " "+year+"/"+month+"/"+day+"   "+hour+":"+minute+":"+second;
+        }
+
+        function add_zero(temp)
+        {
+            if(temp<10) return "0"+temp;
+            else return temp;
+        }
 </script>
 
 <style>
     .content {
-        width:60%;
+        width: 100%;
     }
+
+    .left {
+        width: 60%;
+        float: left;
+    }
+
+    .right {
+        width: 38%;
+        float: right;
+    }
+
     .panel {
-        cursor:pointer;
+        cursor: pointer;
     }
+
     .panel-body {
         padding: 15px;
         height: 50px;
-        width:200px;
+        width: 200px;
         overflow: auto;
         overflow-y: auto;
-        }
-</style>
+    }
 
+    .navigate {
+        text-align: right;
+    }
+</style>

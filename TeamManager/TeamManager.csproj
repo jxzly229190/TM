@@ -178,6 +178,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\AuthorizationFilterAttribute.cs" />
     <Compile Include="Classes\CaculateCost.cs" />
     <Compile Include="Classes\MailEntity.cs" />
     <Compile Include="Classes\MD5Hash.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Controllers\AppraisalController.cs" />
     <Compile Include="Controllers\BreakOffController.cs" />
     <Compile Include="Controllers\BreakOffManagerController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\DailyProjectController.cs" />
     <Compile Include="Controllers\DailyReportListController.cs" />
     <Compile Include="Controllers\OverTimeManagerController.cs" />
@@ -238,6 +240,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataProvider\QA_TestIssue.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataProvider\sysdiagram.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataProvider\Test.cs">
@@ -535,10 +540,14 @@
     <Content Include="Views\Vote\Index.cshtml" />
     <Content Include="Views\Vote\Result.cshtml" />
     <Content Include="Views\Vote\Vote.cshtml" />
-    <Content Include="Views\Vote\ProjectAdd.cshtml" />
-    <Content Include="Views\Vote\ItemEdit.cshtml" />
-    <Content Include="Views\Vote\Copy of Vote.cshtml" />
     <Content Include="Views\Shared\Alert.cshtml" />
+    <Content Include="Views\Vote\VoteProjectAdd.cshtml" />
+    <Content Include="Views\Vote\VoteProjectDelete.cshtml" />
+    <Content Include="Views\Vote\VoteProjectEdit.cshtml" />
+    <Content Include="Views\Vote\VoteProjectIndex.cshtml" />
+    <Content Include="Views\Vote\ItemAdd.cshtml" />
+    <Content Include="Views\Vote\ItemEdit.cshtml" />
+    <Content Include="Views\Vote\ItemList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

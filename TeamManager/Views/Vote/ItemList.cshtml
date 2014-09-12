@@ -1,0 +1,104 @@
+﻿@model TeamManager.Models.VoteModel
+@{
+    ViewBag.Title = "Vote Item List";
+}
+
+<div id="ov">    
+    <div class="navigate">@Html.ActionLink("View Project History", "VoteProjectIndex", null, new { @class = "btn btn-primary", role = "button" })</div> 
+    <fieldset>
+        <legend>@Html.Raw(Model.Project.Name) Item List  提名项列表</legend>              
+        @{
+            if (Model.Project.BeginTime > DateTime.Now){
+                <p>
+                @Html.ActionLink("Nominate", "ItemAdd", new { id=Model.Project.Id }, new { @class = "btn btn-primary", role = "button" })
+                </p>
+            }
+        }
+        
+        @{if (Model.Items != null && Model.Items.Count() > 0)
+          {
+            <div id="voteProject" class="table-responsive">
+                <table id="VoteProjectTable" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name<br />提名项名称</th>
+                            <th>ProjectName<br />项目名称</th>
+                            <th>Members<br />被提名成员</th>
+                            <th>Nominator<br />提名人</th>
+                            <th>Comment<br />提名评语</th>
+                            <th>Count<br />已投票数</th>
+                            <th>CreatedTime<br />创建时间</th>
+                            <th style="width: 150px;">Action<br />操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr id="row_@Html.Raw(item.Id)">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.Raw(Model.Project.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Members)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nominator)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Comment)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Count)
+                                </td>
+                                <td>
+                                    @string.Format("{0:yyyy/MM/dd}", item.CreatedTime)
+                                </td>
+                                <td>
+                                    @if (item.State == 0 && Model.Project.BeginTime > DateTime.Now&&item.Nominator.ToLower()==User.Identity.Name.Split(',')[0].ToLower())
+                                    {                                   
+                                        @Html.ActionLink("Edit", "ItemEdit", new { id = item.Id, pid = item.PId }, new { @class = "btn btn-success btn-sm", role = "button" })
+                                        <a href="###" onclick="del(@Html.Raw(item.Id))" class="btn btn-danger btn-sm" role="button">Remove</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+          }
+          else
+          {
+            <h3>There is nothing in this project.</h3>    
+          }
+        }
+
+    </fieldset>
+</div>
+<script type="text/javascript">
+    function del(id) {
+        if (confirm("Are you sure to remove this item?")) {
+            if (id) {
+                $.post("/Vote/ItemDelete", { id: id }, function (data) {
+                    if (data) {
+                        if (data.state == 0)
+                            $("#row_" + id).remove();
+                        else {
+                            alert("Operation failed!\r\nMessage:" + data.msg);
+                        }
+                    } else {
+                        alert("Sorry, cannot receive the data from server.");
+                    }
+                });
+            }
+        }
+    }
+</script>
+<style>
+    .navigate {
+        text-align:right
+    }
+</style>

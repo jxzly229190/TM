@@ -3,58 +3,44 @@
 @{
     ViewBag.Title = "VoteProjectDelete";
 }
-
-
+<link href="~/Content/Vote.css" rel="stylesheet" />
 @using (Html.BeginForm("VoteProjectDelete", "Vote", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline", id = "vpInfo_del", role = "form" }))
 {
     @Html.AntiForgeryToken()
 <fieldset>
     <legend>Are you sure that you want to delete this?</legend>
+
+    <div><label id="WarnMsg" style="color:red;">@ViewBag.ErrorMsg</label></div>
+
     <div class="form-group">
-            <label class="text-info">Name</label>
+            <label class="text-info">Name 项目名称</label>
             <br />
-           @Html.EditorFor(model => model.voteproject.Name)
+           @Html.TextBoxFor(model => model.Name, new { @class="form-control",@disabled="disabled"})
         </div>
         <p></p>
         <div class="form-group">
-            <label class="text-info">TermFrom</label>
+            <label class="text-info">Term 项目届期</label>
             <br />
-           @Html.EditorFor(model => model.voteproject.TermFrom)
+           @*@Html.TextBoxFor(model => model.TermFrom, new { @class="form-control",@disabled="disabled"})*@
+            @Html.TextBoxFor(model => model.TermFrom, new {@class="date",@disabled="disabled",@Value = String.Format("{0:d}",Model.TermFrom.ToString("MM/dd/yyyy"))}) to
+            @Html.TextBoxFor(model => model.TermTo, new {@class="date",@disabled="disabled",@Value = String.Format("{0:d}",Model.TermTo.ToString("MM/dd/yyyy"))})
         </div>
         <p></p>
         <div class="form-group">
-            <label class="text-info">TermTo</label>
+            <label class="text-info">Vote Time 投票时间</label>
             <br />
-            @Html.EditorFor(model => model.voteproject.TermTo)
-            <br />
+           @*@Html.TextBoxFor(model => model.BeginTime, new { @class="form-control",@disabled="disabled"})*@
+            @Html.TextBoxFor(model => model.BeginTime, new {@class="date",@disabled="disabled",@Value = String.Format("{0:d}",Model.BeginTime.ToString("MM/dd/yyyy HH:mm"))}) to
+            @Html.TextBoxFor(model => model.EndTime, new {@class="date",@disabled="disabled",@Value = String.Format("{0:d}",Model.EndTime.ToString("MM/dd/yyyy HH:mm"))})
         </div>
         <p></p>
         <div class="form-group">
-            <label class="text-info">BeginTime</label>
+            <label class="text-info">Max Vote Number 每人可投票数</label>
             <br />
-           @Html.EditorFor(model => model.voteproject.BeginTime)
-        </div>
-        <p></p>
-        <div class="form-group">
-            <label class="text-info">EndTime</label>
-            <br />
-            @Html.EditorFor(model => model.voteproject.EndTime)
-            <br />
-        </div>
-        <p></p>
-        <div class="form-group">
-            <label class="text-info">Vote number</label>
-            <br />
-           @Html.EditorFor(model => model.voteproject.VoteNum)
+           @Html.TextBoxFor(model => model.VoteNum, new { @class="form-control",@disabled="disabled"})
         </div>
 </fieldset>
     <p></p>
     <button id="Delete" class="btn btn-danger" type="submit">Delete</button>
     @Html.ActionLink("Back to List", "VoteProjectIndex", null, new { @class = "btn btn-default" })
 }
-
-<script type="text/javascript">
-    $(function () {
-        $("#Name,#TermFrom,#TermTo,#BeginTime,#EndTime,#VoteNum").attr({ class: "form-control", disabled: true });
-    });
-</script>

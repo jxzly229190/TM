@@ -38,15 +38,33 @@ namespace TeamManager.Controllers
             return listItem;
         }
 
-        private static DateTime GetFriday()
+        //Get the Friday of this week
+        private static DateTime GetThisFriday(DateTime dt, int dayOfWeek)
         {
-            DateTime dt = DateTime.Now;
-            int dayOfWeek = Convert.ToInt32(dt.DayOfWeek.ToString("d"));
             DateTime startWeek = dt.AddDays(1 - ((dayOfWeek == 0) ? 7 : dayOfWeek));
             DateTime friTime = startWeek.AddDays(4).Date;
             return friTime;
         }
-
+        //Get the Friday that we need
+        private static DateTime GetFriday()
+        {
+            DateTime friTime = new DateTime();
+            DateTime dt = DateTime.Now;
+            int dayOfWeek = Convert.ToInt32(dt.DayOfWeek.ToString("d"));
+            if (dayOfWeek == 5)
+            {
+                friTime = DateTime.Parse(dt.ToShortDateString());
+            }
+            else if (dayOfWeek == 4)
+            {
+                friTime = GetThisFriday(dt, dayOfWeek);
+            }
+            else
+            {
+                friTime = GetThisFriday(dt, dayOfWeek).AddDays(-7);
+            }
+            return friTime;
+        }
         //
         // GET: /Appraisal/
 
@@ -108,6 +126,8 @@ namespace TeamManager.Controllers
 
        
 
+       
+
         public ActionResult Member(string groupName)
         {
             DateTime friTime = GetFriday();
@@ -130,10 +150,8 @@ namespace TeamManager.Controllers
             List<SelectListItem> listItem = GetGroupName();
             ViewData["ListItem"] = new SelectList(listItem, "Value", "Text", "");
 
-            DateTime dt = DateTime.Now;
-            int dayOfWeek = Convert.ToInt32(dt.DayOfWeek.ToString("d"));
-            DateTime startWeek = dt.AddDays(1 - ((dayOfWeek == 0) ? 7 : dayOfWeek));
-            ViewData["DefaultTime"] = startWeek.AddDays(4).ToString("MM'/'dd'/'yyyy");
+            DateTime friTime = GetFriday();
+            ViewData["DefaultTime"] = friTime.ToString("MM'/'dd'/'yyyy");
 
             return View();
         }
@@ -430,7 +448,7 @@ namespace TeamManager.Controllers
                 itemStyle.BorderLeft = CellBorderType.THIN;
 
                 CellStyle datestyle = workbook.CreateCellStyle();
-                nameStyle.SetFont(bFont);
+                datestyle.SetFont(bFont);
                 //对齐方式
                 datestyle.Alignment = HorizontalAlignment.RIGHT;
                 datestyle.VerticalAlignment = VerticalAlignment.BOTTOM;
@@ -465,7 +483,7 @@ namespace TeamManager.Controllers
                 sheet.SetColumnWidth(1, 20 * 256);
                 sheet.SetColumnWidth(2, 24 * 256);
                 sheet.DefaultRowHeightInPoints = 20;
-                sheet.CreateFreezePane(3, 0);
+                sheet.CreateFreezePane(3, 0);//Column Locking
                 //sheet.CreateFreezePane(3, 0, 0, 0);
 
                 ////set date format
@@ -586,16 +604,17 @@ namespace TeamManager.Controllers
                             num++;
                         }
                         count += 4;
-                        range = new CellRangeAddress(startCount, count - 1, 0, 0);
-                        sheet.AddMergedRegion(range);
                     }
-                    row = sheet.CreateRow(count);
-                    int m = date.Count;
-                    for (int i = 0; i < m + 3; i++)
-                    {
-                        cell = row.CreateCell(i);
-                        cell.CellStyle = lastLineStyle;
-                    }
+                    range = new CellRangeAddress(startCount, count - 1, 0, 0);
+                    sheet.AddMergedRegion(range);
+                }
+
+                row = sheet.CreateRow(count);
+                int m = date.Count;
+                for (int i = 0; i < m + 3; i++)
+                {
+                    cell = row.CreateCell(i);
+                    cell.CellStyle = lastLineStyle;
                 }
 
                 //保存excel文档
